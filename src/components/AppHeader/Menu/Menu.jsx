@@ -1,12 +1,12 @@
 import React from "react";
-import './menu.css';
+import styles from './menu.module.css';
 import Item from "../../Item/Item";
 import { BurgerIcon, ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function Menu(){
   
   return (
-    <nav className="menu">
+    <nav className={styles.menu}>
       <Item text={'Конструктор'} itemType={'primary'}>
         <BurgerIcon type='primary' />
       </Item>

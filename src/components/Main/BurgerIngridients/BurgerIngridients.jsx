@@ -1,5 +1,5 @@
 import React from "react";
-import './burgerIngridients.css';
+import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngridientsCategory from "./Ingridients/Ingridients";
 
@@ -35,7 +35,7 @@ export default function BurgerIngridients(props){
           Начинки
         </Tab>
       </div>
-      <ul className="burger-ingridients-list">
+      <ul className={`${styles.burgerIngridientsList} mt-10`}>
         <IngridientsCategory data={state.bun} category={'Булки'} />
         <IngridientsCategory data={state.sauce} category={'Соусы'} />
         <IngridientsCategory data={state.main} category={'Начинки'} />

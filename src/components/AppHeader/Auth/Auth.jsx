@@ -1,5 +1,4 @@
 import React from "react";
-import './auth.css'
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import Item from "../../Item/Item";
 

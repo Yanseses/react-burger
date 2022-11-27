@@ -2,10 +2,10 @@
   background-color: var(--background);
 }
 
-.header-container {
+.headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  width: 1240px;
+  width: 1280px;
 }

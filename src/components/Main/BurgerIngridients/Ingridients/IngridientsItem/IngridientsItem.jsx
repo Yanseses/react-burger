@@ -1,17 +1,22 @@
 import React from "react";
-import './ingridientsItem.css';
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from'./ingridientsItem.module.css';
 
 export default function IngridientsItem(props){
 
   return (
-    <li className="ingridients-item">
-      <div className="ingridients-item__head">
+    <li className={styles.ingridientsItem}>
+      <div className={styles.ingridientsItem__head}>
         <img src={props.image} alt={props.name} />
-        <p className="ingridients-item__text">
-          {props.price}
-        </p>
+        <div className={styles.ingridientsItem__price}>
+          <p className={styles.ingridientsItem__text}>
+            {props.price} 
+          </p>
+          <CurrencyIcon type='primary' />
+        </div>
+
       </div>
-      <p className="ingridients-item__text">
+      <p className={styles.ingridientsItem__text}>
         {props.name}
       </p>
     </li>

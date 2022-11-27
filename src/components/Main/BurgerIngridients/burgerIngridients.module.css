@@ -1,0 +1,19 @@
+.burgerIngridientsList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.burgerIngridientsList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.burgerIngridientsList::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.burgerIngridientsList::-webkit-scrollbar-track {
+  background: #2F2F37;
+}

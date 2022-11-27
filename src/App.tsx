@@ -21,11 +21,11 @@ export default function App() {
   }, [ingridients])
 
   return (
-    <div style={{height: '100vh'}}>
+    <div>
       <AppHeader />
       <Main>
-        <BurgerIngridients  data={state.data}/>
-        <BurgerConstructor />
+        <BurgerIngridients data={state.data}/>
+        <BurgerConstructor data={state.data}/>
       </Main>
     </div>
   );

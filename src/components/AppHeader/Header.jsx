@@ -1,5 +1,5 @@
 import React from "react";
-import './header.css';
+import styles from './header.module.css';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import Menu from './Menu/Menu.jsx';
 import Auth from './Auth/Auth.jsx';
@@ -7,8 +7,8 @@ import Auth from './Auth/Auth.jsx';
 export default function Header(){
 
   return (
-    <header className='p-4 header'>
-      <div className="header-container">
+    <header className={`p-4 ${styles.header}`}>
+      <div className={styles.headerContainer}>
         <Menu />
         <Logo />
         <Auth />
