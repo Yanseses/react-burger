@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import AppHeader from './components/AppHeader/Header.jsx';
 import './App.css';
 import Main from './components/Main/Main';
@@ -8,25 +8,23 @@ import BurgerConstructor from './components/Main/BurgerConstructor/BurgerConstru
 
 export default function App() {
   const [ ingridients ] = useIngridients();
-  const [ state, setState ] = useState({
+  const [ state, setState ] = React.useState({
     isLoading: false,
     hasError: false,
     data: []
   });
 
-  useEffect(() => {
-    changeState();
-  }, [ ingridients ]);
-
-  const changeState = () => {
-    setState({...state, data: ingridients});
-  }
+  React.useEffect(() => {
+    if(ingridients.length > 0){
+      setState({...state, data: ingridients});
+    }
+  }, [ingridients])
 
   return (
-    <div>
+    <div style={{height: '100vh'}}>
       <AppHeader />
       <Main>
-        <BurgerIngridients data={state.data}/>
+        <BurgerIngridients  data={state.data}/>
         <BurgerConstructor />
       </Main>
     </div>

@@ -1,5 +1,6 @@
 .main {
   width: 1240px;
+  height: 85%;
   margin: 0 auto;
   display: grid;
   column-gap: 40px;
