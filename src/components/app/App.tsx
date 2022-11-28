@@ -1,10 +1,10 @@
 import React from 'react';
-import AppHeader from './components/AppHeader/Header.jsx';
-import './App.css';
-import Main from './components/Main/Main';
-import BurgerIngridients from './components/Main/BurgerIngridients/BurgerIngridients.jsx';
-import { useIngridients } from './hooks/useIngridients.jsx';
-import BurgerConstructor from './components/Main/BurgerConstructor/BurgerConstructor.jsx';
+import AppHeader from '../AppHeader/Header.jsx';
+import styles from './App.module.css';
+import Main from '../Main/Main';
+import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
+import { useIngridients } from '../../hooks/useIngridients.jsx';
+import BurgerConstructor from '../Main/BurgerConstructor/BurgerConstructor.jsx';
 
 export default function App() {
   const [ ingridients ] = useIngridients();

@@ -1,17 +1,12 @@
 import React from "react";
+import propTypes from 'prop-types';
 import styles from './burgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function BurgerConstructor(props){
-  const [ ingridients, setIngridients ] = React.useState();
-
   const handleClose = () => {
     console.log(`ingridient removed`)
   }
-
-  React.useEffect(() => {
-    setIngridients(props.data)
-  }, [props])
 
   return (
     <section className="pt-25 pl-8 pr-4">
@@ -24,16 +19,15 @@ export default function BurgerConstructor(props){
           thumbnail={"https://code.s3.yandex.net/react/code/bun-01.png"}
           />
         <div className={styles.constructor__list}>
-        { ingridients && ingridients.map(el => {
-          if(el.type !== 'bun'){
+        { props.data && props.data.map((element, index) => {
+          if(element.type !== 'bun'){
             return (
-              <div className={styles.constructor__listItem}>
+              <div key={element._id} className={styles.constructor__listItem}>
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  key={el._id}
-                  text={el.name}
-                  price={el.price}
-                  thumbnail={el.image}
+                  text={element.name}
+                  price={element.price}
+                  thumbnail={element.image}
                   handleClose={handleClose}
                 />
               </div>
@@ -57,4 +51,20 @@ export default function BurgerConstructor(props){
       </div>
     </section>
   )
+}
+
+BurgerConstructor.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({
+    calories: propTypes.number,
+    carbohydrates: propTypes.number,
+    fat: propTypes.number,
+    image: propTypes.string.isRequired,
+    image_large: propTypes.string,
+    image_mobile: propTypes.string,
+    name: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
+    proteins: propTypes.number,
+    type: propTypes.string.isRequired,
+    _id: propTypes.string.isRequired
+  })).isRequired
 }
