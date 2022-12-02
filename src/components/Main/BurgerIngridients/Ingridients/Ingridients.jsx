@@ -3,18 +3,17 @@ import propTypes from 'prop-types';
 import styles from './ingridients.module.css'
 import IngridientsItem from "./IngridientsItem/IngridientsItem";
 
-export default function Ingridients(props){
+export default function Ingridients({category, data}){
+
   return (
     <li className="mb-10">
       <h3 className={`text_type_main-medium ${styles.title}`}>
-        {props.category}
+        {category}
       </h3>
       <ul className={`pl-4 pr-4 pt-6 ${styles.ingridientsList}`}>
-        {props.data.map(el => (
+        {data.map(el => (
           <IngridientsItem  
-            image={el.image}
-            name={el.name}
-            price={el.price}
+            {...el}
             key={el._id}/>
         ))}
       </ul>

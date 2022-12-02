@@ -1,0 +1,24 @@
+.modal {
+  min-height: 460px;
+  width: 640px;
+  margin: auto;
+  background-color: var(--background);
+  border-radius: var(--common-border-radius-s);
+}
+
+.modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal__title {
+  line-height: 40px;
+  margin: 10px 0;
+}
+
+.modal__cross {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}

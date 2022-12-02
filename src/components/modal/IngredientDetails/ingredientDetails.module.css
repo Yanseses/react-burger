@@ -1,0 +1,30 @@
+.ingredientDetails {
+  width: 520px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ingridientDetails__title {
+  text-align: center;
+}
+
+.ingredientDetails__detail {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.ingredientDetails__detailItem {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 8px;
+  text-align: center;
+}
+
+.ingredientDetails__detailItem > p {
+  margin: 0;
+}

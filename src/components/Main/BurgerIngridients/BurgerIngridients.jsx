@@ -2,23 +2,23 @@ import React from "react";
 import propTypes from 'prop-types';
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngridientsCategory from "./Ingridients/Ingridients";
+import Ingridients from "./Ingridients/Ingridients";
 
-export default function BurgerIngridients(props){
-  const [ current, setCurrent ] = React.useState('bun');
-  const [ state, setState ] = React.useState({
+export default function BurgerIngridients({data}){
+  const [ tabs, setTabs ] = React.useState('bun');
+  const [ category, setCategory ] = React.useState({
     bun: [],
     main: [],
     sauce: []
   });
 
   React.useEffect(() => {
-    setState({
-      bun: props.data.filter(el => el.type == 'bun'),
-      main: props.data.filter(el => el.type == 'main'),
-      sauce: props.data.filter(el => el.type == 'sauce')
+    setCategory({
+      bun: data.filter(el => el.type == 'bun'),
+      main: data.filter(el => el.type == 'main'),
+      sauce: data.filter(el => el.type == 'sauce')
     })
-  }, [props])
+  }, [data])
 
   return (
     <section className="pt-10 text text_type_main-default">
@@ -26,20 +26,20 @@ export default function BurgerIngridients(props){
         Соберите бургер
       </h2>
       <div className={styles.burgerIngridients__tabs}>
-        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+        <Tab value="bun" active={tabs === 'bun'} onClick={setTabs}>
           Булки
         </Tab>
-        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+        <Tab value="sauce" active={tabs === 'sauce'} onClick={setTabs}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+        <Tab value="main" active={tabs === 'main'} onClick={setTabs}>
           Начинки
         </Tab>
       </div>
       <ul className={`${styles.burgerIngridients__list} mt-10`}>
-        <IngridientsCategory data={state.bun} category={'Булки'} />
-        <IngridientsCategory data={state.sauce} category={'Соусы'} />
-        <IngridientsCategory data={state.main} category={'Начинки'} />
+        <Ingridients data={category.bun} category={'Булки'} />
+        <Ingridients data={category.sauce} category={'Соусы'} />
+        <Ingridients data={category.main} category={'Начинки'} />
       </ul>
     </section>
   )
