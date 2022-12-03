@@ -34,12 +34,12 @@ export default function Modal({type, data, onClose}){
               : 'Детали ингредиента'
             }
           </h2>
-          <button className={styles.modal__cross}>
+          <button className={styles.modal__cross} onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
         </div>
         { type == 'order' 
-          ? <OrderDetails />
+          ? <OrderDetails {...data}/>
           : <IngridientDetails {...data}/>
         }
       </section>
