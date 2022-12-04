@@ -5,7 +5,6 @@ import Main from '../Main/Main';
 import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
 import { useIngridientsData } from '../../hooks/useIngridientsData.jsx';
 import BurgerConstructor from '../Main/BurgerConstructor/BurgerConstructor.jsx';
-import Modal from '../modal/Modal.jsx';
 
 export default function App() {
   const [ ingridients ] = useIngridientsData();

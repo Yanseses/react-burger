@@ -3,21 +3,27 @@ import propTypes from 'prop-types';
 import styles from './burgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/Modal";
+import Price from "./Price/Price";
 
 export default function BurgerConstructor({data}){
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
   const [ order, setOrder ] = React.useState({
     buns: [],
-    main: []
+    main: [],
+    price: 0
   });
-
-  // Сделать элемент общей цены
 
   React.useEffect(() => {
     const buns = data.find(el => el.type == 'bun');
     const main = data.filter(el => el.type !== 'bun');
     setOrder({buns, main});
-  }, [data])
+  }, [data]);
+
+  React.useEffect(() => {
+    let bunsPrice = order.buns ? order.buns.price : 0;
+    let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
+    setOrder({...order, price: mainPrice + bunsPrice})
+  }, [order.main, order.buns])
 
   const handleRemove = (e) => {
     const clickedElem = String(e.nativeEvent.path[5].id);
@@ -30,7 +36,7 @@ export default function BurgerConstructor({data}){
   }
 
   return (
-    <section className="pt-25 pl-8 pr-4">
+    <section className={`${styles.main} pt-25 pl-8 pr-4`}>
       <div className={styles.constructor}>
         { order.buns && (
           <ConstructorElement
@@ -74,7 +80,8 @@ export default function BurgerConstructor({data}){
           ) 
         }
       </div>
-      <div className={`mt-10 ${styles.constructor__checkout}`}>
+      <div className={styles.constructor__checkout}>
+        <Price data={order.price} />
         <Button 
           htmlType="button" 
           type="primary" 
