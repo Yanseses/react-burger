@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from './modal.module.css';
+import propTypes from 'prop-types';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import IngridientDetails from "./IngredientDetails/IngredientDetails";
@@ -46,4 +47,22 @@ export default function Modal({type, data, onClose}){
     </ModalOverlay>
     , modalRoot
   );
+}
+
+Modal.propTypes = {
+  type: propTypes.string.isRequired,
+  data: propTypes.shape({
+    calories: propTypes.number,
+    carbohydrates: propTypes.number,
+    fat: propTypes.number,
+    image: propTypes.string.isRequired,
+    image_large: propTypes.string,
+    image_mobile: propTypes.string,
+    name: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
+    proteins: propTypes.number,
+    type: propTypes.string.isRequired,
+    _id: propTypes.string.isRequired
+  }),
+  onClose: propTypes.func.isRequired
 }

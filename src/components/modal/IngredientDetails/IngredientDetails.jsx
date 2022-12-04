@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from 'prop-types';
 import styles from './ingredientDetails.module.css'
 
 export default function IngridientDetails(props){
@@ -30,4 +31,20 @@ export default function IngridientDetails(props){
       </ul>
     </div>
   )
+}
+
+IngridientDetails.propTypes = {
+  props: propTypes.shape({
+    calories: propTypes.number,
+    carbohydrates: propTypes.number,
+    fat: propTypes.number,
+    image: propTypes.string.isRequired,
+    image_large: propTypes.string,
+    image_mobile: propTypes.string,
+    name: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
+    proteins: propTypes.number,
+    type: propTypes.string.isRequired,
+    _id: propTypes.string.isRequired
+  })
 }
