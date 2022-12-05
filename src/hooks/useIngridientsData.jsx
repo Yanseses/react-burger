@@ -10,7 +10,12 @@ export function useIngridientsData(){
 
   useEffect(() => {
     const data = fetch(url)
-      .then(res => res.json())
+      .then(res => {
+        if(res.ok){
+          return res.json()
+        }
+        throw new Error(res.status)
+      })
       .then(res => {
         if(res.success){
           setState({...state, data: res.data})
