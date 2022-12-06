@@ -1,12 +1,13 @@
 import React from "react";
+import propTypes from 'prop-types';
 import sucessLogo from '../../../images/graphics.svg'
 import styles from './orderDetails.module.css';
 
-export default function OrderDetails({order}){
+export default function OrderDetails(props){
   return (
     <div className={`${styles.orderDetails} mt-4 mb-20 text`}>
       <h3 className={`${styles.orderDetails__identification} text_type_digits-large`}>
-        {order}
+        {props.order}
       </h3>
       <div className={`${styles.orderDetails__main} mt-8`}>
         <p className={`${styles.orderDetails__title} text_type_main-medium`}>
@@ -24,4 +25,8 @@ export default function OrderDetails({order}){
       </div>
     </div>
   )
+}
+
+OrderDetails.propTypes = {
+  order: propTypes.string
 }

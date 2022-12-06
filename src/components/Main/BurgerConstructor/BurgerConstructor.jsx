@@ -50,7 +50,7 @@ export default function BurgerConstructor(props){
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={order.buns.name}
+            text={`${order.buns.name} (верх)`}
             price={order.buns.price}
             thumbnail={order.buns.image}
           />
@@ -81,7 +81,7 @@ export default function BurgerConstructor(props){
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={order.buns.name}
+            text={`${order.buns.name} (низ)`}
             price={order.buns.price}
             thumbnail={order.buns.image}
           />  

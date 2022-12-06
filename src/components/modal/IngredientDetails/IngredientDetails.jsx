@@ -4,7 +4,7 @@ import { ingredientType } from "../../../utils/types";
 import styles from './ingredientDetails.module.css'
 
 export default function IngridientDetails(props){
-  const { image_large, name, calories, proteins, fat, carbohydrates } = props;
+  const { image_large, name, calories, proteins, fat, carbohydrates } = props.ingridient;
 
   return (
     <div className={styles.ingredientDetails}>
@@ -35,5 +35,5 @@ export default function IngridientDetails(props){
 }
 
 IngridientDetails.propTypes = {
-  props: ingredientType
+  ingridient: ingredientType
 }

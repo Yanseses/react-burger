@@ -71,7 +71,7 @@ export default function BurgerIngridients({data}){
 
       { isModalOpen && (
         <Modal title={'Детали ингридиента'} onClose={() => setIsModalOpen(false)}>
-          <IngridientDetails {...ingridientModal}/>
+          <IngridientDetails ingridient={ingridientModal}/>
         </Modal>
         ) 
       }
