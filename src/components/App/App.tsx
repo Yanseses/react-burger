@@ -3,7 +3,7 @@ import AppHeader from '../AppHeader/Header.jsx';
 import styles from './App.module.css';
 import Main from '../Main/Main';
 import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
-import { useIngridientsData } from '../../hooks/useIngridientsData.jsx';
+import useIngridientsData from '../../hooks/useIngridientsData.jsx';
 import BurgerConstructor from '../Main/BurgerConstructor/BurgerConstructor.jsx';
 
 export default function App() {

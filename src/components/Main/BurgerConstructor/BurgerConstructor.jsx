@@ -1,9 +1,11 @@
 import React from "react";
 import propTypes from 'prop-types';
 import styles from './burgerConstructor.module.css';
+import { ingredientType } from "../../../utils/types";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/Modal";
 import Price from "./Price/Price";
+import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 
 export default function BurgerConstructor({data}){
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
@@ -14,12 +16,14 @@ export default function BurgerConstructor({data}){
   });
 
   React.useEffect(() => {
+    // Разбиваем массив данных
     const buns = data.find(el => el.type == 'bun');
     const main = data.filter(el => el.type !== 'bun');
     setOrder({buns, main});
   }, [data]);
 
   React.useEffect(() => {
+    // Изменяем общую цену
     let bunsPrice = order.buns ? order.buns.price : 0;
     let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
     setOrder({...order, price: mainPrice + bunsPrice})
@@ -93,7 +97,9 @@ export default function BurgerConstructor({data}){
       </div>
 
       { isModalOpen && (
-        <Modal type={'order'} onClose={() => setIsModalOpen(false)}/>
+        <Modal title={''} onClose={() => setIsModalOpen(false)}>
+          <OrderDetails />
+        </Modal>
         ) 
       }
     </section>
@@ -101,17 +107,5 @@ export default function BurgerConstructor({data}){
 }
 
 BurgerConstructor.propTypes = {
-  data: propTypes.arrayOf(propTypes.shape({
-    calories: propTypes.number,
-    carbohydrates: propTypes.number,
-    fat: propTypes.number,
-    image: propTypes.string.isRequired,
-    image_large: propTypes.string,
-    image_mobile: propTypes.string,
-    name: propTypes.string.isRequired,
-    price: propTypes.number.isRequired,
-    proteins: propTypes.number,
-    type: propTypes.string.isRequired,
-    _id: propTypes.string.isRequired
-  })).isRequired
+  data: propTypes.arrayOf(ingredientType).isRequired
 }
