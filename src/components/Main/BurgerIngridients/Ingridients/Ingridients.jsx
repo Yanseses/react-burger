@@ -1,8 +1,6 @@
 import React from "react";
 import propTypes from 'prop-types';
-import { ingredientType } from "../../../../utils/types";
 import styles from './ingridients.module.css'
-import IngridientsItem from "./IngridientsItem/IngridientsItem";
 
 export default function Ingridients({title, children}){
   return (

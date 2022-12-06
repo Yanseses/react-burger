@@ -26,11 +26,11 @@ export default function BurgerIngridients({data}){
     })
   }, [data]);
 
-  const handleClick = (e) => {
+  const handleClick = React.useCallback((e) => {
     const handledElement = e.nativeEvent.path[2].id;
     setIngridientModal(data.find(el => el._id == handledElement));
     setIsModalOpen(true)
-  }
+  });
 
   return (
     <section className="pt-10 text text_type_main-default">

@@ -28,12 +28,12 @@ export default function App() {
         }
       })
       .catch(err => setState({data: err, hasError: true}))
-  }, [])
+  }, []);
 
   return (
     <div>
       <AppHeader />
-      { !state.hasError && (
+      { !state.hasError && state.data.length > 0 && (
         <Main>
           <BurgerIngridients data={state.data} />
           <BurgerConstructor data={state.data} />

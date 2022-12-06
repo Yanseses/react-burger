@@ -10,12 +10,10 @@ import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 export default function BurgerConstructor(props){
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
   const [ order, setOrder ] = React.useState({
-    buns: [],
-    main: [],
+    buns: null,
+    main: null,
     price: 0
   });
-
-  console.log(props.data)
 
   React.useEffect(() => {
     // Разбиваем массив данных
@@ -28,12 +26,14 @@ export default function BurgerConstructor(props){
 
   React.useEffect(() => {
     // Изменяем общую цену
-    let bunsPrice = order.buns ? order.buns.price * 2 : 0;
-    let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
-    setOrder({...order, price: mainPrice + bunsPrice})
+    if(order.buns !== null && order.main !== null){
+      let bunsPrice = order.buns ? order.buns.price * 2 : 0;
+      let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
+      setOrder({...order, price: mainPrice + bunsPrice})
+    }
   }, [order.main, order.buns]);
 
-  const handleRemove = (e) => {
+  const handleRemove = React.useCallback((e) => {
     const clickedElem = String(e.nativeEvent.path[5].id);
     const newOrder = order.main.filter(el => {
       if(el._id !== clickedElem){
@@ -41,12 +41,12 @@ export default function BurgerConstructor(props){
       }
     });
     setOrder({...order, main: newOrder})
-  }
+  });
 
   return (
     <section className={`${styles.main} pt-25 pl-8 pr-4`}>
       <div className={styles.constructor}>
-        { order.buns && (
+        { order.buns !== null && (
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -57,7 +57,7 @@ export default function BurgerConstructor(props){
           ) 
         }
         <div className={styles.constructor__list}>
-        { order.main && 
+        { order.main !== null && 
           order.main.map(element => {
             return ( 
             <div 
@@ -77,7 +77,7 @@ export default function BurgerConstructor(props){
           }) 
         }
         </div>
-        { order.buns && (
+        { order.buns !== null && (
           <ConstructorElement
             type="bottom"
             isLocked={true}
