@@ -4,8 +4,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import Menu from './Menu/Menu.jsx';
 import Auth from './Auth/Auth.jsx';
 
-export default function Header(){
-
+export default React.memo(function Header(){
   return (
     <header className={`p-4 ${styles.header}`}>
       <div className={styles.headerContainer}>
@@ -15,4 +14,4 @@ export default function Header(){
       </div>
     </header>
   )
-}
+})

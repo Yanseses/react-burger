@@ -7,7 +7,7 @@ import Modal from "../../modal/Modal";
 import Price from "./Price/Price";
 import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 
-export default function BurgerConstructor({data}){
+export default function BurgerConstructor(props){
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
   const [ order, setOrder ] = React.useState({
     buns: [],
@@ -15,19 +15,23 @@ export default function BurgerConstructor({data}){
     price: 0
   });
 
+  console.log(props.data)
+
   React.useEffect(() => {
     // Разбиваем массив данных
-    const buns = data.find(el => el.type == 'bun');
-    const main = data.filter(el => el.type !== 'bun');
-    setOrder({buns, main});
-  }, [data]);
+    if(props.data){
+      const buns = props.data.find(el => el.type == 'bun');
+      const main = props.data.filter(el => el.type !== 'bun');
+      setOrder({...order, buns, main});
+    }
+  }, [props]);
 
   React.useEffect(() => {
     // Изменяем общую цену
-    let bunsPrice = order.buns ? order.buns.price : 0;
+    let bunsPrice = order.buns ? order.buns.price * 2 : 0;
     let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
     setOrder({...order, price: mainPrice + bunsPrice})
-  }, [order.main, order.buns])
+  }, [order.main, order.buns]);
 
   const handleRemove = (e) => {
     const clickedElem = String(e.nativeEvent.path[5].id);
@@ -85,7 +89,7 @@ export default function BurgerConstructor({data}){
         }
       </div>
       <div className={styles.constructor__checkout}>
-        <Price data={order.price} />
+        <Price price={order.price} />
         <Button 
           htmlType="button" 
           type="primary" 
@@ -98,7 +102,7 @@ export default function BurgerConstructor({data}){
 
       { isModalOpen && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
-          <OrderDetails />
+          <OrderDetails order={'034536'}/>
         </Modal>
         ) 
       }
@@ -107,5 +111,5 @@ export default function BurgerConstructor({data}){
 }
 
 BurgerConstructor.propTypes = {
-  data: propTypes.arrayOf(ingredientType).isRequired
+  data: propTypes.arrayOf(ingredientType)
 }
