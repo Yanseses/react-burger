@@ -1,24 +1,36 @@
 import React from "react";
 import propTypes from 'prop-types';
+import { ingredientType } from "../../../utils/types";
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngridientsCategory from "./Ingridients/Ingridients";
+import Ingridients from "./Ingridients/Ingridients";
+import Modal from "../../modal/Modal";
+import IngridientDetails from "../../modal/IngredientDetails/IngredientDetails";
+import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
 
-export default function BurgerIngridients(props){
-  const [ current, setCurrent ] = React.useState('bun');
-  const [ state, setState ] = React.useState({
+export default function BurgerIngridients({data}){
+  const [ isModalOpen, setIsModalOpen ] = React.useState(false);
+  const [ ingridientModal, setIngridientModal ] = React.useState({});
+  const [ tabs, setTabs ] = React.useState('bun');
+  const [ category, setCategory ] = React.useState({
     bun: [],
     main: [],
     sauce: []
   });
 
   React.useEffect(() => {
-    setState({
-      bun: props.data.filter(el => el.type == 'bun'),
-      main: props.data.filter(el => el.type == 'main'),
-      sauce: props.data.filter(el => el.type == 'sauce')
+    setCategory({
+      bun: data.filter(el => el.type == 'bun'),
+      main: data.filter(el => el.type == 'main'),
+      sauce: data.filter(el => el.type == 'sauce')
     })
-  }, [props])
+  }, [data]);
+
+  const handleClick = React.useCallback((e) => {
+    const handledElement = e.nativeEvent.path[2].id;
+    setIngridientModal(data.find(el => el._id == handledElement));
+    setIsModalOpen(true)
+  });
 
   return (
     <section className="pt-10 text text_type_main-default">
@@ -26,38 +38,48 @@ export default function BurgerIngridients(props){
         Соберите бургер
       </h2>
       <div className={styles.burgerIngridients__tabs}>
-        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+        <Tab value="bun" active={tabs === 'bun'} onClick={setTabs}>
           Булки
         </Tab>
-        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+        <Tab value="sauce" active={tabs === 'sauce'} onClick={setTabs}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+        <Tab value="main" active={tabs === 'main'} onClick={setTabs}>
           Начинки
         </Tab>
       </div>
       <ul className={`${styles.burgerIngridients__list} mt-10`}>
-        <IngridientsCategory data={state.bun} category={'Булки'} />
-        <IngridientsCategory data={state.sauce} category={'Соусы'} />
-        <IngridientsCategory data={state.main} category={'Начинки'} />
+        <Ingridients title={'Булки'} >
+          { category.bun && category.bun.map(el => (
+              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+            ))
+          }
+        </Ingridients>
+        <Ingridients title={'Соусы'}>
+          { category.sauce && category.sauce.map(el => (
+              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+            ))
+          }
+        </Ingridients>
+        <Ingridients title={'Начинки'}>
+          { category.main && category.main.map(el => (
+              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+            ))
+          }
+        </Ingridients>
       </ul>
+
+      { isModalOpen && (
+        <Modal title={'Детали ингридиента'} onClose={() => setIsModalOpen(false)}>
+          <IngridientDetails ingridient={ingridientModal}/>
+        </Modal>
+        ) 
+      }
     </section>
   )
 }
 
 
 BurgerIngridients.propTypes = {
-  data: propTypes.arrayOf(propTypes.shape({
-    calories: propTypes.number,
-    carbohydrates: propTypes.number,
-    fat: propTypes.number,
-    image: propTypes.string.isRequired,
-    image_large: propTypes.string,
-    image_mobile: propTypes.string,
-    name: propTypes.string.isRequired,
-    price: propTypes.number.isRequired,
-    proteins: propTypes.number,
-    type: propTypes.string.isRequired,
-    _id: propTypes.string.isRequired
-  })).isRequired
+  data: propTypes.arrayOf(ingredientType).isRequired
 }
