@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './burgerConstructor.module.css';
+import { BURGER_API_URL } from "../../../utils/api";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngridientsContext } from "../../../context/ingridientsContext";
 import Modal from "../../modal/Modal";
@@ -29,13 +30,14 @@ export default function BurgerConstructor(){
     setOrder({...order, main: newOrder})
   });
 
-  const approvedOrder = () => {
-    if(order.main !== null && order.buns !== null){
-      const orderMain = order.main.map(el => el._id);
-      orderMain.push(order.buns._id);
+  const approveOrder = () => {
+    if(order.buns !== null){
+      const orderMain = order.main
+        ? [order.buns._id, ...order.main.map(el => el._id), order.buns._id]
+        : [order.buns._id, order.buns._id];
       const ingredients = { ingredients: orderMain };
   
-      fetch('https://norma.nomoreparties.space/api/orders', {
+      fetch(`${BURGER_API_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -111,7 +113,7 @@ export default function BurgerConstructor(){
           htmlType="button" 
           type="primary" 
           size="large"
-          onClick={approvedOrder}
+          onClick={approveOrder}
         >
           Оформить заказ
         </Button>

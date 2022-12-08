@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "react-intersection-observer": "^9.4.1"
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from '../AppHeader/Header.jsx';
 import styles from './App.module.css';
 import Main from '../Main/Main';
+import { BURGER_API_URL } from '../../utils/api.js';
 import { hardCodeOrder } from '../../utils/hardCodeOrder';
 import { IngridientsContext } from '../../context/ingridientsContext';
 import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
@@ -15,7 +16,7 @@ export default function App() {
   });
 
   React.useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
+    fetch(`${BURGER_API_URL}/ingredients`)
       .then(el => {
         if(el.ok){
           return el.json()
