@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import AppHeader from '../AppHeader/Header.jsx';
 import styles from './App.module.css';
 import Main from '../Main/Main';
+import { order } from '../../utils/order';
 import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
 import BurgerConstructor from '../Main/BurgerConstructor/BurgerConstructor.jsx';
 
@@ -36,7 +37,7 @@ export default function App() {
       { !state.hasError && state.data.length > 0 && (
         <Main>
           <BurgerIngridients data={state.data} />
-          <BurgerConstructor data={state.data} />
+          <BurgerConstructor data={order} />
         </Main>
         ) 
       }

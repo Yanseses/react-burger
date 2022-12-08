@@ -10,6 +10,7 @@ import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 export default function BurgerConstructor(props){
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
   const [ order, setOrder ] = React.useState({
+    number: null,
     buns: null,
     main: null,
     price: 0
@@ -18,8 +19,12 @@ export default function BurgerConstructor(props){
   React.useEffect(() => {
     // Разбиваем массив данных
     if(props.data){
-      const buns = props.data.find(el => el.type == 'bun');
-      const main = props.data.filter(el => el.type !== 'bun');
+      const buns = props.data.find(el => el.type === 'bun') !== undefined 
+        ? props.data.find(el => el.type === 'bun')
+        : null;
+      const main = props.data.filter(el => el.type !== 'bun') !== undefined 
+        ? props.data.filter(el => el.type !== 'bun')
+        : null;
       setOrder({...order, buns, main});
     }
   }, [props]);
@@ -42,6 +47,37 @@ export default function BurgerConstructor(props){
     });
     setOrder({...order, main: newOrder})
   });
+
+  const approvedOrder = () => {
+    if(order.main !== null && order.buns !== null){
+      const orderMain = order.main.map(el => el._id);
+      orderMain.push(order.buns._id);
+      const ingridients = { ingredients: orderMain };
+  
+      fetch('https://norma.nomoreparties.space/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(ingridients)
+      }).then(el => {
+        if(el.ok){
+          return el.json();
+        } else {
+          throw new Error(el.status)
+        }
+      }).then(el => {
+        if(el.success){
+          setOrder({price: 0, buns: null, main: null, number: el.order.number})
+          setIsModalOpen(true);
+        } else {
+          throw new Error('Ошибка сборки бургера')
+        }
+      }).catch(err => {
+        console.log('Error --> ' + err);
+      })
+    }
+  }
 
   return (
     <section className={`${styles.main} pt-25 pl-8 pr-4`}>
@@ -94,7 +130,7 @@ export default function BurgerConstructor(props){
           htmlType="button" 
           type="primary" 
           size="large"
-          onClick={() => setIsModalOpen(true)}
+          onClick={approvedOrder}
         >
           Оформить заказ
         </Button>
@@ -102,7 +138,7 @@ export default function BurgerConstructor(props){
 
       { isModalOpen && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
-          <OrderDetails order={'034536'}/>
+          <OrderDetails order={order.number}/>
         </Modal>
         ) 
       }
