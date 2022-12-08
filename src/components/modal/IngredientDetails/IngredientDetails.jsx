@@ -8,7 +8,7 @@ export default function IngridientDetails(props){
 
   return (
     <div className={styles.ingredientDetails}>
-      <img src={image_large} alt="" />
+      <img src={image_large} alt={name} />
       <h3 className={`${styles.ingridientDetails__title} text text_type_main-medium mt-4`}>
         {name}
       </h3>

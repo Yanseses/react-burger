@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppHeader from '../AppHeader/Header.jsx';
 import styles from './App.module.css';
 import Main from '../Main/Main';
+import { BURGER_API_URL } from '../../utils/api.js';
+import { hardCodeOrder } from '../../utils/hardCodeOrder';
+import { IngridientsContext } from '../../context/ingridientsContext';
 import BurgerIngridients from '../Main/BurgerIngridients/BurgerIngridients.jsx';
 import BurgerConstructor from '../Main/BurgerConstructor/BurgerConstructor.jsx';
 
 export default function App() {
+  const [ order, setOrder ] = React.useState(hardCodeOrder);
   const [ state, setState ] = React.useState({
     hasError: false,
     data: []
   });
 
-  useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
+  React.useEffect(() => {
+    fetch(`${BURGER_API_URL}/ingredients`)
       .then(el => {
         if(el.ok){
           return el.json()
@@ -34,10 +38,12 @@ export default function App() {
     <div>
       <AppHeader />
       { !state.hasError && state.data.length > 0 && (
-        <Main>
-          <BurgerIngridients data={state.data} />
-          <BurgerConstructor data={state.data} />
-        </Main>
+        <IngridientsContext.Provider value={{order, setOrder}}>
+          <Main>
+            <BurgerIngridients data={state.data} />
+            <BurgerConstructor />
+          </Main>
+        </IngridientsContext.Provider>
         ) 
       }
     </div>

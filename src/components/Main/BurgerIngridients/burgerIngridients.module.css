@@ -4,6 +4,7 @@
   margin-bottom: 0;
   height: 60vh;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .burgerIngridients__tabs {

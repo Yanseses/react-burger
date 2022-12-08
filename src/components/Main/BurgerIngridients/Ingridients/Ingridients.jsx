@@ -2,9 +2,9 @@ import React from "react";
 import propTypes from 'prop-types';
 import styles from './ingridients.module.css'
 
-export default function Ingridients({title, children}){
+export default function Ingridients({title, children, refCategory}){
   return (
-    <li className="mb-10">
+    <li className="mb-10" ref={refCategory}>
       <h3 className={`text_type_main-medium ${styles.title}`}>
         {title}
       </h3>
@@ -17,5 +17,6 @@ export default function Ingridients({title, children}){
 
 Ingridients.propTypes = {
   children: propTypes.node.isRequired,
-  title: propTypes.string
+  title: propTypes.string,
+  refCategory: propTypes.func
 }

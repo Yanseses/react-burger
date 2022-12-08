@@ -5,10 +5,14 @@ import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingridients from "./Ingridients/Ingridients";
 import Modal from "../../modal/Modal";
+import { useInView } from 'react-intersection-observer';
 import IngridientDetails from "../../modal/IngredientDetails/IngredientDetails";
 import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
 
 export default function BurgerIngridients({data}){
+  const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
+  const [ mainRef, inWiewMain, entryMain ] = useInView({threshold: 0});
+  const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
   const [ ingridientModal, setIngridientModal ] = React.useState({});
   const [ tabs, setTabs ] = React.useState('bun');
@@ -17,6 +21,32 @@ export default function BurgerIngridients({data}){
     main: [],
     sauce: []
   });
+
+  React.useEffect(() => {
+    if(inWiewBuns){
+      setTabs('bun');
+    } else if(inWiewSauce){
+      setTabs('sauce');
+    } else if(inWiewMain){
+      setTabs('main')
+    }
+  }, [inWiewBuns, inWiewMain, inWiewSauce]);
+
+  const handleClickTabs = (e) => {
+    switch(e){
+      case 'main': {
+        entryMain.target.scrollIntoView();
+        break;
+      }
+      case 'sauce': {
+        entrySauce.target.scrollIntoView();
+        break;
+      }
+      default: {
+        entryBuns.target.scrollIntoView();
+      }
+    }
+  }
 
   React.useEffect(() => {
     setCategory({
@@ -38,30 +68,30 @@ export default function BurgerIngridients({data}){
         Соберите бургер
       </h2>
       <div className={styles.burgerIngridients__tabs}>
-        <Tab value="bun" active={tabs === 'bun'} onClick={setTabs}>
+        <Tab value="bun" active={tabs === 'bun'} onClick={handleClickTabs}>
           Булки
         </Tab>
-        <Tab value="sauce" active={tabs === 'sauce'} onClick={setTabs}>
+        <Tab value="sauce" active={tabs === 'sauce'} onClick={handleClickTabs}>
           Соусы
         </Tab>
-        <Tab value="main" active={tabs === 'main'} onClick={setTabs}>
+        <Tab value="main" active={tabs === 'main'} onClick={handleClickTabs}>
           Начинки
         </Tab>
       </div>
       <ul className={`${styles.burgerIngridients__list} mt-10`}>
-        <Ingridients title={'Булки'} >
+        <Ingridients title={'Булки'} refCategory={bunsRef}>
           { category.bun && category.bun.map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
           }
         </Ingridients>
-        <Ingridients title={'Соусы'}>
+        <Ingridients title={'Соусы'} refCategory={sauceRef}>
           { category.sauce && category.sauce.map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
           }
         </Ingridients>
-        <Ingridients title={'Начинки'}>
+        <Ingridients title={'Начинки'} refCategory={mainRef}>
           { category.main && category.main.map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
