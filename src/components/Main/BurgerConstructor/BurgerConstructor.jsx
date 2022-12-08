@@ -1,40 +1,21 @@
 import React from "react";
-import propTypes from 'prop-types';
 import styles from './burgerConstructor.module.css';
-import { ingredientType } from "../../../utils/types";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IngridientsContext } from "../../../context/ingridientsContext";
 import Modal from "../../modal/Modal";
 import Price from "./Price/Price";
 import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 
-export default function BurgerConstructor(props){
+export default function BurgerConstructor(){
+  const { order, setOrder } = React.useContext(IngridientsContext);
   const [ isModalOpen, setIsModalOpen ] = React.useState(false);
-  const [ order, setOrder ] = React.useState({
-    number: null,
-    buns: null,
-    main: null,
-    price: 0
-  });
-
-  React.useEffect(() => {
-    // Разбиваем массив данных
-    if(props.data){
-      const buns = props.data.find(el => el.type === 'bun') !== undefined 
-        ? props.data.find(el => el.type === 'bun')
-        : null;
-      const main = props.data.filter(el => el.type !== 'bun') !== undefined 
-        ? props.data.filter(el => el.type !== 'bun')
-        : null;
-      setOrder({...order, buns, main});
-    }
-  }, [props]);
 
   React.useEffect(() => {
     // Изменяем общую цену
     if(order.buns !== null && order.main !== null){
       let bunsPrice = order.buns ? order.buns.price * 2 : 0;
       let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
-      setOrder({...order, price: mainPrice + bunsPrice})
+      setOrder({...order, price: bunsPrice + mainPrice})
     }
   }, [order.main, order.buns]);
 
@@ -52,14 +33,14 @@ export default function BurgerConstructor(props){
     if(order.main !== null && order.buns !== null){
       const orderMain = order.main.map(el => el._id);
       orderMain.push(order.buns._id);
-      const ingridients = { ingredients: orderMain };
+      const ingredients = { ingredients: orderMain };
   
       fetch('https://norma.nomoreparties.space/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(ingridients)
+        body: JSON.stringify(ingredients)
       }).then(el => {
         if(el.ok){
           return el.json();
@@ -92,11 +73,11 @@ export default function BurgerConstructor(props){
           />
           ) 
         }
-        <div className={styles.constructor__list}>
+        <ul className={styles.constructor__list}>
         { order.main !== null && 
           order.main.map(element => {
             return ( 
-            <div 
+            <li 
               id={element._id}
               key={element._id} 
               className={styles.constructor__listItem}
@@ -108,11 +89,11 @@ export default function BurgerConstructor(props){
                 thumbnail={element.image}
                 handleClose={handleRemove}
               />
-            </div>
+            </li>
             )
           }) 
         }
-        </div>
+        </ul>
         { order.buns !== null && (
           <ConstructorElement
             type="bottom"
@@ -125,7 +106,7 @@ export default function BurgerConstructor(props){
         }
       </div>
       <div className={styles.constructor__checkout}>
-        <Price price={order.price} />
+        <Price />
         <Button 
           htmlType="button" 
           type="primary" 
@@ -138,14 +119,10 @@ export default function BurgerConstructor(props){
 
       { isModalOpen && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
-          <OrderDetails order={order.number}/>
+          <OrderDetails />
         </Modal>
         ) 
       }
     </section>
   )
-}
-
-BurgerConstructor.propTypes = {
-  data: propTypes.arrayOf(ingredientType)
 }
