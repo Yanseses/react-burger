@@ -1,4 +1,3 @@
-import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import propTypes from 'prop-types';
 import { ingredientType } from "../../../../../utils/types";
@@ -11,7 +10,7 @@ export default function IngridientsItem(props){
           <img src={props.image} alt={props.name} />
           <div className={styles.ingridientsItem__price}>
             <p className={styles.ingridientsItem__text}>
-              {props.price} 
+              {props.price}
             </p>
             <CurrencyIcon type='primary' />
           </div>

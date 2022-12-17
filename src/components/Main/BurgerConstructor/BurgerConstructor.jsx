@@ -1,26 +1,34 @@
-import React from "react";
 import styles from './burgerConstructor.module.css';
-import { BURGER_API_URL } from "../../../utils/api";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngridientsContext } from "../../../context/ingridientsContext";
 import Modal from "../../modal/Modal";
 import Price from "./Price/Price";
 import OrderDetails from "../../modal/OrderDetails/OrderDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { approveOrderNumber, ORDER_CHANGE_PRICE } from "../../../services/actions";
 
 export default function BurgerConstructor(){
-  const { order, setOrder } = React.useContext(IngridientsContext);
-  const [ isModalOpen, setIsModalOpen ] = React.useState(false);
+  const dispatch = useDispatch();
+  const [ isModalOpen, setIsModalOpen ] = useState(false)
+  const { ordere, orderNumber } = useSelector(store => ({
+    ordere: store.main.order,
+    orderNumber: store.main.orderNumber
+  }));
+  const { order, setOrder } = useContext(IngridientsContext);
 
-  React.useEffect(() => {
-    // Изменяем общую цену
+  useEffect(() => {
     if(order.buns !== null && order.main !== null){
       let bunsPrice = order.buns ? order.buns.price * 2 : 0;
       let mainPrice = order.main.reduce((acc, num) => acc + num.price, 0)
-      setOrder({...order, price: bunsPrice + mainPrice})
+      dispatch({
+        type: ORDER_CHANGE_PRICE,
+        price: bunsPrice + mainPrice
+      })
     }
-  }, [order.main, order.buns]);
+  }, [order.main, order.buns, ordere.main, ordere.buns]);
 
-  const handleRemove = React.useCallback((e) => {
+  const handleRemove = useCallback((e) => {
     const clickedElem = String(e.nativeEvent.path[5].id);
     const newOrder = order.main.filter(el => {
       if(el._id !== clickedElem){
@@ -36,29 +44,9 @@ export default function BurgerConstructor(){
         ? [order.buns._id, ...order.main.map(el => el._id), order.buns._id]
         : [order.buns._id, order.buns._id];
       const ingredients = { ingredients: orderMain };
-  
-      fetch(`${BURGER_API_URL}/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(ingredients)
-      }).then(el => {
-        if(el.ok){
-          return el.json();
-        } else {
-          throw new Error(el.status)
-        }
-      }).then(el => {
-        if(el.success){
-          setOrder({price: 0, buns: null, main: null, number: el.order.number})
-          setIsModalOpen(true);
-        } else {
-          throw new Error('Ошибка сборки бургера')
-        }
-      }).catch(err => {
-        console.log('Error --> ' + err);
-      })
+
+      dispatch(approveOrderNumber(ingredients));
+      setIsModalOpen(true)
     }
   }
 
@@ -76,7 +64,7 @@ export default function BurgerConstructor(){
           ) 
         }
         <ul className={styles.constructor__list}>
-        { order.main !== null && 
+        { order.main.length && 
           order.main.map(element => {
             return ( 
             <li 
@@ -119,7 +107,7 @@ export default function BurgerConstructor(){
         </Button>
       </div>
 
-      { isModalOpen && (
+      { isModalOpen && orderNumber && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
           <OrderDetails />
         </Modal>
