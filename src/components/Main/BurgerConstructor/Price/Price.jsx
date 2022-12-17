@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function Price(){
   const orderPrice = useSelector(store => store.main.orderPrice);
+  const store = useSelector(store => store.main)
 
   return (
     <div className={`${style.price} mr-10`}>

@@ -8,7 +8,7 @@ import Modal from "../../modal/Modal";
 import IngridientDetails from "../../modal/IngredientDetails/IngredientDetails";
 import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
 import { getIngridientsData, TAB_SWITCH } from '../../../services/actions/index';
-import { ADD_MODAL_INGRIDIENTS } from "../../../services/actions/index";
+import { ADD_MODAL_INGRIDIENTS, ORDER_BUNS_CHANGE, ORDER_MAIN_CHANGE } from "../../../services/actions/index";
 
 export default function BurgerIngridients(){
   const dispatch = useDispatch();
@@ -57,9 +57,17 @@ export default function BurgerIngridients(){
       type: ADD_MODAL_INGRIDIENTS,
       data: modalData
     })
-    // продумать структуру заказа
-    // единый массив или несколько категорий
-    // добавлять в стор при клике на игридиент
+    if(modalData.type == 'bun'){
+      dispatch({
+        type: ORDER_BUNS_CHANGE,
+        data: modalData
+      })
+    } else {
+      dispatch({
+        type: ORDER_MAIN_CHANGE,
+        data: modalData
+      })
+    }
     setIsModalOpen(true);
   });
 
