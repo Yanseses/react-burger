@@ -1,5 +1,4 @@
 import styles from './constructorMain.module.css';
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { ORDER_MAIN_CHANGE, ORDER_MAIN_DELETE } from "../../../../services/actions";
@@ -30,8 +29,6 @@ export default function ConstructorMain(){
       deleteIngridient: clickedElem
     })
   });
-
-  console.log(isHoverMain)
 
   const defaultIngridients = (
     <li className={`${styles.main__default} ${isHoverMain ? styles.main__hovered : ''}`}>
