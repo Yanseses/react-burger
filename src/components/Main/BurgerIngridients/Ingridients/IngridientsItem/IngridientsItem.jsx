@@ -5,10 +5,10 @@ import { ingredientType } from "../../../../../utils/types";
 import styles from'./ingridientsItem.module.css';
 
 export default function IngridientsItem(props){
-  const { image, _id, name, price, onClick, type, counter = 0 } = props;
+  const { image, _id, name, price, onClick, type, __v = 0 } = props;
   const [{ opacity }, ref] = useDrag({
-    type: type,
-    item: { _id },
+    type: type == 'bun' ? 'bun' : 'main',
+    item: props ,
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
     })
@@ -34,8 +34,8 @@ export default function IngridientsItem(props){
         <p className={styles.ingridientsItem__text}>
           {name}
         </p>
-        { counter > 0 && (
-          <Counter count={counter} size="small" />
+        { __v > 0 && (
+          <Counter count={__v} size="small" />
           ) 
         }
       </li>

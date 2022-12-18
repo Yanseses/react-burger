@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { v4 as uuidv4 } from 'uuid';
 import {
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_FAILED,
@@ -49,10 +50,7 @@ export const mainStore = (state = initialState, action) => {
         ...state,
         ingridientsRequest: false,
         ingridientsFailed: false,
-        ingridients: action.ingridients.map(el => ({
-          ...el,
-          counter: 0
-        }))
+        ingridients: action.ingridients
       }
     }
     case ORDER_CHANGE_PRICE: {
@@ -100,17 +98,18 @@ export const mainStore = (state = initialState, action) => {
       }
     }
     case ORDER_MAIN_CHANGE: {
+      if(action.data.id){
+        return state
+      }
       return {
         ...state,
         order: {
           ...state.order,
-          // Добавить uuid каждому элементу и сделать их уникальными
-          // при удалении опираться на uuid
-          main: [...state.order.main, action.data]
+          main: [...state.order.main, {...action.data, id: uuidv4()}]
         },
         ingridients: state.ingridients.map(el => {
           if(el._id === action.data._id){
-            el.counter++
+            el.__v++
             return el;
           }
           return el;
@@ -122,12 +121,12 @@ export const mainStore = (state = initialState, action) => {
         ...state,
         order: {
           ...state.order,
-          main: state.order.main.filter(el => action.deleteIngridient !== el._id)
+          main: state.order.main.filter(el => action.deleteIngridient !== el.id)
         },
         ingridients: state.ingridients.map(el => {
           if(el._id == action.deleteIngridient){
-            el.counter--
-            return el
+            el.__v--
+            return el;
           }
           return el
         })
@@ -143,11 +142,11 @@ export const mainStore = (state = initialState, action) => {
         ingridients: state.ingridients.map(el => {
           if(el.type === 'bun'){
             if(el._id === action.data._id){
-              if(el.counter == 0){
-                el.counter++
+              if(el.__v == 0){
+                el.__v++
               }
-            } else if(el.counter > 0) {
-              el.counter--
+            } else if(el.__v > 0) {
+              el.__v--
             }
             return el;
           }

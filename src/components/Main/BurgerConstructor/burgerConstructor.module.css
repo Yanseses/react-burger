@@ -11,34 +11,6 @@
   align-items: flex-end;
 }
 
-.constructor__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 40vh;
-  overflow-y: scroll;
-}
-
-.constructor__list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.constructor__list::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
-}
-
-.constructor__list::-webkit-scrollbar-track {
-  background: #2F2F37;
-}
-
-.constructor__listItem {
-  display: flex;
-  align-items: center;
-}
-
 .constructor__checkout {
   display: flex;
   justify-content: flex-end;

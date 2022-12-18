@@ -1,0 +1,48 @@
+.main {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 40vh;
+  overflow-y: scroll;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.main__default {
+  padding: 16px 24px;
+  display: inline-block;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 24px;
+  color: #F2F2F3;
+  flex-grow: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main__hovered {
+  border: 2px solid var(--colors-interface-success);
+}
+
+.main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.main::-webkit-scrollbar-track {
+  background: #2F2F37;
+}

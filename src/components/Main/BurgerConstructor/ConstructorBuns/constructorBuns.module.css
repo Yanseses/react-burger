@@ -1,0 +1,33 @@
+.buns {
+  width: 98%;
+}
+
+.buns__default{
+  padding: 16px 24px;
+  display: inline-block;
+  background: var(--background-element);
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 24px;
+  color: #F2F2F3;
+  flex-grow: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buns__hovered {
+  border: 2px solid var(--colors-interface-success);
+}
+
+.buns__top {
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.buns__bottom {
+  border-radius: var(--bottom-constructor-item-border-radius)
+}
