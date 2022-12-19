@@ -1,12 +1,11 @@
 import styles from './burgerConstructor.module.css';
-import { useState, useEffect, useCallback, useContext } from "react";
-import { ConstructorElement, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState, useEffect } from "react";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/Modal";
 import Price from "./Price/Price";
 import OrderDetails from "../../modal/OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { approveOrderNumber, ORDER_CHANGE_PRICE, ORDER_MAIN_DELETE, ORDER_MAIN_CHANGE, ORDER_BUNS_CHANGE } from "../../../services/actions";
-import { useDrop } from 'react-dnd';
+import { approveOrderNumber, ORDER_CHANGE_PRICE } from "../../../services/actions";
 import ConstructorBuns from './ConstructorBuns/ConstructorBuns';
 import ConstructorMain from './ConstructorMain/ConstructorMain';
 

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { v4 as uuidv4 } from 'uuid';
 import {
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_FAILED,
@@ -10,6 +9,7 @@ import {
   ORDER_REQUEST,
   ORDER_FAILED,
   ORDER_SUCCESS,
+  ORDER_CLEAR,
   TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
@@ -83,6 +83,15 @@ export const mainStore = (state = initialState, action) => {
         orderFailed: true
       }
     }
+    case ORDER_CLEAR: {
+      return {
+        ...state,
+        order: {
+          buns: null,
+          main: []
+        }
+      }
+    }
     case ORDER_SUCCESS: {
       return {
         ...state,
@@ -98,17 +107,17 @@ export const mainStore = (state = initialState, action) => {
       }
     }
     case ORDER_MAIN_CHANGE: {
-      if(action.data.id){
-        return state
+      if(action.payload.data.id){
+        return state;
       }
       return {
         ...state,
         order: {
           ...state.order,
-          main: [...state.order.main, {...action.data, id: uuidv4()}]
+          main: [...state.order.main, {...action.payload.data, id: action.payload.id }]
         },
         ingridients: state.ingridients.map(el => {
-          if(el._id === action.data._id){
+          if(el._id === action.payload.data._id){
             el.__v++
             return el;
           }
@@ -117,6 +126,7 @@ export const mainStore = (state = initialState, action) => {
       }
     }
     case ORDER_MAIN_DELETE: {
+      const ingridientId = state.order.main.find(el => el.id === action.deleteIngridient)
       return {
         ...state,
         order: {
@@ -124,7 +134,7 @@ export const mainStore = (state = initialState, action) => {
           main: state.order.main.filter(el => action.deleteIngridient !== el.id)
         },
         ingridients: state.ingridients.map(el => {
-          if(el._id == action.deleteIngridient){
+          if(el._id == ingridientId._id){
             el.__v--
             return el;
           }

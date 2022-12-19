@@ -57,17 +57,6 @@ export default function BurgerIngridients(){
       type: ADD_MODAL_INGRIDIENTS,
       data: modalData
     })
-    if(modalData.type == 'bun'){
-      dispatch({
-        type: ORDER_BUNS_CHANGE,
-        data: modalData
-      })
-    } else {
-      dispatch({
-        type: ORDER_MAIN_CHANGE,
-        data: modalData
-      })
-    }
     setIsModalOpen(true);
   });
 

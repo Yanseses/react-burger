@@ -1,7 +1,7 @@
 import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { ORDER_MAIN_CHANGE, ORDER_MAIN_DELETE } from "../../../../services/actions";
+import { addIngridientOrder, ORDER_MAIN_CHANGE, ORDER_MAIN_DELETE } from "../../../../services/actions";
 import { useCallback } from 'react';
 import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
 
@@ -14,13 +14,9 @@ export default function ConstructorMain(){
       isHoverMain: monitor.isOver(),
     }),
     drop(item) {
-      dispatch({
-        type: ORDER_MAIN_CHANGE,
-        data: item
-      })
+      dispatch(addIngridientOrder(item))
     },
   });
-
 
   const handleRemove = useCallback((e) => {
     const clickedElem = String(e.nativeEvent.path[5].id);
