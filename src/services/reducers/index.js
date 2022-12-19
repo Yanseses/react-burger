@@ -6,6 +6,7 @@ import {
   ORDER_MAIN_CHANGE,
   ORDER_BUNS_CHANGE,
   ORDER_MAIN_DELETE,
+  ORDER_MOVE_INGRIDIENT,
   ORDER_REQUEST,
   ORDER_FAILED,
   ORDER_SUCCESS,
@@ -89,7 +90,13 @@ export const mainStore = (state = initialState, action) => {
         order: {
           buns: null,
           main: []
-        }
+        },
+        ingridients: state.ingridients.map(element => {
+          if(element.__v > 0){
+            element.__v = 0
+          }
+          return element
+        })
       }
     }
     case ORDER_SUCCESS: {
@@ -162,6 +169,20 @@ export const mainStore = (state = initialState, action) => {
           }
           return el;
         })
+      }
+    }
+    case ORDER_MOVE_INGRIDIENT: {
+      const dragItem = state.order.main[action.dragIndex];
+      const hoverItem = state.order.main[action.hoverIndex];
+      const changedOrder = state.order.main;
+      changedOrder[action.dragIndex] = hoverItem;
+      changedOrder[action.hoverIndex] = dragItem;
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          main: changedOrder
+        }
       }
     }
     default: {
