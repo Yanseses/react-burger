@@ -4,6 +4,7 @@
   justify-content: center;
   align-content: flex-start;
   cursor: pointer;
+  position: relative;
 }
 
 .ingridientsItem__head {

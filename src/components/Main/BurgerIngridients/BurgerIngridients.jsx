@@ -1,34 +1,37 @@
-import React from "react";
-import propTypes from 'prop-types';
-import { ingredientType } from "../../../utils/types";
+import { useEffect, useState, useCallback } from "react";
+import { useInView } from 'react-intersection-observer';
+import { useDispatch, useSelector } from "react-redux";
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingridients from "./Ingridients/Ingridients";
 import Modal from "../../modal/Modal";
-import { useInView } from 'react-intersection-observer';
 import IngridientDetails from "../../modal/IngredientDetails/IngredientDetails";
 import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
+import { getIngridientsData, TAB_SWITCH } from '../../../services/actions/index';
+import { ADD_MODAL_INGRIDIENTS, ORDER_BUNS_CHANGE, ORDER_MAIN_CHANGE } from "../../../services/actions/index";
 
-export default function BurgerIngridients({data}){
+export default function BurgerIngridients(){
+  const dispatch = useDispatch();
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
   const [ mainRef, inWiewMain, entryMain ] = useInView({threshold: 0});
   const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
-  const [ isModalOpen, setIsModalOpen ] = React.useState(false);
-  const [ ingridientModal, setIngridientModal ] = React.useState({});
-  const [ tabs, setTabs ] = React.useState('bun');
-  const [ category, setCategory ] = React.useState({
-    bun: [],
-    main: [],
-    sauce: []
-  });
+  const { activeTab, data } = useSelector(store => ({
+    activeTab: store.main.activeTab,
+    data: store.main.ingridients,
+  }));
 
-  React.useEffect(() => {
+  useEffect(() => {
+    dispatch(getIngridientsData())
+  }, [dispatch]);
+
+  useEffect(() => {
     if(inWiewBuns){
-      setTabs('bun');
+      dispatch({type: TAB_SWITCH, tab: 'bun'})
     } else if(inWiewSauce){
-      setTabs('sauce');
+      dispatch({type: TAB_SWITCH, tab: 'sauce'})
     } else if(inWiewMain){
-      setTabs('main')
+      dispatch({type: TAB_SWITCH, tab: 'main'})
     }
   }, [inWiewBuns, inWiewMain, inWiewSauce]);
 
@@ -48,18 +51,13 @@ export default function BurgerIngridients({data}){
     }
   }
 
-  React.useEffect(() => {
-    setCategory({
-      bun: data.filter(el => el.type == 'bun'),
-      main: data.filter(el => el.type == 'main'),
-      sauce: data.filter(el => el.type == 'sauce')
+  const handleClick = useCallback((e) => {
+    const modalData = data.find(el => el._id == e.nativeEvent.path[2].id);
+    dispatch({
+      type: ADD_MODAL_INGRIDIENTS,
+      data: modalData
     })
-  }, [data]);
-
-  const handleClick = React.useCallback((e) => {
-    const handledElement = e.nativeEvent.path[2].id;
-    setIngridientModal(data.find(el => el._id == handledElement));
-    setIsModalOpen(true)
+    setIsModalOpen(true);
   });
 
   return (
@@ -68,31 +66,37 @@ export default function BurgerIngridients({data}){
         Соберите бургер
       </h2>
       <div className={styles.burgerIngridients__tabs}>
-        <Tab value="bun" active={tabs === 'bun'} onClick={handleClickTabs}>
+        <Tab value="bun" active={activeTab === 'bun'} onClick={handleClickTabs}>
           Булки
         </Tab>
-        <Tab value="sauce" active={tabs === 'sauce'} onClick={handleClickTabs}>
+        <Tab value="sauce" active={activeTab === 'sauce'} onClick={handleClickTabs}>
           Соусы
         </Tab>
-        <Tab value="main" active={tabs === 'main'} onClick={handleClickTabs}>
+        <Tab value="main" active={activeTab === 'main'} onClick={handleClickTabs}>
           Начинки
         </Tab>
       </div>
       <ul className={`${styles.burgerIngridients__list} mt-10`}>
         <Ingridients title={'Булки'} refCategory={bunsRef}>
-          { category.bun && category.bun.map(el => (
+          { data && data
+            .filter(el => el.type == 'bun') 
+            .map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
           }
         </Ingridients>
         <Ingridients title={'Соусы'} refCategory={sauceRef}>
-          { category.sauce && category.sauce.map(el => (
+          { data && data
+            .filter(el => el.type == 'sauce') 
+            .map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
           }
         </Ingridients>
         <Ingridients title={'Начинки'} refCategory={mainRef}>
-          { category.main && category.main.map(el => (
+          { data && data
+            .filter(el => el.type == 'main') 
+            .map(el => (
               <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
             ))
           }
@@ -101,15 +105,10 @@ export default function BurgerIngridients({data}){
 
       { isModalOpen && (
         <Modal title={'Детали ингридиента'} onClose={() => setIsModalOpen(false)}>
-          <IngridientDetails ingridient={ingridientModal}/>
+          <IngridientDetails />
         </Modal>
         ) 
       }
     </section>
   )
-}
-
-
-BurgerIngridients.propTypes = {
-  data: propTypes.arrayOf(ingredientType).isRequired
 }

@@ -1,0 +1,12 @@
+.main__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.main__drag {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  cursor: move;
+}

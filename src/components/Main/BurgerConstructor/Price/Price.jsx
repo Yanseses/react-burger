@@ -1,14 +1,14 @@
-import React from "react";
 import style from './price.module.css';
-import { IngridientsContext } from "../../../../context/ingridientsContext";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
 
 export default function Price(){
-  const { order } = React.useContext(IngridientsContext);
+  const orderPrice = useSelector(store => store.main.orderPrice);
+  const store = useSelector(store => store.main)
 
   return (
     <div className={`${style.price} mr-10`}>
-      <span className="text text_type_digits-medium mr-2">{order.price}</span>
+      <span className="text text_type_digits-medium mr-2">{orderPrice}</span>
       <CurrencyIcon type="primary" />
     </div>
   )
