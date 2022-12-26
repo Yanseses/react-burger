@@ -1,4 +1,4 @@
-import { getIngridients, confirmOrder } from '../api';
+import { request } from '../api';
 import { v4 as uuidv4 } from 'uuid';
 
 export const GET_INGRIDIENTS_REQUEST = 'GET_INGRIDIENTS_REQUEST';
@@ -21,7 +21,7 @@ export function getIngridientsData() {
     dispatch({
       type: GET_INGRIDIENTS_REQUEST
     });
-    getIngridients()
+    request('/ingredients')
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -44,8 +44,13 @@ export function approveOrderNumber(data){
     dispatch({
       type: ORDER_REQUEST
     });
-    confirmOrder(data)
-      .then(res => {
+    request('/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
         if (res && res.success) {
           dispatch({
             type: ORDER_SUCCESS,

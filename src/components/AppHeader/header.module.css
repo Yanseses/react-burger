@@ -2,10 +2,17 @@
   background-color: var(--background);
 }
 
-.headerContainer {
+.header__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   width: 1280px;
+}
+
+.header__navList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
 }

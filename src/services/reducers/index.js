@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { authStore } from './auth';
 import {
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_FAILED,
@@ -193,4 +194,5 @@ export const mainStore = (state = initialState, action) => {
 
 export const rootReducer = combineReducers({
   main: mainStore,
+  auth: authStore
 });

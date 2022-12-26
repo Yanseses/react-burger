@@ -1,18 +1,21 @@
-import React from "react";
 import propTypes from 'prop-types';
 import styles from './item.module.css';
+import { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
-export default function Item(props){
+export default function Item({text, Icon, link}){
+  const location = useLocation();
+
   return (
-    <div className={props.itemType == 'primary' ? `p-5 ${styles.item}` : `p-5 ${styles.item} ${styles.selected}`}>
-      {props.children}
-      <span className={`ml-2 text text_type_main-default`}>{props.text}</span>
-    </div>
-    )
+    <NavLink exact to={{ pathname: `${link}`}} className={styles.item} activeClassName={styles.item__active}>
+      <Icon type={location.pathname == link ? 'primary' : 'secondary'} />
+      <span className={`text text_type_main-default`}>{text}</span>
+    </NavLink>
+  )
 }
 
 Item.propTypes = {
-  children: propTypes.node,
-  itemType: propTypes.string.isRequired,
+  Icon: propTypes.elementType,
+  link: propTypes.string.isRequired,
   text: propTypes.string.isRequired
 }

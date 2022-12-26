@@ -1,10 +1,17 @@
 .item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 8px;
   border-radius: var(--common-border-radius-s);
+  padding: 16px 20px;
+  text-decoration: none;
+  color: var(--text-inactive-color);
 }
 
-.selected {
-  color: var(--text-inactive-color);
+.item:hover {
+  box-shadow: 0 0 1px 1px var(--colors-interface-accent);
+}
+
+.item__active {
+  color: var(--text-primary-color);
 }
