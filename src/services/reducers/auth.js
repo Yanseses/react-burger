@@ -1,20 +1,145 @@
 import {
-
+  GET_USER_REQUEST,
+  GET_USER_FAILED,
+  GET_USER_SUCCESS,
+  USER_AUTH_REQUEST,
+  USER_AUTH_FAILED,
+  USER_AUTH_SUCCESS,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_FAILED,
+  USER_LOGOUT_SUCCESS,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_FAILED,
+  USER_REGISTER_SUCCESS
 } from '../actions/auth';
 
 const initialState = {
+  registerRequest: false,
+  registerFailed: false,
+  logoutRequest: false,
+  logoutFailed: false,
+  authRequest: false,
+  authFailed: false,
+  userRequest: false,
+  userFailed: false,
+  user: {
+    name: '',
+    email: '',
+    password: ''
+  },
+  token: '',
   userAuthorized: false,
   dropPasswordRequest: false,
   dropPasswordFailed: false,
-  user: {
-    name: '',
-    email: ''
-  },
 };
 
 export const authStore = (state = initialState, action) => {
   switch (action.type) {
-
+    case USER_AUTH_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case USER_AUTH_FAILED: {
+      return {
+        ...state,
+        authFailed: true,
+        authRequest: false
+      }
+    }
+    case USER_AUTH_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        userAuthorized: true,
+        token: action.token,
+        user: {
+          ...state.user,
+          name: action.data.user.name,
+          email: action.data.user.email
+        }
+      }
+    }
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        userRequest: true
+      }
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        userFailed: true,
+        userRequest: false
+      }
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        userRequest: false,
+        userFailed: false,
+        userAuthorized: true,
+        user: {
+          ...state.user,
+          name: action.user.name,
+          email: action.user.email
+        }
+      }
+    }
+    case USER_LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequest: true
+      }
+    }
+    case USER_LOGOUT_FAILED: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutFailed: true
+      }
+    }
+    case USER_LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutRequest: false,
+        token: '',
+        user: {
+          name: '',
+          email: '',
+          password: ''
+        },
+        userAuthorized: false
+      }
+    }
+    case USER_REGISTER_REQUEST: {
+      return {
+        ...state,
+        registerRequest: true
+      }
+    }
+    case USER_REGISTER_FAILED: {
+      return {
+        ...state,
+        registerFailed: true,
+        registerRequest: false
+      }
+    }
+    case USER_REGISTER_SUCCESS: {
+      return {
+        ...state,
+        registerRequest: false,
+        userAuthorized: true,
+        token: action.token,
+        user: {
+          ...state.user,
+          name: action.data.user.name,
+          email: action.data.user.email
+        }
+      }
+    }
     default: {
       return state;
     }

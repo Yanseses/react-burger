@@ -1,10 +1,11 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { userRegister } from '../../services/actions/auth';
+import { getCookie } from '../../utils/cookie';
 
 export default function Register(){
   const dispatch = useDispatch();
@@ -14,10 +15,25 @@ export default function Register(){
     name: ''
   });
 
+  const onChange = e => {
+    setRegisterForm({
+      ...registerForm,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handleRegister = (e) => {
     e.preventDefault();
 
     dispatch(userRegister(registerForm))
+  }
+
+  if(getCookie('token') !== undefined){
+    return (
+      <Redirect to={{
+        pathname: '/'
+      }}/>
+    )
   }
 
   return (
@@ -26,15 +42,15 @@ export default function Register(){
         <Form title={'Регистрация'} onSubmit={handleRegister}>
           <Input
             value={registerForm.name}
-            onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
+            onChange={onChange}
             type={'text'}
             placeholder={'Имя'}
-            name={'login'}
+            name={'name'}
             size={'default'}
           />
           <EmailInput
             value={registerForm.email}
-            onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
+            onChange={onChange}
             placeholder={'E-mail'}
             name={'email'}
             isIcon={false}
@@ -42,7 +58,7 @@ export default function Register(){
           <PasswordInput 
             name={'password'} 
             value={registerForm.password}
-            onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
+            onChange={onChange}
           />
           <Button htmlType="submit" type="primary">Зарегистрироваться</Button>
         </Form>

@@ -15,17 +15,14 @@ export default function App() {
     <Router>
       <AppHeader />
       <Switch>
-        <Route path={'/'} exact>
-          <Constructor />
-        </Route>
         <Route path={'/login'} exact>
           <Login />
         </Route>
-        <Route path={'/forgot-password'} exact>
-          <ForgotPassword />
-        </Route>
         <Route path={'/profile'} exact>
           <Profile />
+        </Route>
+        <Route path={'/forgot-password'} exact>
+          <ForgotPassword />
         </Route>
         <Route path={'/register'} exact>
           <Register />
@@ -35,6 +32,9 @@ export default function App() {
         </Route>
         <Route path={'/ingridients/:id'} exact>
           <Ingridients />
+        </Route>
+        <Route path={'/'} exact>
+          <Constructor />
         </Route>
         <Route>
           <NotFound />

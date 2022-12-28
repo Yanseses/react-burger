@@ -13,6 +13,13 @@ export default function ResetPassword(){
     token: ''
   });
 
+  const onChange = e => {
+    setResetForm({
+      ...resetForm,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handleResetPassword = (e) => {
     e.preventDefault();
 
@@ -25,13 +32,13 @@ export default function ResetPassword(){
         <Form title={'Восстановление пароля'} onSubmit={handleResetPassword}>
           <PasswordInput
             value={resetForm.password}
-            onChange={(e) => setResetForm({ ...resetForm, password: e.target.value })}
+            onChange={onChange}
             placeholder={'Введите новый пароль'}
             name={'password'} 
           />
           <Input
             value={resetForm.token}
-            onChange={(e) => setResetForm({ ...resetForm, token: e.target.value })}
+            onChange={onChange}
             type={'text'}
             placeholder={'Введите код из письма'}
             name={'login'}

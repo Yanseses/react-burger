@@ -1,22 +1,42 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { userAuth } from '../../services/actions/auth';
+import { Link, useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userAuth, userRefreshToken } from '../../services/actions/auth';
+import { getCookie } from '../../utils/cookie';
 
 export default function Login(){
+  const history = useHistory();
   const dispatch = useDispatch();
+  const { userAuthorized } = useSelector(store => store.auth.userAuthorized);
   const [ loginForm, setLoginForm ] = useState({
     email: '',
     password: ''
   });
 
+  useEffect(() => {
+    if(!userAuthorized && getCookie('token') !== undefined){
+      dispatch(userRefreshToken())
+    }
+  }, []);
+
+  const onChange = e => {
+    setLoginForm({
+      ...loginForm,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handleLoginForm = (e) => {
     e.preventDefault();
 
-    dispatch(userAuth(loginForm))
+    dispatch(userAuth(loginForm));
+  }
+
+  if(getCookie('token') !== undefined){
+    history.goBack()
   }
 
   return (
@@ -25,22 +45,16 @@ export default function Login(){
         <Form title={'Вход'} onSubmit={handleLoginForm}>
           <EmailInput
             type={'text'}
-            onChange={(e) => setLoginForm({
-              ...loginForm,
-              email: e.target.value
-            })}
+            onChange={onChange}
             value={loginForm.email}
             placeholder={'E-mail'}
-            name={'login'}
+            name={'email'}
             size={'default'}
             />
           <PasswordInput 
             name={'password'} 
             value={loginForm.password} 
-            onChange={(e) => setLoginForm({
-              ...loginForm,
-              password: e.target.value
-            })}
+            onChange={onChange}
             />
           <Button htmlType="submit" type="primary">Войти</Button>
         </Form>

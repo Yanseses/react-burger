@@ -18,12 +18,11 @@ export default React.memo(function Header(){
           <Item text={'Лента заказов'} Icon={ListIcon} link={'/some-link'} />
         </nav>
         <Logo />
-        { userAuthorized ? (
-          <Item text={user.name} Icon={ProfileIcon} link={'/profile'} />
-          ) : (
-          <Item text={'Личный кабинет'} Icon={ProfileIcon} link={'/login'} />
-          )
-        }
+        <Item 
+          text={userAuthorized ? user.name : 'Личный кабинет'} 
+          Icon={ProfileIcon} 
+          link={userAuthorized ? '/profile' : '/login'} 
+        />
       </div>
     </header>
   )
