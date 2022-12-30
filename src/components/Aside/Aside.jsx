@@ -9,7 +9,7 @@ export function Aside(){
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(userLogout())
+    dispatch(userLogout());
     deleteCookie('token');
   }
 

@@ -13,10 +13,13 @@ export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_FAILED = 'USER_REGISTER_FAILED';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
+export const USER_PASSWORD_PATCH = 'USER_PASSWORD_PATCH';
+export const USER_RESET_PASSWORD_REQUEST = 'USER_RESET_PASSWORD_REQUEST';
+export const USER_RESET_PASSWORD_FAILED = 'USER_RESET_PASSWORD_FAILED';
+export const USER_RESET_PASSWORD_SUCCESS = 'USER_RESET_PASSWORD_SUCCESS';
 
 export function userForgotPassword(email) {
   return function(dispatch) {
-    // dispatch();
     request('/password-reset', {
       method: 'POST',
       cache: 'no-cache',
@@ -29,9 +32,10 @@ export function userForgotPassword(email) {
       body: JSON.stringify({email})
     }).then(res => {
         if (res && res.success) {
-          // dispatch();
+          dispatch({
+            type: USER_PASSWORD_PATCH
+          });
         } else {
-          // dispatch();
           return Promise.reject(`Ошибка ${res.status}`)
         }
       }).catch(err => console.log(err))
@@ -40,7 +44,9 @@ export function userForgotPassword(email) {
 
 export function userResetPassword(resetData) {
   return function(dispatch) {
-    // dispatch();
+    dispatch({
+      type: USER_RESET_PASSWORD_REQUEST
+    });
     request('/password-reset/reset', {
       method: 'POST',
       cache: 'no-cache',
@@ -53,9 +59,13 @@ export function userResetPassword(resetData) {
       body: JSON.stringify(resetData)
     }).then(res => {
         if (res && res.success) {
-          // dispatch();
+          dispatch({
+            type: USER_RESET_PASSWORD_SUCCESS
+          });
         } else {
-          // dispatch();
+          dispatch({
+            type: USER_RESET_PASSWORD_FAILED
+          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
       }).catch(err => console.log(err))

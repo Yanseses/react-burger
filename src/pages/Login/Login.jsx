@@ -1,26 +1,19 @@
-import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuth, userRefreshToken } from '../../services/actions/auth';
-import { getCookie } from '../../utils/cookie';
+import { userAuth } from '../../services/actions/auth';
 
 export default function Login(){
   const history = useHistory();
   const dispatch = useDispatch();
-  const { userAuthorized } = useSelector(store => store.auth.userAuthorized);
+  const userAuthorized = useSelector(store => store.auth.userAuthorized);
   const [ loginForm, setLoginForm ] = useState({
     email: '',
     password: ''
   });
-
-  useEffect(() => {
-    if(!userAuthorized && getCookie('token') !== undefined){
-      dispatch(userRefreshToken())
-    }
-  }, []);
 
   const onChange = e => {
     setLoginForm({
@@ -35,8 +28,8 @@ export default function Login(){
     dispatch(userAuth(loginForm));
   }
 
-  if(getCookie('token') !== undefined){
-    history.goBack()
+  if(userAuthorized){
+    history.goBack();
   }
 
   return (

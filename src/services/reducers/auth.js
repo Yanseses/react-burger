@@ -10,7 +10,11 @@ import {
   USER_LOGOUT_SUCCESS,
   USER_REGISTER_REQUEST,
   USER_REGISTER_FAILED,
-  USER_REGISTER_SUCCESS
+  USER_REGISTER_SUCCESS,
+  USER_PASSWORD_PATCH,
+  USER_RESET_PASSWORD_REQUEST,
+  USER_RESET_PASSWORD_FAILED,
+  USER_RESET_PASSWORD_SUCCESS
 } from '../actions/auth';
 
 const initialState = {
@@ -29,6 +33,8 @@ const initialState = {
   },
   token: '',
   userAuthorized: false,
+  userPasswordPatch: false,
+  userWriteEmail: false,
   dropPasswordRequest: false,
   dropPasswordFailed: false,
 };
@@ -138,6 +144,32 @@ export const authStore = (state = initialState, action) => {
           name: action.data.user.name,
           email: action.data.user.email
         }
+      }
+    }
+    case USER_PASSWORD_PATCH: {
+      return {
+        ...state,
+        userPasswordPatch: true
+      }
+    }
+    case USER_RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        dropPasswordRequest: true
+      }
+    }
+    case USER_RESET_PASSWORD_FAILED: {
+      return {
+        ...state,
+        dropPasswordRequest: false,
+        dropPasswordFailed: true
+      }
+    }
+    case USER_RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        userPasswordPatch: false,
+        dropPasswordRequest: false
       }
     }
     default: {

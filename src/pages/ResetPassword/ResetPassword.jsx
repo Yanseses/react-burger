@@ -1,13 +1,15 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userResetPassword } from '../../services/actions/auth';
+import { getCookie } from '../../utils/cookie';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
+  const userPasswordPatch = useSelector(store => store.auth.userPasswordPatch);
   const [ resetForm, setResetForm ] = useState({
     password: '',
     token: ''
@@ -26,6 +28,21 @@ export default function ResetPassword(){
     dispatch(userResetPassword(resetForm));
   }
 
+  // Cделать незащищенный роутер и убрать костыли
+  if(getCookie('token')){
+    return (
+      <Redirect to='/' />
+    )
+  }
+
+  if(!userPasswordPatch){
+    return (
+      <Redirect to={{
+        pathname: '/forgot-password'
+      }}/>
+    )
+  }
+
   return (
     <main className={styles.resetPassword}>
       <section className={styles.resetPassword__section}>
@@ -41,7 +58,7 @@ export default function ResetPassword(){
             onChange={onChange}
             type={'text'}
             placeholder={'Введите код из письма'}
-            name={'login'}
+            name={'token'}
             errorText={'Ошибка'}
             size={'default'}
           />

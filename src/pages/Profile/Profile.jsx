@@ -1,18 +1,13 @@
 import { Input, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile.module.css';
 import { Form } from '../../components/Form/Form';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Aside } from '../../components/Aside/Aside';
-import { changeUserData, getUserData } from '../../services/actions/auth';
-import { Redirect } from 'react-router-dom';
+import { changeUserData } from '../../services/actions/auth';
 
 export default function Profile(){
-  const { user, userAuthorized } = useSelector(store => ({
-    token: store.auth.token,
-    user: store.auth.user,
-    userAuthorized: store.auth.userAuthorized
-  }));
+  const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const nameInputRef = useRef(null);
   const [ disabledNameInput, setDisabledNameInput ] = useState(true)
@@ -34,14 +29,6 @@ export default function Profile(){
     setDisabledNameInput(!disabledNameInput);
 
     dispatch(changeUserData(profile));
-  }
-
-  if(!userAuthorized){
-    return (
-      <Redirect to={{
-        pathname: '/login'
-      }}/>
-    )
   }
 
   return (
