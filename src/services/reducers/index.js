@@ -97,7 +97,8 @@ export const mainStore = (state = initialState, action) => {
             element.__v = 0
           }
           return element
-        })
+        }),
+        orderPrice: 0
       }
     }
     case ORDER_SUCCESS: {

@@ -1,3 +1,4 @@
+import { getCookie } from '../../utils/cookie';
 import { request } from '../api';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -38,7 +39,7 @@ export function getIngridientsData() {
       .catch(err => console.log(err))
     }
   }
-
+  
 export function approveOrderNumber(data){
   return function(dispatch) {
     dispatch({
@@ -46,8 +47,13 @@ export function approveOrderNumber(data){
     });
     request('/orders', {
       method: 'POST',
+      cache: 'no-cache',
+      mode: 'cors',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: 'Bearer ' + getCookie('accessToken')
       },
       body: JSON.stringify(data)
     }).then(res => {

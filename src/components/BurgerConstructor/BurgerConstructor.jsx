@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { approveOrderNumber, ORDER_CHANGE_PRICE } from "../../services/actions";
 import ConstructorBuns from './ConstructorBuns/ConstructorBuns';
 import ConstructorMain from './ConstructorMain/ConstructorMain';
+import { useHistory } from 'react-router-dom';
 
 export default function BurgerConstructor(){
   const dispatch = useDispatch();
+  const history = useHistory();
   const [ isModalOpen, setIsModalOpen ] = useState(false)
-  const { order, orderNumber } = useSelector(store => ({
+  const { order, orderNumber, userAuthorized } = useSelector(store => ({
     order: store.main.order,
-    orderNumber: store.main.orderNumber
+    orderNumber: store.main.orderNumber,
+    userAuthorized: store.auth.userAuthorized
   }));
 
   useEffect(() => {
@@ -26,13 +29,19 @@ export default function BurgerConstructor(){
   }, [order.main, order.buns]);
 
   const approveOrder = () => {
-    if(order.buns !== null && order.main.length){
-      const orderMain = order.main
-        ? [order.buns._id, ...order.main.map(el => el._id), order.buns._id]
-        : [order.buns._id, order.buns._id];
-
-      dispatch(approveOrderNumber({ ingredients: orderMain }));
-      setIsModalOpen(true)
+    if(userAuthorized){
+      if(order.buns !== null && order.main.length){
+        const orderMain = order.main
+          ? [order.buns._id, ...order.main.map(el => el._id), order.buns._id]
+          : [order.buns._id, order.buns._id];
+  
+        dispatch(approveOrderNumber({ ingredients: orderMain }));
+        setIsModalOpen(true)
+      }
+    } else {
+      history.push({
+        pathname: '/login'
+      })
     }
   }
 
