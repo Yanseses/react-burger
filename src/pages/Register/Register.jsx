@@ -28,14 +28,6 @@ export default function Register(){
     dispatch(userRegister(registerForm))
   }
 
-  if(getCookie('token') !== undefined){
-    return (
-      <Redirect to={{
-        pathname: '/'
-      }}/>
-    )
-  }
-
   return (
     <main className={styles.register}>
       <section className={styles.register__section}>

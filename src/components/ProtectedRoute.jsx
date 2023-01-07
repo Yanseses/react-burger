@@ -1,22 +1,34 @@
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { getCookie } from '../utils/cookie';
 
 export function ProtectedRoute({ children, ...rest }) {
-  const userAuthorized = useSelector(state => state.auth.userAuthorized);
-
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        userAuthorized 
-        ? ( children )
-        : ( <Redirect
-            to={{
+        getCookie('refreshToken')
+        ? location.pathname == '/login'
+          || location.pathname == '/register' 
+          || location.pathname == '/forgot-password' 
+          || location.pathname == '/reset-password' 
+            ? ( <Redirect to={{
+                  pathname: '/profile',
+                  state: { from: location }
+                  }} 
+                /> 
+              )
+            : ( children )
+        : location.pathname == '/login'
+          || location.pathname == '/register' 
+          || location.pathname == '/forgot-password' 
+          || location.pathname == '/reset-password'
+          ? ( children )
+          : ( 
+            <Redirect to={{
               pathname: '/login',
               state: { from: location }
-            }}
-          />
-        )
+            }}/>
+          )
       }
     />
   );

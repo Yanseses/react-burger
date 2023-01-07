@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
-import { deleteCookie } from '../../utils/cookie';
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../services/actions/auth';
 
@@ -10,7 +9,6 @@ export function Aside(){
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(userLogout());
-    deleteCookie('token');
   }
 
   return (
@@ -23,11 +21,11 @@ export function Aside(){
             Профиль
         </NavLink>
         <NavLink 
-          to={'/history'}
+          to={'/profile/orders'}
           className={styles.aside__link}
           activeClassName={styles.aside__linkActive}>
             История заказов
-        </NavLink> 
+        </NavLink>
         <a className={styles.aside__linkLogout} onClick={handleLogout}>
           Выход
         </a>

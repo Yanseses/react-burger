@@ -7,8 +7,9 @@ import Ingridients from "./Ingridients/Ingridients";
 import Modal from "../modal/Modal";
 import IngridientDetails from "../modal/IngredientDetails/IngredientDetails";
 import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
-import { getIngridientsData, TAB_SWITCH } from '../../services/actions/index';
+import { TAB_SWITCH } from '../../services/actions/index';
 import { ADD_MODAL_INGRIDIENTS} from "../../services/actions/index";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BurgerIngridients(){
   const dispatch = useDispatch();
@@ -20,10 +21,6 @@ export default function BurgerIngridients(){
     activeTab: store.main.activeTab,
     data: store.main.ingridients,
   }));
-
-  useEffect(() => {
-    dispatch(getIngridientsData())
-  }, [dispatch]);
 
   useEffect(() => {
     if(inWiewBuns){
@@ -58,7 +55,7 @@ export default function BurgerIngridients(){
       data: modalData
     })
     setIsModalOpen(true);
-  });
+  }); 
 
   return (
     <section className="pt-10 text text_type_main-default">
@@ -81,7 +78,14 @@ export default function BurgerIngridients(){
           { data && data
             .filter(el => el.type == 'bun') 
             .map(el => (
-              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+              // <Link 
+              //   key={el._id} 
+              //   to={{
+              //     pathname: `/ingridients/${el._id}`,
+              //     state: { location }
+              //   }}>
+                <IngridientsItem {...el} key={el._id}  onClick={handleClick}/>
+              // </Link>
             ))
           }
         </Ingridients>

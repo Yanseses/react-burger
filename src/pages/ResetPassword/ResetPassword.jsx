@@ -1,7 +1,7 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userResetPassword } from '../../services/actions/auth';
@@ -26,13 +26,6 @@ export default function ResetPassword(){
     e.preventDefault();
 
     dispatch(userResetPassword(resetForm));
-  }
-
-  // Cделать незащищенный роутер и убрать костыли
-  if(getCookie('token')){
-    return (
-      <Redirect to='/' />
-    )
   }
 
   if(!userPasswordPatch){

@@ -26,13 +26,12 @@ export default function BurgerConstructor(){
   }, [order.main, order.buns]);
 
   const approveOrder = () => {
-    if(order.buns !== null){
+    if(order.buns !== null && order.main.length){
       const orderMain = order.main
         ? [order.buns._id, ...order.main.map(el => el._id), order.buns._id]
         : [order.buns._id, order.buns._id];
-      const ingredients = { ingredients: orderMain };
 
-      dispatch(approveOrderNumber(ingredients));
+      dispatch(approveOrderNumber({ ingredients: orderMain }));
       setIsModalOpen(true)
     }
   }
@@ -48,7 +47,7 @@ export default function BurgerConstructor(){
         <Price />
         <Button 
           htmlType="button" 
-          type="primary" 
+          type='primary' 
           size="large"
           onClick={approveOrder}
         >

@@ -1,17 +1,27 @@
 import { Input, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile.module.css';
 import { Form } from '../../components/Form/Form';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Aside } from '../../components/Aside/Aside';
 import { changeUserData } from '../../services/actions/auth';
+import { Redirect } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 export default function Profile(){
   const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const nameInputRef = useRef(null);
-  const [ disabledNameInput, setDisabledNameInput ] = useState(true)
-  const [ profile, setProfile ] = useState(user);
+  const [ disabledNameInput, setDisabledNameInput ] = useState(true);
+  const [ profile, setProfile ] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  useEffect(() => {
+    setProfile(user)
+  }, [user])
 
   const onChange = e => {
     setProfile({
@@ -26,9 +36,17 @@ export default function Profile(){
   }
 
   const handleFucusInput = e => {
-    setDisabledNameInput(!disabledNameInput);
+    if(e.target.name == 'name'){
+      setDisabledNameInput(!disabledNameInput);
+    }
 
     dispatch(changeUserData(profile));
+  }
+
+  if(!getCookie('refreshToken')){
+    return (
+      <Redirect to={'/login'}/>
+    )
   }
 
   return (
@@ -52,6 +70,7 @@ export default function Profile(){
           />
           <EmailInput
             onChange={onChange}
+            onBlur={handleFucusInput}
             value={profile.email}
             name={'email'}
             placeholder="Логин"
@@ -59,6 +78,7 @@ export default function Profile(){
           />
           <PasswordInput
             onChange={onChange}
+            onBlur={handleFucusInput}
             value={profile.password}
             name={'password'}
             icon="EditIcon"

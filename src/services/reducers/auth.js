@@ -1,4 +1,7 @@
 import {
+  CHANGE_USER_REQUEST,
+  CHANGE_USER_SUCCESS,
+  CHANGE_USER_FAILED,
   GET_USER_REQUEST,
   GET_USER_FAILED,
   GET_USER_SUCCESS,
@@ -18,6 +21,8 @@ import {
 } from '../actions/auth';
 
 const initialState = {
+  changeUserRequest: false,
+  changeUserFailed: false,
   registerRequest: false,
   registerFailed: false,
   logoutRequest: false,
@@ -31,7 +36,6 @@ const initialState = {
     email: '',
     password: ''
   },
-  token: '',
   userAuthorized: false,
   userPasswordPatch: false,
   userWriteEmail: false,
@@ -60,11 +64,10 @@ export const authStore = (state = initialState, action) => {
         authRequest: false,
         authFailed: false,
         userAuthorized: true,
-        token: action.token,
         user: {
           ...state.user,
-          name: action.data.user.name,
-          email: action.data.user.email
+          name: action.user.name,
+          email: action.user.email
         }
       }
     }
@@ -111,13 +114,12 @@ export const authStore = (state = initialState, action) => {
       return {
         ...state,
         logoutRequest: false,
-        token: '',
+        userAuthorized: false,
         user: {
           name: '',
           email: '',
           password: ''
-        },
-        userAuthorized: false
+        }
       }
     }
     case USER_REGISTER_REQUEST: {
@@ -138,11 +140,10 @@ export const authStore = (state = initialState, action) => {
         ...state,
         registerRequest: false,
         userAuthorized: true,
-        token: action.token,
         user: {
           ...state.user,
-          name: action.data.user.name,
-          email: action.data.user.email
+          name: action.user.name,
+          email: action.user.email
         }
       }
     }
@@ -170,6 +171,31 @@ export const authStore = (state = initialState, action) => {
         ...state,
         userPasswordPatch: false,
         dropPasswordRequest: false
+      }
+    }
+    case CHANGE_USER_REQUEST: {
+      return {
+        ...state,
+        changeUserRequest: true
+      }
+    }
+    case CHANGE_USER_SUCCESS: {
+      return {
+        ...state,
+        changeUserRequest: false,
+        changeUserFailed: false,
+        user: {
+          ...state.user,
+          email: action.user.email,
+          name: action.user.name
+        }
+      }
+    }
+    case CHANGE_USER_FAILED: {
+      return {
+        ...state,
+        changeUserRequest: false,
+        changeUserFailed: true
       }
     }
     default: {

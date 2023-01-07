@@ -4,20 +4,26 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { ADD_MODAL_INGRIDIENTS } from '../../services/actions';
+import NotFound from '../NotFound/NotFound';
 
 export default function Ingridients(){
-  // const dispatch = useDispatch();
-  // const ingridients = useSelector(store => store.main.ingridients);
-  // const { id } = useParams();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const ingridients = useSelector(store => store.main.ingridients);
+  const data = ingridients.length > 0 ? ingridients.find(el => el._id === id) : {};
 
-  // useEffect(() => {
-  //   const modalData = ingridients.find(el => console.log(el));
-  //   dispatch({
-  //     type: ADD_MODAL_INGRIDIENTS,
-  //     data: modalData
-  //   })
-  // }, [])
+  useEffect(() => {
+    dispatch({
+      type: ADD_MODAL_INGRIDIENTS,
+      data
+    })
+  }, [data]);
   
+  if(!data){
+    return (
+      <NotFound />
+    )
+  }
 
   return (
     <main className={styles.ingridients}>

@@ -2,8 +2,8 @@ import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-comp
 import styles from './forgotPassword.module.css';
 import { userForgotPassword } from '../../services/actions/auth';
 import { Form } from '../../components/Form/Form';
-import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
 
@@ -16,12 +16,6 @@ export default function ForgotPassword(){
     e.preventDefault()
 
     dispatch(userForgotPassword(emailForm));
-  }
-
-  if(getCookie('token')){
-    return (
-      <Redirect to='/' />
-    )
   }
 
   if(userPasswordPatch){
