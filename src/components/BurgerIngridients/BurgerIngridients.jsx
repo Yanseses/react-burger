@@ -12,6 +12,7 @@ import { ADD_MODAL_INGRIDIENTS} from "../../services/actions/index";
 import { Link, useLocation } from "react-router-dom";
 
 export default function BurgerIngridients(){
+  const location = useLocation();
   const dispatch = useDispatch();
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
@@ -48,14 +49,14 @@ export default function BurgerIngridients(){
     }
   }
 
-  const handleClick = useCallback((e) => {
-    const modalData = data.find(el => el._id == e.nativeEvent.path[2].id);
-    dispatch({
-      type: ADD_MODAL_INGRIDIENTS,
-      data: modalData
-    })
-    setIsModalOpen(true);
-  }); 
+  // const handleClick = useCallback((e) => {
+  //   const modalData = data.find(el => el._id == e.nativeEvent.path[2].id);
+  //   dispatch({
+  //     type: ADD_MODAL_INGRIDIENTS,
+  //     data: modalData
+  //   })
+  //   setIsModalOpen(true);
+  // }); 
 
   return (
     <section className="pt-10 text text_type_main-default">
@@ -78,14 +79,15 @@ export default function BurgerIngridients(){
           { data && data
             .filter(el => el.type == 'bun') 
             .map(el => (
-              // <Link 
-              //   key={el._id} 
-              //   to={{
-              //     pathname: `/ingridients/${el._id}`,
-              //     state: { location }
-              //   }}>
-                <IngridientsItem {...el} key={el._id}  onClick={handleClick}/>
-              // </Link>
+              <Link 
+                key={el._id} 
+                className={styles.burgerIngridients__link}
+                to={{
+                  pathname: `/ingridients/${el._id}`,
+                  state: { modal: location }
+                }}>
+                <IngridientsItem {...el}/>
+              </Link>
             ))
           }
         </Ingridients>
@@ -93,7 +95,15 @@ export default function BurgerIngridients(){
           { data && data
             .filter(el => el.type == 'sauce') 
             .map(el => (
-              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+              <Link 
+                key={el._id} 
+                className={styles.burgerIngridients__link}
+                to={{
+                  pathname: `/ingridients/${el._id}`,
+                  state: { modal: location }
+                }}>
+                <IngridientsItem {...el}/>
+              </Link>
             ))
           }
         </Ingridients>
@@ -101,18 +111,26 @@ export default function BurgerIngridients(){
           { data && data
             .filter(el => el.type == 'main') 
             .map(el => (
-              <IngridientsItem {...el} key={el._id} onClick={handleClick}/>
+              <Link 
+                key={el._id} 
+                className={styles.burgerIngridients__link}
+                to={{
+                  pathname: `/ingridients/${el._id}`,
+                  state: { modal: location }
+                }}>
+                <IngridientsItem {...el} />
+              </Link>
             ))
           }
         </Ingridients>
       </ul>
 
-      { isModalOpen && (
+      {/* { isModalOpen && (
         <Modal title={'Детали ингридиента'} onClose={() => setIsModalOpen(false)}>
           <IngridientDetails />
         </Modal>
         ) 
-      }
+      } */}
     </section>
   )
 }

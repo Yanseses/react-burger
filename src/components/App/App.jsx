@@ -1,5 +1,5 @@
-import AppHeader from './components/AppHeader/Header.jsx';
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
+import AppHeader from '../AppHeader/Header.jsx';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { 
   NotFound, 
   Register, 
@@ -8,16 +8,21 @@ import {
   ForgotPassword, 
   Login, 
   Constructor, 
-  Ingridients } from './pages';
-import { ProtectedRoute } from './components/ProtectedRoute.jsx';
+  Ingridients } from '../../pages/index.js';
+import { ProtectedRoute } from '../ProtectedRoute.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getIngridientsData } from './services/actions/index.js';
-import { getCookie } from './utils/cookie.js';
-import { getUserData } from './services/actions/auth.js';
+import { getIngridientsData } from '../../services/actions/index.js';
+import { getCookie } from '../../utils/cookie.js';
+import { getUserData } from '../../services/actions/auth.js';
+import Modal from '../modal/Modal.jsx';
+import IngridientDetails from '../modal/IngredientDetails/IngredientDetails.jsx';
 
 export default function App() {
+  const history = useHistory();
+  const location = useLocation()
   const dispatch = useDispatch();
+  const modal = location.state?.modal;
 
   useEffect(() => {
     if(getCookie('accessToken')){
@@ -27,9 +32,9 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <AppHeader />
-      <Switch>
+      <Switch location={modal || location}>
         <ProtectedRoute path={'/login'} exact={true}>
           <Login />
         </ProtectedRoute>
@@ -58,6 +63,14 @@ export default function App() {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
+
+      {modal && (
+        <Route path={'/ingridients/:id'}>
+          <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
+            <IngridientDetails />
+          </Modal>
+        </Route>
+      )}
+    </>
   );
 }
