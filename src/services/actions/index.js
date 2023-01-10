@@ -1,4 +1,5 @@
-import { getIngridients, confirmOrder } from '../api';
+import { getCookie } from '../../utils/cookie';
+import { request } from '../api';
 import { v4 as uuidv4 } from 'uuid';
 
 export const GET_INGRIDIENTS_REQUEST = 'GET_INGRIDIENTS_REQUEST';
@@ -21,7 +22,7 @@ export function getIngridientsData() {
     dispatch({
       type: GET_INGRIDIENTS_REQUEST
     });
-    getIngridients()
+    request('/ingredients')
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -29,23 +30,35 @@ export function getIngridientsData() {
             ingridients: res.data
           });
         } else {
-          dispatch({
-            type: GET_INGRIDIENTS_FAILED
-          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        dispatch({
+          type: GET_INGRIDIENTS_FAILED
+        });
+      })
     }
   }
-
+  
 export function approveOrderNumber(data){
   return function(dispatch) {
     dispatch({
       type: ORDER_REQUEST
     });
-    confirmOrder(data)
-      .then(res => {
+    request('/orders', {
+      method: 'POST',
+      cache: 'no-cache',
+      mode: 'cors',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: 'Bearer ' + getCookie('accessToken')
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
         if (res && res.success) {
           dispatch({
             type: ORDER_SUCCESS,
@@ -55,13 +68,15 @@ export function approveOrderNumber(data){
             type: ORDER_CLEAR
           })
         } else {
-          dispatch({
-            type: ORDER_FAILED
-          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        dispatch({
+          type: ORDER_FAILED
+        });
+      })
     }
   }
 

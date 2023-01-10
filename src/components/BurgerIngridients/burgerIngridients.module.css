@@ -1,0 +1,29 @@
+.burgerIngridients__list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+  height: 60vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.burgerIngridients__link {
+  text-decoration: none;
+  color: var(--text-primary-color);
+}
+
+.burgerIngridients__tabs {
+  display: flex;
+}
+
+.burgerIngridients__list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.burgerIngridients__list::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.burgerIngridients__list::-webkit-scrollbar-track {
+  background: #2F2F37;
+}

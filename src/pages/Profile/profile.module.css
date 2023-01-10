@@ -1,0 +1,13 @@
+.profile {
+  height: 85vh;
+  width: 1260px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px auto;
+  column-gap: 60px;
+}
+
+.profile__section {
+  display: flex;
+  padding-top: 120px;
+}

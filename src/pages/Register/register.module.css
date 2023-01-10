@@ -1,0 +1,19 @@
+.register {
+  height: 85vh;
+  display: flex;
+}
+
+.register__section {
+  margin: auto;
+}
+
+.register__textContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+}
+
+.register__textLine {
+  margin: 0;
+}
