@@ -30,13 +30,15 @@ export function getIngridientsData() {
             ingridients: res.data
           });
         } else {
-          dispatch({
-            type: GET_INGRIDIENTS_FAILED
-          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        dispatch({
+          type: GET_INGRIDIENTS_FAILED
+        });
+      })
     }
   }
   
@@ -66,13 +68,15 @@ export function approveOrderNumber(data){
             type: ORDER_CLEAR
           })
         } else {
-          dispatch({
-            type: ORDER_FAILED
-          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        dispatch({
+          type: ORDER_FAILED
+        });
+      })
     }
   }
 

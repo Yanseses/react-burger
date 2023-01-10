@@ -45,12 +45,14 @@ export function userRegister(registerData) {
           user: res.user
         });
       } else {
-        dispatch({
-          type: USER_REGISTER_FAILED
-        });
         return Promise.reject(`Ошибка ${res.status}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: USER_REGISTER_FAILED
+      });
+    })
   }
 }
 
@@ -78,12 +80,14 @@ export function userAuth(authData) {
           user: res.user
         });
       } else {
-        dispatch({
-          type: USER_AUTH_FAILED
-        });
         return Promise.reject(`Ошибка ${res.status}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: USER_AUTH_FAILED
+      });
+    })
   }
 }
 
@@ -109,15 +113,15 @@ export function getUserData() {
             user: res.user
           });
         } else {
-          dispatch({
-            type: GET_USER_FAILED
-          });
           return Promise.reject(`Ошибка ${res.status}`)
         }
     }).catch(err => {
       console.log(err)
       deleteCookie('accessToken');
       deleteCookie('refreshToken');
+      dispatch({
+        type: GET_USER_FAILED
+      });
       dispatch(userRefreshToken());
     })
   }
@@ -170,12 +174,14 @@ export function changeUserData(userData) {
           user: res.user
         });
       } else {
-        dispatch({
-          type: CHANGE_USER_FAILED
-        });
         return Promise.reject(`Ошибка ${res.status}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: CHANGE_USER_FAILED
+      });
+    })
   }
 }
 
@@ -202,12 +208,14 @@ export function userLogout() {
           type: USER_LOGOUT_SUCCESS
         });
       } else {
-        dispatch({
-          type: USER_LOGOUT_FAILED
-        });
         return Promise.reject(`Ошибка ${res.status}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: USER_LOGOUT_FAILED
+      });
+    })
   }
 }
 
@@ -256,11 +264,13 @@ export function userResetPassword(resetData) {
           type: USER_RESET_PASSWORD_SUCCESS
         });
       } else {
-        dispatch({
-          type: USER_RESET_PASSWORD_FAILED
-        });
         return Promise.reject(`Ошибка ${res.status}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: USER_RESET_PASSWORD_FAILED
+      });
+    })
   }
 }

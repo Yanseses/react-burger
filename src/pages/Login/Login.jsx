@@ -1,31 +1,24 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuth } from '../../services/actions/auth';
+import { useForm } from '../../hooks/useForm';
 
 export default function Login(){
   const history = useHistory();
   const dispatch = useDispatch();
   const userAuthorized = useSelector(store => store.auth.userAuthorized);
-  const [ loginForm, setLoginForm ] = useState({
+  const { values, handleChange } = useForm({
     email: '',
     password: ''
   });
 
-  const onChange = e => {
-    setLoginForm({
-      ...loginForm,
-      [e.target.name]: e.target.value
-    })
-  }
-
   const handleLoginForm = (e) => {
     e.preventDefault();
 
-    dispatch(userAuth(loginForm));
+    dispatch(userAuth(values));
   }
 
   if(userAuthorized){
@@ -38,16 +31,16 @@ export default function Login(){
         <Form title={'Вход'} onSubmit={handleLoginForm}>
           <EmailInput
             type={'text'}
-            onChange={onChange}
-            value={loginForm.email}
+            onChange={handleChange}
+            value={values.email}
             placeholder={'E-mail'}
             name={'email'}
             size={'default'}
             />
           <PasswordInput 
             name={'password'} 
-            value={loginForm.password} 
-            onChange={onChange}
+            value={values.password} 
+            onChange={handleChange}
             />
           <Button htmlType="submit" type="primary">Войти</Button>
         </Form>

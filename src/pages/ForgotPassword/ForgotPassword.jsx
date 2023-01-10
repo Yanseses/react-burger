@@ -2,20 +2,21 @@ import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-comp
 import styles from './forgotPassword.module.css';
 import { userForgotPassword } from '../../services/actions/auth';
 import { Form } from '../../components/Form/Form';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from '../../utils/cookie';
+import { useForm } from '../../hooks/useForm';
 
 export default function ForgotPassword(){
   const dispatch = useDispatch();
   const userPasswordPatch = useSelector(state => state.auth.userPasswordPatch)
-  const [ emailForm, setEmailForm ] = useState('');
+  const { values, handleChange } = useForm({
+    email: ''
+  });
 
   const handleForm = (e) => {
     e.preventDefault()
 
-    dispatch(userForgotPassword(emailForm));
+    dispatch(userForgotPassword(values.email));
   }
 
   if(userPasswordPatch){
@@ -30,8 +31,8 @@ export default function ForgotPassword(){
         <Form title={'Восстановление пароля'} onSubmit={handleForm}>
           <EmailInput
             name={'email'}
-            value={emailForm}
-            onChange={(e) => setEmailForm(e.target.value)}
+            value={values.email}
+            onChange={handleChange}
             placeholder="Укажите Email"
             isIcon={false}
           />

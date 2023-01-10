@@ -1,31 +1,23 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { userRegister } from '../../services/actions/auth';
-import { getCookie } from '../../utils/cookie';
+import { useForm } from '../../hooks/useForm';
 
 export default function Register(){
   const dispatch = useDispatch();
-  const [ registerForm, setRegisterForm ] = useState({
+  const { values, handleChange } = useForm({
     email: '',
     password: '',
     name: ''
-  });
-
-  const onChange = e => {
-    setRegisterForm({
-      ...registerForm,
-      [e.target.name]: e.target.value
-    })
-  }
+  })
 
   const handleRegister = (e) => {
     e.preventDefault();
 
-    dispatch(userRegister(registerForm))
+    dispatch(userRegister(values))
   }
 
   return (
@@ -33,24 +25,24 @@ export default function Register(){
       <section className={styles.register__section}>
         <Form title={'Регистрация'} onSubmit={handleRegister}>
           <Input
-            value={registerForm.name}
-            onChange={onChange}
+            value={values.name}
+            onChange={handleChange}
             type={'text'}
             placeholder={'Имя'}
             name={'name'}
             size={'default'}
           />
           <EmailInput
-            value={registerForm.email}
-            onChange={onChange}
+            value={values.email}
+            onChange={handleChange}
             placeholder={'E-mail'}
             name={'email'}
             isIcon={false}
           />
           <PasswordInput 
             name={'password'} 
-            value={registerForm.password}
-            onChange={onChange}
+            value={values.password}
+            onChange={handleChange}
           />
           <Button htmlType="submit" type="primary">Зарегистрироваться</Button>
         </Form>

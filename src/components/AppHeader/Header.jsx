@@ -3,6 +3,7 @@ import styles from './header.module.css';
 import { Logo, ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../Item/Item";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default memo(function Header(){
   const { userAuthorized, userName } = useSelector(store => ({
@@ -18,7 +19,9 @@ export default memo(function Header(){
             <Item text={'Конструктор'} Icon={BurgerIcon} link={'/'} />
             <Item text={'Лента заказов'} Icon={ListIcon} link={'/some-link'} />
           </nav>
-          <Logo />
+          <Link to={'/'}>
+            <Logo />
+          </Link>
         </div>
         <Item 
           text={userAuthorized ? userName : 'Личный кабинет'} 

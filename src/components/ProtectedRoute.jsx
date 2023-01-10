@@ -1,35 +1,30 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
 
-export function ProtectedRoute({ children, ...rest }) {
+export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
+  const isAuthorized = getCookie('refreshToken');
+  const location = useLocation();
+
+  if (!onlyForAuth && isAuthorized) {
+    const { from } = location.state || { from: { pathname: "/" } };
+    return (
+      <Route {...rest}>
+        <Redirect to={from} />
+      </Route>
+    );
+  }
+
+  if (onlyForAuth && !isAuthorized) {
+    return (
+      <Route {...rest}>
+        <Redirect to={{ pathname: "/login", state: { from: location } }} />
+      </Route>
+    );
+  }
+
   return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        getCookie('refreshToken')
-        ? location.pathname == '/login'
-          || location.pathname == '/register' 
-          || location.pathname == '/forgot-password' 
-          || location.pathname == '/reset-password' 
-            ? ( <Redirect to={{
-                  pathname: '/profile',
-                  state: { from: location }
-                  }} 
-                /> 
-              )
-            : ( children )
-        : location.pathname == '/login'
-          || location.pathname == '/register' 
-          || location.pathname == '/forgot-password' 
-          || location.pathname == '/reset-password'
-          ? ( children )
-          : ( 
-            <Redirect to={{
-              pathname: '/login',
-              state: { from: location }
-            }}/>
-          )
-      }
-    />
+    <Route {...rest}>
+      {children}
+    </Route>
   );
-}
+};

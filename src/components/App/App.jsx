@@ -35,22 +35,22 @@ export default function App() {
     <>
       <AppHeader />
       <Switch location={modal || location}>
-        <ProtectedRoute path={'/login'} exact={true}>
+        <ProtectedRoute path={'/login'} exact>
           <Login />
         </ProtectedRoute>
-        <ProtectedRoute path={'/profile'} exact={true}>
+        <ProtectedRoute path={'/profile'} onlyForAuth exact>
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path={'/profile/orders'} exact={true}>
+        <ProtectedRoute path={'/profile/orders'} onlyForAuth exact>
           <NotFound />
         </ProtectedRoute>
-        <ProtectedRoute path={'/forgot-password'} exact={true}>
+        <ProtectedRoute path={'/forgot-password'} exact>
           <ForgotPassword />
         </ProtectedRoute>
-        <ProtectedRoute path={'/register'} exact={true}>
+        <ProtectedRoute path={'/register'} exact>
           <Register />
         </ProtectedRoute>
-        <ProtectedRoute path={'/reset-password'} exact={true}>
+        <ProtectedRoute path={'/reset-password'} exact>
           <ResetPassword />
         </ProtectedRoute>
         <Route path={'/ingridients/:id'} exact>
@@ -64,7 +64,7 @@ export default function App() {
         </Route>
       </Switch>
 
-      {modal && (
+      { modal && (
         <Route path={'/ingridients/:id'}>
           <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
             <IngridientDetails />

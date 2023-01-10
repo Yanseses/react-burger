@@ -1,31 +1,23 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userResetPassword } from '../../services/actions/auth';
-import { getCookie } from '../../utils/cookie';
+import { useForm } from '../../hooks/useForm';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
   const userPasswordPatch = useSelector(store => store.auth.userPasswordPatch);
-  const [ resetForm, setResetForm ] = useState({
+  const { values, handleChange } = useForm({
     password: '',
     token: ''
-  });
-
-  const onChange = e => {
-    setResetForm({
-      ...resetForm,
-      [e.target.name]: e.target.value
-    })
-  }
+  })
 
   const handleResetPassword = (e) => {
     e.preventDefault();
 
-    dispatch(userResetPassword(resetForm));
+    dispatch(userResetPassword(values));
   }
 
   if(!userPasswordPatch){
@@ -41,14 +33,14 @@ export default function ResetPassword(){
       <section className={styles.resetPassword__section}>
         <Form title={'Восстановление пароля'} onSubmit={handleResetPassword}>
           <PasswordInput
-            value={resetForm.password}
-            onChange={onChange}
+            value={values.password}
+            onChange={handleChange}
             placeholder={'Введите новый пароль'}
             name={'password'} 
           />
           <Input
-            value={resetForm.token}
-            onChange={onChange}
+            value={values.token}
+            onChange={handleChange}
             type={'text'}
             placeholder={'Введите код из письма'}
             name={'token'}

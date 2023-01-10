@@ -7,28 +7,22 @@ import { Aside } from '../../components/Aside/Aside';
 import { changeUserData } from '../../services/actions/auth';
 import { Redirect } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { useForm } from '../../hooks/useForm';
 
 export default function Profile(){
   const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const nameInputRef = useRef(null);
   const [ disabledNameInput, setDisabledNameInput ] = useState(true);
-  const [ profile, setProfile ] = useState({
+  const { values, handleChange, setValues } = useForm({
     name: '',
     email: '',
     password: ''
-  });
+  })
 
   useEffect(() => {
-    setProfile(user)
-  }, [user])
-
-  const onChange = e => {
-    setProfile({
-      ...profile,
-      [e.target.name]: e.target.value
-    })
-  }
+    setValues(user)
+  }, [user]);
 
   const handleIconClick = () => {
     setDisabledNameInput(!disabledNameInput);
@@ -40,7 +34,7 @@ export default function Profile(){
       setDisabledNameInput(!disabledNameInput);
     }
 
-    dispatch(changeUserData(profile));
+    dispatch(changeUserData(values));
   }
 
   if(!getCookie('refreshToken')){
@@ -61,25 +55,25 @@ export default function Profile(){
             onIconClick={handleIconClick}
             onBlur={handleFucusInput}
             ref={nameInputRef}
-            onChange={onChange}
-            value={profile.name}
+            onChange={handleChange}
+            value={values.name}
             icon={'EditIcon'}
             name={'name'}
             error={false}
             size={'default'}
           />
           <EmailInput
-            onChange={onChange}
+            onChange={handleChange}
             onBlur={handleFucusInput}
-            value={profile.email}
+            value={values.email}
             name={'email'}
             placeholder="Логин"
             isIcon={true}
           />
           <PasswordInput
-            onChange={onChange}
+            onChange={handleChange}
             onBlur={handleFucusInput}
-            value={profile.password}
+            value={values.password}
             name={'password'}
             icon="EditIcon"
           />
