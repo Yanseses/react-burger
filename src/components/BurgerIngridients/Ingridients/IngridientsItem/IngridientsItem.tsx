@@ -1,13 +1,13 @@
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import propTypes from 'prop-types';
 import { useDrag } from "react-dnd";
-import { ingredientType } from "../../../../utils/types";
 import styles from'./ingridientsItem.module.css';
+import { FC } from "react";
+import { IIngridient } from "../../BurgerIngridients";
 
-export default function IngridientsItem(props){
-  const { image, _id, name, price, onClick, type, __v = 0 } = props;
+export const IngridientsItem: FC<IIngridient> = (props): JSX.Element => {
+  const { image, _id, name, price, type, __v = 0 } = props;
   const [{ opacity }, ref] = useDrag({
-    type: type == 'bun' ? 'bun' : 'main',
+    type: type === 'bun' ? 'bun' : 'main',
     item: props ,
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
@@ -19,8 +19,7 @@ export default function IngridientsItem(props){
         className={styles.ingridientsItem} 
         style={{opacity}}
         ref={ref} 
-        id={_id} 
-        onClick={onClick}>
+        id={_id}>
         <div className={styles.ingridientsItem__head}>
           <img src={image} alt={name} />
           <div className={styles.ingridientsItem__price}>
@@ -40,8 +39,4 @@ export default function IngridientsItem(props){
         }
       </li>
   )
-}
-
-IngridientsItem.propTypes = {
-  props: ingredientType
 }

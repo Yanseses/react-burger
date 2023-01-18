@@ -1,4 +1,4 @@
-export default function checkResponce(res){
+export const checkResponce = (res: Response): Promise<Response> => {
   if(res.ok){
     return res.json()
   } else {

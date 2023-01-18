@@ -1,4 +1,4 @@
-import AppHeader from '../AppHeader/Header.jsx';
+import Header from '../AppHeader/Header';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { 
   NotFound, 
@@ -8,15 +8,15 @@ import {
   ForgotPassword, 
   Login, 
   Constructor, 
-  Ingridients } from '../../pages/index.js';
-import { ProtectedRoute } from '../ProtectedRoute.jsx';
+  Ingridients } from '../../pages/index';
+import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getIngridientsData } from '../../services/actions/index.js';
-import { getCookie } from '../../utils/cookie.js';
-import { getUserData } from '../../services/actions/auth.js';
-import Modal from '../modal/Modal.jsx';
-import IngridientDetails from '../modal/IngredientDetails/IngredientDetails.jsx';
+import { getIngridientsData } from '../../services/actions/index';
+import { getCookie } from '../../utils/cookie';
+import { getUserData } from '../../services/actions/auth';
+import { Modal } from '../modal/Modal';
+import { IngridientDetails } from '../modal/IngredientDetails/IngredientDetails';
 
 export default function App() {
   const history = useHistory();
@@ -29,11 +29,11 @@ export default function App() {
       dispatch(getUserData())
     }
     dispatch(getIngridientsData())
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      <AppHeader />
+      <Header />
       <Switch location={modal || location}>
         <ProtectedRoute path={'/login'} exact>
           <Login />

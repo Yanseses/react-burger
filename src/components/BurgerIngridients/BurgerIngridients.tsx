@@ -1,24 +1,36 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from "react-redux";
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Ingridients from "./Ingridients/Ingridients";
-import Modal from "../modal/Modal";
-import IngridientDetails from "../modal/IngredientDetails/IngredientDetails";
-import IngridientsItem from "./Ingridients/IngridientsItem/IngridientsItem";
+import { Ingridients } from "./Ingridients/Ingridients";
+import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { TAB_SWITCH } from '../../services/actions/index';
-import { ADD_MODAL_INGRIDIENTS} from "../../services/actions/index";
 import { Link, useLocation } from "react-router-dom";
 
-export default function BurgerIngridients(){
+export interface IIngridient {
+  name: string,
+  _id: string,
+  type: string,
+  image: string,
+  price: number,
+  __v: number,
+  calories?: number,
+  carbohydrates?: number,
+  fat?: number,
+  image_large?: string,
+  image_mobile?: string,
+  proteins?: number,
+  id?: string
+}
+
+export default function BurgerIngridients(): JSX.Element{
   const location = useLocation();
   const dispatch = useDispatch();
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
   const [ mainRef, inWiewMain, entryMain ] = useInView({threshold: 0});
   const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
-  const { activeTab, data } = useSelector(store => ({
+  const { activeTab, data }: any = useSelector<any>(store => ({
     activeTab: store.main.activeTab,
     data: store.main.ingridients,
   }));
@@ -31,32 +43,23 @@ export default function BurgerIngridients(){
     } else if(inWiewMain){
       dispatch({type: TAB_SWITCH, tab: 'main'})
     }
-  }, [inWiewBuns, inWiewMain, inWiewSauce]);
+  }, [dispatch, inWiewBuns, inWiewMain, inWiewSauce]);
 
-  const handleClickTabs = (e) => {
+  const handleClickTabs = (e: string) => {
     switch(e){
       case 'main': {
-        entryMain.target.scrollIntoView();
+        entryMain?.target.scrollIntoView();
         break;
       }
       case 'sauce': {
-        entrySauce.target.scrollIntoView();
+        entrySauce?.target.scrollIntoView();
         break;
       }
       default: {
-        entryBuns.target.scrollIntoView();
+        entryBuns?.target.scrollIntoView();
       }
     }
   }
-
-  // const handleClick = useCallback((e) => {
-  //   const modalData = data.find(el => el._id == e.nativeEvent.path[2].id);
-  //   dispatch({
-  //     type: ADD_MODAL_INGRIDIENTS,
-  //     data: modalData
-  //   })
-  //   setIsModalOpen(true);
-  // }); 
 
   return (
     <section className="pt-10 text text_type_main-default">
@@ -77,8 +80,8 @@ export default function BurgerIngridients(){
       <ul className={`${styles.burgerIngridients__list} mt-10`}>
         <Ingridients title={'Булки'} refCategory={bunsRef}>
           { data && data
-            .filter(el => el.type == 'bun') 
-            .map(el => (
+            .filter((el: IIngridient) => el.type === 'bun') 
+            .map((el: IIngridient) => (
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
@@ -93,8 +96,8 @@ export default function BurgerIngridients(){
         </Ingridients>
         <Ingridients title={'Соусы'} refCategory={sauceRef}>
           { data && data
-            .filter(el => el.type == 'sauce') 
-            .map(el => (
+            .filter((el: IIngridient) => el.type === 'sauce') 
+            .map((el: IIngridient) => (
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
@@ -109,8 +112,8 @@ export default function BurgerIngridients(){
         </Ingridients>
         <Ingridients title={'Начинки'} refCategory={mainRef}>
           { data && data
-            .filter(el => el.type == 'main') 
-            .map(el => (
+            .filter((el: IIngridient) => el.type === 'main') 
+            .map((el: IIngridient) => (
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
@@ -124,13 +127,6 @@ export default function BurgerIngridients(){
           }
         </Ingridients>
       </ul>
-
-      {/* { isModalOpen && (
-        <Modal title={'Детали ингридиента'} onClose={() => setIsModalOpen(false)}>
-          <IngridientDetails />
-        </Modal>
-        ) 
-      } */}
     </section>
   )
 }

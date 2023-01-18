@@ -4,11 +4,17 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ORDER_MOVE_INGRIDIENT } from '../../../../services/actions';
 import styles from './constructorMainItem.module.css';
+import { IIngridient } from "../../../BurgerIngridients/BurgerIngridients";
 
-export default function ConstructorMainItem(props){
-  const { element, onClick, index } = props;
+interface IConstructorMainItem {
+  element: IIngridient,
+  onClick: Function,
+  index: number
+}
+
+export default function ConstructorMainItem({ element, onClick, index }: IConstructorMainItem): JSX.Element {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement | undefined>(null);
   const [{ opacity }, constructorDragRef] = useDrag({
     type: 'main',
     item: { index },
@@ -16,17 +22,19 @@ export default function ConstructorMainItem(props){
       opacity: monitor.isDragging() ? 0.5 : 1
     })
   });
-  const [spec, constructorDropRef] = useDrop({
+  const [, constructorDropRef] = useDrop({
     accept: 'main',
-    hover: (item, monitor) => {
+    hover: (item: any, monitor) => {
       if(item.index){
         const dragIndex = item.index;
         const hoverIndex = index;
         const hoverBoundingRect = ref.current?.getBoundingClientRect();
+        if(!hoverBoundingRect) return
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
-        if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-        if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+        const hoverActualY = monitor.getClientOffset()!.y - hoverBoundingRect.top;
+        if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+        if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
+
         dispatch({
           type: ORDER_MOVE_INGRIDIENT,
           dragIndex,
@@ -43,6 +51,7 @@ export default function ConstructorMainItem(props){
       id={element.id}
       key={element.id} 
       className={styles.main__item}
+      // @ts-ignore
       ref={dragDropRef}
       style={{opacity}}
       >
@@ -53,6 +62,7 @@ export default function ConstructorMainItem(props){
       text={element.name}
       price={element.price}
       thumbnail={element.image}
+      // @ts-ignore
       handleClose={onClick}
     />
   </li>

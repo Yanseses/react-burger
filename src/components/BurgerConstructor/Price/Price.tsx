@@ -3,8 +3,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from "react-redux";
 
 export default function Price(){
-  const orderPrice = useSelector(store => store.main.orderPrice);
-  const store = useSelector(store => store.main)
+  const orderPrice: any = useSelector<any>(store => store.main.orderPrice);
 
   return (
     <div className={`${style.price} mr-10`}>

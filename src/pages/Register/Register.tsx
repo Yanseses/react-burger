@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userRegister } from '../../services/actions/auth';
 import { useForm } from '../../hooks/useForm';
+import { FormEvent } from 'react';
 
 export default function Register(){
   const dispatch = useDispatch();
@@ -14,9 +15,10 @@ export default function Register(){
     name: ''
   })
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
+    // @ts-ignore
     dispatch(userRegister(values))
   }
 

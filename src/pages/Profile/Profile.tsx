@@ -1,7 +1,7 @@
 import { Input, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile.module.css';
 import { Form } from '../../components/Form/Form';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, FocusEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Aside } from '../../components/Aside/Aside';
 import { changeUserData } from '../../services/actions/auth';
@@ -10,10 +10,10 @@ import { getCookie } from '../../utils/cookie';
 import { useForm } from '../../hooks/useForm';
 
 export default function Profile(){
-  const user = useSelector(store => store.auth.user);
+  const user: any = useSelector<any>(store => store.auth.user);
   const dispatch = useDispatch();
-  const nameInputRef = useRef(null);
-  const [ disabledNameInput, setDisabledNameInput ] = useState(true);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const [ disabledNameInput, setDisabledNameInput ] = useState<boolean>(true);
   const { values, handleChange, setValues } = useForm({
     name: '',
     email: '',
@@ -22,18 +22,19 @@ export default function Profile(){
 
   useEffect(() => {
     setValues(user)
-  }, [user]);
+  }, [setValues, user]);
 
-  const handleIconClick = () => {
+  const handleIconClick = (): void => {
     setDisabledNameInput(!disabledNameInput);
-    setTimeout(() => nameInputRef.current.focus(), 0)
+    setTimeout(() => nameInputRef.current?.focus(), 0)
   }
 
-  const handleFucusInput = e => {
-    if(e.target.name == 'name'){
+  const handleFucusInput = (e: FocusEvent<HTMLInputElement>): void => {
+    if(e.target.name === 'name'){
       setDisabledNameInput(!disabledNameInput);
     }
 
+    // @ts-ignore
     dispatch(changeUserData(values));
   }
 

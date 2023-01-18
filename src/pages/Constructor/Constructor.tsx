@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 export default function Constructor(){
   return (
     <DndProvider backend={HTML5Backend}>
-      <main className={styles.constructor}>
+      <main className={`${styles.constructor}`}>
         <BurgerIngridients />
         <BurgerConstructor />
       </main>

@@ -1,6 +1,7 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
+import { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userResetPassword } from '../../services/actions/auth';
@@ -8,15 +9,16 @@ import { useForm } from '../../hooks/useForm';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
-  const userPasswordPatch = useSelector(store => store.auth.userPasswordPatch);
+  const userPasswordPatch: any = useSelector<any>(store => store.auth.userPasswordPatch);
   const { values, handleChange } = useForm({
     password: '',
     token: ''
   })
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
+    // @ts-ignore
     dispatch(userResetPassword(values));
   }
 

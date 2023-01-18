@@ -1,12 +1,12 @@
-import { memo } from "react";
+import { memo } from 'react';
 import styles from './header.module.css';
 import { Logo, ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import Item from "../Item/Item";
+import { Item } from "../Item/Item";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default memo(function Header(){
-  const { userAuthorized, userName } = useSelector(store => ({
+const Header = (): JSX.Element => {
+  const { userAuthorized, userName }: any = useSelector<any>(store => ({
     userAuthorized: store.auth.userAuthorized,
     userName: store.auth.user.name
   }));
@@ -31,4 +31,6 @@ export default memo(function Header(){
       </div>
     </header>
   )
-})
+}
+
+export default memo(Header)

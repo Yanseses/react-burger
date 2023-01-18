@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import sucessLogo from '../../../images/graphics.svg'
 import styles from './orderDetails.module.css';
 
-export default function OrderDetails(){
-  const orderNumber = useSelector(store => store.main.orderNumber);
+export const OrderDetails = (): JSX.Element => {
+  const orderNumber: any = useSelector<any>(store => store.main.orderNumber);
 
   return (
     <div className={`${styles.orderDetails} mt-4 mb-20 text`}>

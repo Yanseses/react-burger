@@ -3,22 +3,24 @@ import styles from './ingredientDetails.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { ADD_MODAL_INGRIDIENTS } from '../../../services/actions';
+import { TIngridientId } from '../../../pages/Ingridients/Ingridients';
+import { IIngridient } from '../../BurgerIngridients/BurgerIngridients';
 
-export default function IngridientDetails(){
+export const IngridientDetails = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const { ingridients, ingridientModal } = useSelector(store => ({
+  const { id } = useParams<TIngridientId>();
+  const { ingridients, ingridientModal }: any = useSelector<any>(store => ({
     ingridients: store.main.ingridients,
     ingridientModal: store.main.ingridientModal
   }));
-  const data = ingridients.length > 0 ? ingridients.find(el => el._id === id) : {};
+  const data = ingridients.length > 0 ? ingridients.find((el: IIngridient) => el._id === id) : {};
 
   useEffect(() => {
     dispatch({
       type: ADD_MODAL_INGRIDIENTS,
       data
     })
-  }, [ingridients]);
+  }, [dispatch, ingridients]);
 
   return (
     <div className={styles.ingredientDetails}>

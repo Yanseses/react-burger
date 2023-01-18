@@ -1,23 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC, PropsWithChildren } from "react";
 import ReactDOM from "react-dom";
 import styles from './modal.module.css';
-import propTypes from 'prop-types';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "./ModalOverlay/ModalOverlay";
+import { ModalOverlay } from "./ModalOverlay/ModalOverlay";
 
-const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-export default function Modal({title, onClose, children}){
-  const modalRef = React.useRef(null);
+type TModal = {
+  title: string,
+  onClose: () => void
+}
+
+export const Modal: FC<PropsWithChildren<TModal>> = ({title, onClose, children}): JSX.Element => {
+  const modalRef = React.useRef<HTMLElement>(null);
   
   useEffect(() => {
-    const handleClick = (e) => {
-      if(e.target == modalRef.current){
+    const handleClick = (e: MouseEvent) => {
+      if(e.target === modalRef.current){
         onClose();
       }
     }
-    const handleClickByEscape = (e) => {
-      if(e.key == 'Escape'){
+    const handleClickByEscape = (e: KeyboardEvent) => {
+      if(e.key === 'Escape'){
         onClose();
       }
     }
@@ -28,7 +32,7 @@ export default function Modal({title, onClose, children}){
       document.removeEventListener('keydown', handleClickByEscape);
       document.removeEventListener('click', handleClick)
     }
-  }, [modalRef])
+  }, [modalRef, onClose])
 
   return ReactDOM.createPortal(
     <ModalOverlay modalRef={modalRef}>
@@ -46,10 +50,4 @@ export default function Modal({title, onClose, children}){
     </ModalOverlay>
     , modalRoot
   );
-}
-
-Modal.propTypes = {
-  title: propTypes.string,
-  children: propTypes.node,
-  onClose: propTypes.func.isRequired
 }
