@@ -2,7 +2,7 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import { useDrag } from "react-dnd";
 import styles from'./ingridientsItem.module.css';
 import { FC } from "react";
-import { IIngridient } from "../../BurgerIngridients";
+import { IIngridient } from "../../../../services/types";
 
 export const IngridientsItem: FC<IIngridient> = (props): JSX.Element => {
   const { image, _id, name, price, type, __v = 0 } = props;

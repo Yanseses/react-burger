@@ -3,12 +3,11 @@ import styles from './ingredientDetails.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { ADD_MODAL_INGRIDIENTS } from '../../../services/actions';
-import { TIngridientId } from '../../../pages/Ingridients/Ingridients';
-import { IIngridient } from '../../BurgerIngridients/BurgerIngridients';
+import { IIngridient, TUrlParams } from '../../../services/types';
 
 export const IngridientDetails = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { id } = useParams<TIngridientId>();
+  const { id } = useParams<TUrlParams>();
   const { ingridients, ingridientModal }: any = useSelector<any>(store => ({
     ingridients: store.main.ingridients,
     ingridientModal: store.main.ingridientModal

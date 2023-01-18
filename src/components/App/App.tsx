@@ -20,21 +20,25 @@ import { IngridientDetails } from '../modal/IngredientDetails/IngredientDetails'
 
 export default function App() {
   const history = useHistory();
-  const location = useLocation()
+  const location = useLocation<{modal: Location}>()
   const dispatch = useDispatch();
   const modal = location.state?.modal;
 
   useEffect(() => {
     if(getCookie('accessToken')){
+      // @ts-ignore
       dispatch(getUserData())
     }
+    // @ts-ignore
     dispatch(getIngridientsData())
   }, [dispatch]);
 
   return (
     <>
       <Header />
-      <Switch location={modal || location}>
+      <Switch 
+      // @ts-ignore
+      location={modal || location}>
         <ProtectedRoute path={'/login'} exact>
           <Login />
         </ProtectedRoute>

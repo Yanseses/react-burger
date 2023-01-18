@@ -2,14 +2,10 @@ import styles from './ingridients.module.css';
 import { IngridientDetails } from "../../components/modal/IngredientDetails/IngredientDetails";
 import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { IIngridient } from '../../components/BurgerIngridients/BurgerIngridients';
-
-export type TIngridientId = {
-  id: string
-}
+import { IIngridient, TUrlParams } from '../../services/types';
 
 export default function Ingridients(){
-  const { id } = useParams<TIngridientId>();
+  const { id } = useParams<TUrlParams>();
   const ingridients: any = useSelector<any>(store => store.main.ingridients);
   const data = ingridients.length > 0 ? ingridients.find((el: IIngridient) => el._id === id) : {};
 

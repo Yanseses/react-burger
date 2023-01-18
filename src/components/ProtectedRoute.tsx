@@ -3,8 +3,10 @@ import { getCookie } from '../utils/cookie';
 import { FC, PropsWithChildren } from 'react';
 
 type TProtectedRoute = {
-  onlyForAuth: boolean
-}
+  path: string,
+  exact?: boolean,
+  onlyForAuth?: boolean
+};
 
 export const ProtectedRoute: FC<PropsWithChildren<TProtectedRoute>> = ({ onlyForAuth, children, ...rest }): JSX.Element => {
   const isAuthorized = getCookie('refreshToken');

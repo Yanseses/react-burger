@@ -7,22 +7,7 @@ import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { TAB_SWITCH } from '../../services/actions/index';
 import { Link, useLocation } from "react-router-dom";
-
-export interface IIngridient {
-  name: string,
-  _id: string,
-  type: string,
-  image: string,
-  price: number,
-  __v: number,
-  calories?: number,
-  carbohydrates?: number,
-  fat?: number,
-  image_large?: string,
-  image_mobile?: string,
-  proteins?: number,
-  id?: string
-}
+import { IIngridient } from "../../services/types";
 
 export default function BurgerIngridients(): JSX.Element{
   const location = useLocation();

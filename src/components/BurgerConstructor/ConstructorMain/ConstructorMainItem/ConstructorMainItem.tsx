@@ -4,13 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ORDER_MOVE_INGRIDIENT } from '../../../../services/actions';
 import styles from './constructorMainItem.module.css';
-import { IIngridient } from "../../../BurgerIngridients/BurgerIngridients";
-
-interface IConstructorMainItem {
-  element: IIngridient,
-  onClick: Function,
-  index: number
-}
+import { IConstructorMainItem } from "../../../../services/types";
 
 export default function ConstructorMainItem({ element, onClick, index }: IConstructorMainItem): JSX.Element {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addIngridientOrder, ORDER_MAIN_DELETE } from "../../../services/actions";
 import { useCallback, ChangeEvent, ReactSVG } from 'react';
 import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
-import { IIngridient } from '../../BurgerIngridients/BurgerIngridients';
+import { IIngridient } from '../../../services/types';
 
 export default function ConstructorMain(): JSX.Element {
   const dispatch = useDispatch();
