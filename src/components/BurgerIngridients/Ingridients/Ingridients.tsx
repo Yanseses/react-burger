@@ -1,8 +1,12 @@
 import { FC, PropsWithChildren } from "react";
 import styles from './ingridients.module.css';
-import { TIngridientsCategory } from "../../../services/types";
 
-export const Ingridients: FC<PropsWithChildren<TIngridientsCategory>> = ({title, children, refCategory}): JSX.Element => {
+type TIngridientsCategory = {
+  title: string;
+  refCategory: any
+}
+
+export const Ingridients: FC<PropsWithChildren<TIngridientsCategory>> = ({title, children, refCategory}) => {
   return (
     <li className="mb-10" ref={refCategory}>
       <h3 className={`text_type_main-medium ${styles.title}`}>

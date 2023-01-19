@@ -3,11 +3,15 @@ import ReactDOM from "react-dom";
 import styles from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "./ModalOverlay/ModalOverlay";
-import { TModal } from "../../services/types";
+
+type TModal = {
+  title: string,
+  onClose: () => void
+}
 
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-export const Modal: FC<PropsWithChildren<TModal>> = ({title, onClose, children}): JSX.Element => {
+export const Modal: FC<PropsWithChildren<TModal>> = ({title, onClose, children}) => {
   const modalRef = React.useRef<HTMLElement>(null);
   
   useEffect(() => {

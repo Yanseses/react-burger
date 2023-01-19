@@ -1,8 +1,11 @@
 import styles from './modalOverlay.module.css';
-import { FC, PropsWithChildren } from 'react';
-import { TModalOverlay } from '../../../services/types';
+import { FC, PropsWithChildren, LegacyRef } from 'react';
 
-export const ModalOverlay: FC<PropsWithChildren<TModalOverlay>> = ({ children, modalRef }): JSX.Element => {
+type TModalOverlay = {
+  modalRef: LegacyRef<HTMLElement>
+}
+
+export const ModalOverlay: FC<PropsWithChildren<TModalOverlay>> = ({ children, modalRef }) => {
   return (
     <section ref={modalRef} className={styles.modalOverlay}>
       {children}

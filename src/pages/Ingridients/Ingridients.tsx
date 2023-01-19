@@ -2,7 +2,7 @@ import styles from './ingridients.module.css';
 import { IngridientDetails } from "../../components/modal/IngredientDetails/IngredientDetails";
 import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { IIngridient, TUrlParams } from '../../services/types';
+import { IIngridient, TUrlParams } from '../../utils/types';
 
 export default function Ingridients(){
   const { id } = useParams<TUrlParams>();

@@ -1,5 +1,8 @@
 import { useState, ChangeEvent } from "react";
-import { TUseForm } from "../services/types";
+
+type TUseForm = {
+  [name: string]: string
+}
 
 export function useForm(inputValues: TUseForm){
   const [values, setValues] = useState<TUseForm>(inputValues);

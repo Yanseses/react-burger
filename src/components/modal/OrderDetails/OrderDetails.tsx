@@ -1,8 +1,9 @@
+import { FC } from 'react'
 import { useSelector } from "react-redux";
 import sucessLogo from '../../../images/graphics.svg'
 import styles from './orderDetails.module.css';
 
-export const OrderDetails = (): JSX.Element => {
+export const OrderDetails: FC = () => {
   const orderNumber: any = useSelector<any>(store => store.main.orderNumber);
 
   return (

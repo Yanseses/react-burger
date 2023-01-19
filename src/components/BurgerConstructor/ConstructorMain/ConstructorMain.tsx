@@ -2,11 +2,11 @@ import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { addIngridientOrder, ORDER_MAIN_DELETE } from "../../../services/actions";
-import { useCallback, ChangeEvent, ReactSVG } from 'react';
+import { useCallback, FC } from 'react';
 import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
-import { IIngridient } from '../../../services/types';
+import { IIngridient } from '../../../utils/types';
 
-export default function ConstructorMain(): JSX.Element {
+export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
   const main: any = useSelector<any>(state => state.main.order.main);
   const [{ isHoverMain } , mainDrop] = useDrop({
@@ -20,22 +20,20 @@ export default function ConstructorMain(): JSX.Element {
       }
     },
   });
-
-  const handleRemove = useCallback((e: ChangeEvent<ReactSVG>) => {
-    // @ts-ignore
-    const clickedElem = e.nativeEvent.path[5].id;
+  
+  const handleRemove = useCallback((e: string | undefined) => {
     dispatch({
       type: ORDER_MAIN_DELETE,
-      deleteIngridient: clickedElem
+      deleteIngridient: e
     })
   }, [dispatch]);
-
+  
   const defaultIngridients = (
     <li className={`${styles.main__default} ${isHoverMain ? styles.main__hovered : ''}`}>
       Перетащите ингридиенты
     </li>
   )
-
+  
   return (
     <ul className={styles.main} ref={mainDrop}>
       { main.length > 0

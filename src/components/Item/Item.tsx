@@ -1,9 +1,14 @@
 import styles from './item.module.css';
 import { FC, PropsWithChildren } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { TItem } from '../../services/types';
 
-export const Item: FC<PropsWithChildren<TItem>> = ({text, Icon, link}): JSX.Element => {
+type TItem = {
+  text: string,
+  Icon: Function,
+  link: string
+}
+
+export const Item: FC<PropsWithChildren<TItem>> = ({text, Icon, link}) => {
   const location = useLocation();
 
   return (

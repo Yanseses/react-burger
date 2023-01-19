@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, FC } from "react";
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from "react-redux";
 import styles from './burgerIngridients.module.css';
@@ -7,9 +7,9 @@ import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { TAB_SWITCH } from '../../services/actions/index';
 import { Link, useLocation } from "react-router-dom";
-import { IIngridient } from "../../services/types";
+import { IIngridient } from "../../utils/types";
 
-export default function BurgerIngridients(): JSX.Element{
+export const BurgerIngridients: FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
@@ -19,7 +19,7 @@ export default function BurgerIngridients(): JSX.Element{
     activeTab: store.main.activeTab,
     data: store.main.ingridients,
   }));
-
+  
   useEffect(() => {
     if(inWiewBuns){
       dispatch({type: TAB_SWITCH, tab: 'bun'})
@@ -29,7 +29,7 @@ export default function BurgerIngridients(): JSX.Element{
       dispatch({type: TAB_SWITCH, tab: 'main'})
     }
   }, [dispatch, inWiewBuns, inWiewMain, inWiewSauce]);
-
+  
   const handleClickTabs = (e: string) => {
     switch(e){
       case 'main': {
@@ -45,7 +45,7 @@ export default function BurgerIngridients(): JSX.Element{
       }
     }
   }
-
+  
   return (
     <section className="pt-10 text text_type_main-default">
       <h2 className="text_type_main-large mb-0 mt-0">

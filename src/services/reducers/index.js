@@ -143,7 +143,7 @@ export const mainStore = (state = initialState, action) => {
           main: state.order.main.filter(el => action.deleteIngridient !== el.id)
         },
         ingridients: state.ingridients.map(el => {
-          if(el._id == ingridientId._id){
+          if(el._id === ingridientId._id){
             el.__v--
             return el;
           }
@@ -161,7 +161,7 @@ export const mainStore = (state = initialState, action) => {
         ingridients: state.ingridients.map(el => {
           if(el.type === 'bun'){
             if(el._id === action.data._id){
-              if(el.__v == 0){
+              if(el.__v === 0){
                 el.__v++
               }
             } else if(el.__v > 0) {

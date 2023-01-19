@@ -4,11 +4,17 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ORDER_MOVE_INGRIDIENT } from '../../../../services/actions';
 import styles from './constructorMainItem.module.css';
-import { IConstructorMainItem } from "../../../../services/types";
+import { IIngridient } from "../../../../utils/types";
+
+interface IConstructorMainItem {
+  element: IIngridient,
+  onClick: (e: string | undefined) => void,
+  index: number
+}
 
 export default function ConstructorMainItem({ element, onClick, index }: IConstructorMainItem): JSX.Element {
   const dispatch = useDispatch();
-  const ref = useRef<HTMLLIElement | undefined>(null);
+  const ref = useRef<HTMLLIElement>(null);
   const [{ opacity }, constructorDragRef] = useDrag({
     type: 'main',
     item: { index },
@@ -18,7 +24,7 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
   });
   const [, constructorDropRef] = useDrop({
     accept: 'main',
-    hover: (item: any, monitor) => {
+    hover: (item: IIngridient & { index: number }, monitor) => {
       if(item.index){
         const dragIndex = item.index;
         const hoverIndex = index;
@@ -38,15 +44,14 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
       }
     }
   });
-  const dragDropRef = constructorDragRef(constructorDropRef(ref));
+  constructorDragRef(constructorDropRef(ref));
 
   return (
     <li 
       id={element.id}
       key={element.id} 
       className={styles.main__item}
-      // @ts-ignore
-      ref={dragDropRef}
+      ref={ref}
       style={{opacity}}
       >
     <button className={styles.main__drag}>
@@ -56,8 +61,7 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
       text={element.name}
       price={element.price}
       thumbnail={element.image}
-      // @ts-ignore
-      handleClose={onClick}
+      handleClose={() => onClick(element.id)}
     />
   </li>
   )

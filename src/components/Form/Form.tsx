@@ -1,8 +1,12 @@
 import styles from './form.module.css';
-import { FC, PropsWithChildren } from 'react';
-import { TForm } from '../../services/types';
+import { FC, PropsWithChildren, FormEvent } from 'react';
 
-export const Form: FC<PropsWithChildren<TForm>> = ({title, children, onSubmit}): JSX.Element => {
+type TForm = {
+  title?: string,
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void
+}
+
+export const Form: FC<PropsWithChildren<TForm>> = ({title, children, onSubmit}) => {
   return (
     <form className={`${styles.form} mb-20`} onSubmit={onSubmit}>
       { title && (
