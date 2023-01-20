@@ -30,7 +30,7 @@ export function getIngridientsData() {
             ingridients: res.data
           });
         } else {
-          return Promise.reject(`Ошибка ${res.status}`)
+          return Promise.reject(`Ошибка ${res.statusText}`)
         }
       })
       .catch(err => {
