@@ -4,7 +4,7 @@ export interface IIngridient {
   type: string,
   image: string,
   price: number,
-  __v: number,
+  counter: number,
   calories?: number,
   carbohydrates?: number,
   fat?: number,

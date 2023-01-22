@@ -25,7 +25,7 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
   const [, constructorDropRef] = useDrop({
     accept: 'main',
     hover: (item: IIngridient & { index: number }, monitor) => {
-      if(item.index){
+      if(item.hasOwnProperty('index')){
         const dragIndex = item.index;
         const hoverIndex = index;
         const hoverBoundingRect = ref.current?.getBoundingClientRect();

@@ -5,7 +5,7 @@ import { FC } from "react";
 import { IIngridient } from "../../../../utils/types";
 
 export const IngridientsItem: FC<IIngridient> = (props) => {
-  const { image, _id, name, price, type, __v = 0 } = props;
+  const { image, _id, name, price, type, counter = 0 } = props;
   const [{ opacity }, ref] = useDrag({
     type: type === 'bun' ? 'bun' : 'main',
     item: props ,
@@ -33,8 +33,9 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       <p className={styles.ingridientsItem__text}>
         {name}
       </p>
-      { __v > 0 && (
-        <Counter count={__v} size="small" />
+      
+      { counter > 0 && (
+        <Counter count={counter} size="small" />
         ) 
       }
     </li>

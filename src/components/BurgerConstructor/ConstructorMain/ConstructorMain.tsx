@@ -9,12 +9,17 @@ import { IIngridient } from '../../../utils/types';
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
   const main: any = useSelector<any>(state => state.main.order.main);
-  const [{ isHoverMain } , mainDrop] = useDrop({
+  const [{ isHoverMain } , mainDrop] = useDrop<
+    IIngridient, 
+    unknown, 
+    { item: IIngridient, isHoverMain: boolean }
+    >({
     accept: 'main',
-    collect: monitor => ({
+    collect: (monitor) => ({
+      item: monitor.getItem(),
       isHoverMain: monitor.isOver(),
     }),
-    drop(item: any) {
+    drop(item: IIngridient) {
       if(!item.hasOwnProperty('index')){
         dispatch(addIngridientOrder(item))
       }
