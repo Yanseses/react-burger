@@ -52,7 +52,12 @@ export const mainStore = (state = initialState, action) => {
         ...state,
         ingridientsRequest: false,
         ingridientsFailed: false,
-        ingridients: action.ingridients
+        ingridients: action.ingridients.map(el => {
+          return {
+            ...el,
+            counter: 0
+          }
+        })
       }
     }
     case ORDER_CHANGE_PRICE: {
@@ -93,8 +98,8 @@ export const mainStore = (state = initialState, action) => {
           main: []
         },
         ingridients: state.ingridients.map(element => {
-          if(element.__v > 0){
-            element.__v = 0
+          if(element.counter > 0){
+            element.counter = 0
           }
           return element
         }),
@@ -127,7 +132,7 @@ export const mainStore = (state = initialState, action) => {
         },
         ingridients: state.ingridients.map(el => {
           if(el._id === action.payload.data._id){
-            el.__v++
+            el.counter++
             return el;
           }
           return el;
@@ -143,8 +148,8 @@ export const mainStore = (state = initialState, action) => {
           main: state.order.main.filter(el => action.deleteIngridient !== el.id)
         },
         ingridients: state.ingridients.map(el => {
-          if(el._id == ingridientId._id){
-            el.__v--
+          if(el._id === ingridientId._id){
+            el.counter--
             return el;
           }
           return el
@@ -161,11 +166,11 @@ export const mainStore = (state = initialState, action) => {
         ingridients: state.ingridients.map(el => {
           if(el.type === 'bun'){
             if(el._id === action.data._id){
-              if(el.__v == 0){
-                el.__v++
+              if(el.counter === 0){
+                el.counter++
               }
-            } else if(el.__v > 0) {
-              el.__v--
+            } else if(el.counter > 0) {
+              el.counter--
             }
             return el;
           }

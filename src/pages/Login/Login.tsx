@@ -1,5 +1,6 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
+import { FormEvent } from 'react';
 import { Form } from '../../components/Form/Form';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,15 +10,15 @@ import { useForm } from '../../hooks/useForm';
 export default function Login(){
   const history = useHistory();
   const dispatch = useDispatch();
-  const userAuthorized = useSelector(store => store.auth.userAuthorized);
+  const userAuthorized = useSelector<any>(store => store.auth.userAuthorized);
   const { values, handleChange } = useForm({
     email: '',
     password: ''
   });
 
-  const handleLoginForm = (e) => {
+  const handleLoginForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    // @ts-ignore
     dispatch(userAuth(values));
   }
 
@@ -30,7 +31,6 @@ export default function Login(){
       <section className={styles.login__section}>
         <Form title={'Вход'} onSubmit={handleLoginForm}>
           <EmailInput
-            type={'text'}
             onChange={handleChange}
             value={values.email}
             placeholder={'E-mail'}

@@ -1,13 +1,16 @@
+import { MouseEvent, FC } from 'react';
 import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../services/actions/auth';
 
-export function Aside(){
+export const Aside: FC = () => {
   const dispatch = useDispatch();
 
-  const handleLogout = (e) => {
+  const handleLogout = (e: MouseEvent): void => {
     e.preventDefault();
+    
+    // @ts-ignore
     dispatch(userLogout());
   }
 
