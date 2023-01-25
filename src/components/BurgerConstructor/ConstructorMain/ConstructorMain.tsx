@@ -1,10 +1,11 @@
 import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { addIngridientOrder, ORDER_MAIN_DELETE } from "../../../services/actions";
+import { addIngridientOrder } from "../../../services/actions";
 import { useCallback, FC } from 'react';
 import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
+import { ORDER_MAIN_DELETE } from '../../../services/constants/ingridients';
 
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();

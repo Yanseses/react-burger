@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import styles from './ingredientDetails.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, FC } from 'react';
-import { ADD_MODAL_INGRIDIENTS } from '../../../services/actions';
 import { IIngridient, TUrlParams } from '../../../utils/types';
+import { ADD_MODAL_INGRIDIENTS } from '../../../services/constants/ingridients';
 
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();

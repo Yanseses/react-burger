@@ -8,7 +8,9 @@ import {
   ForgotPassword, 
   Login, 
   Constructor, 
-  Ingridients } from '../../pages/index';
+  Ingridients,
+  Feed,
+  History } from '../../pages/index';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -46,7 +48,7 @@ export default function App() {
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path={'/profile/orders'} onlyForAuth exact>
-          <NotFound />
+          <History />
         </ProtectedRoute>
         <ProtectedRoute path={'/forgot-password'} exact>
           <ForgotPassword />
@@ -57,6 +59,12 @@ export default function App() {
         <ProtectedRoute path={'/reset-password'} exact>
           <ResetPassword />
         </ProtectedRoute>
+        <Route path={'/feed'} exact>
+          <Feed />
+        </Route>
+        <Route path={'/feed/:id'} exact>
+          <Feed />
+        </Route>
         <Route path={'/ingridients/:id'} exact>
           <Ingridients />
         </Route>
@@ -68,7 +76,7 @@ export default function App() {
         </Route>
       </Switch>
 
-      { modal && (
+      { modal && modal.pathname === '/' && (
         <Route path={'/ingridients/:id'}>
           <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
             <IngridientDetails />

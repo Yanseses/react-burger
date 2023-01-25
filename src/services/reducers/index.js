@@ -15,7 +15,7 @@ import {
   TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
-} from '../actions/index';
+} from '../constants/ingridients';
 
 const initialState = {
   ingridients: [],

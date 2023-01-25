@@ -5,11 +5,12 @@ import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
 import { OrderDetails } from "../modal/OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { approveOrderNumber, ORDER_CHANGE_PRICE } from "../../services/actions";
+import { approveOrderNumber } from "../../services/actions";
 import { ConstructorBuns } from './ConstructorBuns/ConstructorBuns';
 import { ConstructorMain } from './ConstructorMain/ConstructorMain';
 import { useHistory } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
+import { ORDER_CHANGE_PRICE } from '../../services/constants/ingridients';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();

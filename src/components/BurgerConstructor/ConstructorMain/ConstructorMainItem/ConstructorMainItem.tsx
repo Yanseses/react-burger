@@ -2,9 +2,9 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { ORDER_MOVE_INGRIDIENT } from '../../../../services/actions';
 import styles from './constructorMainItem.module.css';
 import { IIngridient } from "../../../../utils/types";
+import { ORDER_MOVE_INGRIDIENT } from "../../../../services/constants/ingridients";
 
 interface IConstructorMainItem {
   element: IIngridient,

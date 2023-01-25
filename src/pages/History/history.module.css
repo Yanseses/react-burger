@@ -1,0 +1,8 @@
+.history {
+  height: 85vh;
+  width: 1260px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px auto;
+  column-gap: 60px;
+}

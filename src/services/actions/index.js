@@ -1,21 +1,16 @@
 import { getCookie } from '../../utils/cookie';
 import { request } from '../api';
 import { v4 as uuidv4 } from 'uuid';
-
-export const GET_INGRIDIENTS_REQUEST = 'GET_INGRIDIENTS_REQUEST';
-export const GET_INGRIDIENTS_FAILED = 'GET_INGRIDIENTS_FAILED';
-export const GET_INGRIDIENTS_SUCCESS = 'GET_INGRIDIENTS_SUCCESS';
-export const ORDER_MAIN_CHANGE = 'ORDER_MAIN_CHANGE';
-export const ORDER_BUNS_CHANGE = 'ORDER_BUNS_CHANGE';
-export const ORDER_MAIN_DELETE = 'ORDER_MAIN_DELETE';
-export const ORDER_MOVE_INGRIDIENT = 'ORDER_MOVE_INGRIDIENT';
-export const ORDER_REQUEST = 'ORDER_REQUEST';
-export const ORDER_FAILED = 'ORDER_FAILED';
-export const ORDER_SUCCESS = 'ORDER_SUCCESS';
-export const ORDER_CLEAR = 'ORDER_CLEAR';
-export const TAB_SWITCH = 'TAB_SWITCH';
-export const ADD_MODAL_INGRIDIENTS = 'ADD_MODAL_INGRIDIENTS';
-export const ORDER_CHANGE_PRICE = 'ORDER_CHANGE_PRICE';
+import {
+  GET_INGRIDIENTS_REQUEST,
+  GET_INGRIDIENTS_FAILED,
+  GET_INGRIDIENTS_SUCCESS,
+  ORDER_MAIN_CHANGE,
+  ORDER_REQUEST,
+  ORDER_FAILED,
+  ORDER_SUCCESS,
+  ORDER_CLEAR,
+} from '../constants/ingridients';
 
 export function getIngridientsData() {
   return function(dispatch) {

@@ -3,8 +3,8 @@ import styles from './constructorBuns.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { ORDER_BUNS_CHANGE } from "../../../services/actions";
 import { IIngridient } from '../../../utils/types';
+import { ORDER_BUNS_CHANGE } from '../../../services/constants/ingridients';
 
 type TBunsType = {
   type: 'top' | 'bottom' | undefined

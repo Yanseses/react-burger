@@ -5,9 +5,9 @@ import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
-import { TAB_SWITCH } from '../../services/actions/index';
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
+import { TAB_SWITCH } from "../../services/constants/ingridients";
 
 export const BurgerIngridients: FC = () => {
   const location = useLocation();

@@ -18,7 +18,7 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_FAILED,
   USER_RESET_PASSWORD_SUCCESS
-} from '../actions/auth';
+} from '../constants/auth';
 
 const initialState = {
   changeUserRequest: false,
