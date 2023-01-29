@@ -12,9 +12,9 @@ import {
   Feed,
   History } from '../../pages/index';
 import { ProtectedRoute } from '../ProtectedRoute';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { useEffect } from 'react';
-import { getIngridientsData } from '../../services/actions/index';
+import { getIngridientsData } from '../../services/actions/main';
 import { getCookie } from '../../utils/cookie';
 import { getUserData } from '../../services/actions/auth';
 import { Modal } from '../modal/Modal';
@@ -28,9 +28,11 @@ export default function App() {
 
   useEffect(() => {
     if(getCookie('accessToken')){
+
       // @ts-ignore
       dispatch(getUserData())
     }
+
     // @ts-ignore
     dispatch(getIngridientsData())
   }, [dispatch]);

@@ -4,13 +4,13 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
 import { OrderDetails } from "../modal/OrderDetails/OrderDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { approveOrderNumber } from "../../services/actions";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { approveOrderNumber } from "../../services/actions/main";
 import { ConstructorBuns } from './ConstructorBuns/ConstructorBuns';
 import { ConstructorMain } from './ConstructorMain/ConstructorMain';
 import { useHistory } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
-import { ORDER_CHANGE_PRICE } from '../../services/constants/ingridients';
+import { ORDER_CHANGE_PRICE } from '../../services/constants/main';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();

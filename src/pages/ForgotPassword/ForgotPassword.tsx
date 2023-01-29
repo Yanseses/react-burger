@@ -4,7 +4,7 @@ import styles from './forgotPassword.module.css';
 import { userForgotPassword } from '../../services/actions/auth';
 import { Form } from '../../components/Form/Form';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useForm } from '../../hooks/useForm';
 
 export default function ForgotPassword(){

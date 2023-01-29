@@ -2,7 +2,7 @@ import { Input, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-
 import styles from './profile.module.css';
 import { Form } from '../../components/Form/Form';
 import { useEffect, useRef, useState, FocusEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { Aside } from '../../components/Aside/Aside';
 import { changeUserData } from '../../services/actions/auth';
 import { Redirect } from 'react-router-dom';

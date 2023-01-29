@@ -1,7 +1,15 @@
 .feed {
   width: 1240px;
+  padding-top: 40px;
   margin: 0 auto;
   display: grid;
-  column-gap: 40px;
-  grid-template-columns: 600px 600px;
+  row-gap: 20px;
+  height: 85%;
+}
+
+.feed__wrapper {
+  width: inherit;
+  display: grid;
+  grid-template-columns: 600px 580px;
+  column-gap: 60px;
 }

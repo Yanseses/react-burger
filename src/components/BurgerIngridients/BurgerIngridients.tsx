@@ -1,13 +1,13 @@
 import { useEffect, FC } from "react";
 import { useInView } from 'react-intersection-observer';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
-import { TAB_SWITCH } from "../../services/constants/ingridients";
+import { TAB_SWITCH } from "../../services/constants/main";
 
 export const BurgerIngridients: FC = () => {
   const location = useLocation();

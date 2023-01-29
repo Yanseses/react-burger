@@ -1,10 +1,10 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../../../services/hooks";
 import styles from './constructorMainItem.module.css';
 import { IIngridient } from "../../../../utils/types";
-import { ORDER_MOVE_INGRIDIENT } from "../../../../services/constants/ingridients";
+import { ORDER_MOVE_INGRIDIENT } from "../../../../services/constants/main";
 
 interface IConstructorMainItem {
   element: IIngridient,

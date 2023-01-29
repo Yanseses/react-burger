@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
 import styles from './ingredientDetails.module.css'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { useEffect, FC } from 'react';
 import { IIngridient, TUrlParams } from '../../../utils/types';
-import { ADD_MODAL_INGRIDIENTS } from '../../../services/constants/ingridients';
+import { ADD_MODAL_INGRIDIENTS } from '../../../services/constants/main';
 
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
-  const { ingridients, ingridientModal }: any = useSelector<any>(store => ({
+  const { ingridients, ingridientModal }: any = useSelector(store => ({
     ingridients: store.main.ingridients,
     ingridientModal: store.main.ingridientModal
   }));

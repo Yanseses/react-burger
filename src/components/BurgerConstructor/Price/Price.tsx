@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import style from './price.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../services/hooks";
 
 export const Price: FC = () => {
   const orderPrice: any = useSelector<any>(store => store.main.orderPrice);

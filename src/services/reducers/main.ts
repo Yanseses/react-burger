@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { authStore } from './auth';
+import { IIngridient } from '../../utils/types';
+import { TMainActions } from '../actions/main';
 import {
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_FAILED,
@@ -15,13 +15,31 @@ import {
   TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
-} from '../constants/ingridients';
+} from '../constants/main';
 
-const initialState = {
+export type TOrder = {
+  buns: null | IIngridient;
+  main: Array<IIngridient>
+}
+
+export type TMainState = {
+  ingridients: ReadonlyArray<IIngridient>;
+  ingridientsRequest: boolean;
+  ingridientsFailed: boolean;
+  orderPrice: number;
+  orderRequest: boolean;
+  orderFailed: boolean;
+  activeTab: string;
+  orderNumber: number | null;
+  ingridientModal: IIngridient | undefined;
+  order: TOrder;
+}
+
+const mainInitialState = {
   ingridients: [],
   ingridientsRequest: false,
   ingridientsFailed: false,
-  ingridientModal: {},
+  ingridientModal: undefined,
   orderPrice: 0,
   orderRequest: false,
   orderFailed: false,
@@ -33,7 +51,7 @@ const initialState = {
   orderNumber: null
 };
 
-export const mainStore = (state = initialState, action) => {
+export const mainStore = (state: TMainState = mainInitialState, action: TMainActions) => {
   switch (action.type) {
     case GET_INGRIDIENTS_REQUEST: {
       return {
@@ -52,7 +70,7 @@ export const mainStore = (state = initialState, action) => {
         ...state,
         ingridientsRequest: false,
         ingridientsFailed: false,
-        ingridients: action.ingridients.map(el => {
+        ingridients: action.ingridients.map((el: IIngridient) => {
           return {
             ...el,
             counter: 0
@@ -65,7 +83,7 @@ export const mainStore = (state = initialState, action) => {
         ? state.order.buns.price * 2 
         : 0;
       const main = state.order.main.length > 0 
-        ? state.order.main.reduce((acc, num) => acc + num.price, 0) 
+        ? state.order.main.reduce((acc: number, num: IIngridient) => acc + num.price, 0) 
         : 0
       return {
         ...state,
@@ -97,7 +115,7 @@ export const mainStore = (state = initialState, action) => {
           buns: null,
           main: []
         },
-        ingridients: state.ingridients.map(element => {
+        ingridients: state.ingridients.map((element: IIngridient) => {
           if(element.counter > 0){
             element.counter = 0
           }
@@ -130,7 +148,7 @@ export const mainStore = (state = initialState, action) => {
           ...state.order,
           main: [...state.order.main, {...action.payload.data, id: action.payload.id }]
         },
-        ingridients: state.ingridients.map(el => {
+        ingridients: state.ingridients.map((el: IIngridient) => {
           if(el._id === action.payload.data._id){
             el.counter++
             return el;
@@ -140,15 +158,15 @@ export const mainStore = (state = initialState, action) => {
       }
     }
     case ORDER_MAIN_DELETE: {
-      const ingridientId = state.order.main.find(el => el.id === action.deleteIngridient)
+      const ingridientId = state.order.main.find((el: IIngridient) => el.id === action.deleteIngridient);
       return {
         ...state,
         order: {
           ...state.order,
-          main: state.order.main.filter(el => action.deleteIngridient !== el.id)
+          main: state.order.main.filter((el: IIngridient) => action.deleteIngridient !== el.id)
         },
-        ingridients: state.ingridients.map(el => {
-          if(el._id === ingridientId._id){
+        ingridients: state.ingridients.map((el: IIngridient) => {
+          if(ingridientId && el._id === ingridientId._id){
             el.counter--
             return el;
           }
@@ -163,7 +181,7 @@ export const mainStore = (state = initialState, action) => {
           ...state.order,
           buns: action.data
         },
-        ingridients: state.ingridients.map(el => {
+        ingridients: state.ingridients.map((el: IIngridient) => {
           if(el.type === 'bun'){
             if(el._id === action.data._id){
               if(el.counter === 0){
@@ -197,8 +215,3 @@ export const mainStore = (state = initialState, action) => {
     }
   }
 };
-
-export const rootReducer = combineReducers({
-  main: mainStore,
-  auth: authStore
-});

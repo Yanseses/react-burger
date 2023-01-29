@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../services/hooks";
 import sucessLogo from '../../../images/graphics.svg'
 import styles from './orderDetails.module.css';
 
 export const OrderDetails: FC = () => {
-  const orderNumber: any = useSelector<any>(store => store.main.orderNumber);
+  const orderNumber = useSelector(store => store.main.orderNumber);
 
   return (
     <div className={`${styles.orderDetails} mt-4 mb-20 text`}>

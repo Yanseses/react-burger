@@ -2,7 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { userRegister } from '../../services/actions/auth';
 import { useForm } from '../../hooks/useForm';
 import { FormEvent } from 'react';

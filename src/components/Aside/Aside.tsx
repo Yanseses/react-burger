@@ -1,7 +1,7 @@
 import { MouseEvent, FC } from 'react';
 import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { userLogout } from '../../services/actions/auth';
 
 export const Aside: FC = () => {

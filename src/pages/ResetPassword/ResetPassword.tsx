@@ -3,7 +3,7 @@ import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
 import { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { userResetPassword } from '../../services/actions/auth';
 import { useForm } from '../../hooks/useForm';
 
@@ -17,8 +17,7 @@ export default function ResetPassword(){
 
   const handleResetPassword = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
-    // @ts-ignore
+// @ts-ignore
     dispatch(userResetPassword(values));
   }
 

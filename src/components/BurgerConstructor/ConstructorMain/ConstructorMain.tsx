@@ -1,11 +1,11 @@
 import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { addIngridientOrder } from "../../../services/actions";
+import { useDispatch, useSelector } from "../../../services/hooks";
+import { addIngridientOrder } from "../../../services/actions/main";
 import { useCallback, FC } from 'react';
 import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
-import { ORDER_MAIN_DELETE } from '../../../services/constants/ingridients';
+import { ORDER_MAIN_DELETE } from '../../../services/constants/main';
 
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ export const ConstructorMain: FC = () => {
   const handleRemove = useCallback((e: string | undefined) => {
     dispatch({
       type: ORDER_MAIN_DELETE,
+      // @ts-ignore
       deleteIngridient: e
     })
   }, [dispatch]);

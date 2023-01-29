@@ -2,9 +2,9 @@ import { FC } from 'react';
 import styles from './constructorBuns.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { IIngridient } from '../../../utils/types';
-import { ORDER_BUNS_CHANGE } from '../../../services/constants/ingridients';
+import { ORDER_BUNS_CHANGE } from '../../../services/constants/main';
 
 type TBunsType = {
   type: 'top' | 'bottom' | undefined
@@ -21,6 +21,7 @@ export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
     drop(item: IIngridient | unknown) {
       dispatch({
         type: ORDER_BUNS_CHANGE,
+        // @ts-ignore
         data: item
       })
     },
