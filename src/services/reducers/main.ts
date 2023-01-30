@@ -15,7 +15,7 @@ import {
   TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
-} from '../constants/main';
+} from '../actionTypes/main';
 
 export type TOrder = {
   buns: null | IIngridient;
@@ -70,7 +70,7 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
         ...state,
         ingridientsRequest: false,
         ingridientsFailed: false,
-        ingridients: action.ingridients.map((el: IIngridient) => {
+        ingridients: action.payload.map((el: IIngridient) => {
           return {
             ...el,
             counter: 0
@@ -93,7 +93,7 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
     case TAB_SWITCH: {
       return {
         ...state,
-        activeTab: action.tab
+        activeTab: action.payload
       };
     }
     case ORDER_REQUEST: {
@@ -129,13 +129,13 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
         ...state,
         orderRequest: false,
         orderFailed: false,
-        orderNumber: action.orderNumber
+        orderNumber: action.payload
       }
     }
     case ADD_MODAL_INGRIDIENTS: {
       return {
         ...state,
-        ingridientModal: action.data
+        ingridientModal: action.payload
       }
     }
     case ORDER_MAIN_CHANGE: {
@@ -158,12 +158,12 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
       }
     }
     case ORDER_MAIN_DELETE: {
-      const ingridientId = state.order.main.find((el: IIngridient) => el.id === action.deleteIngridient);
+      const ingridientId = state.order.main.find((el: IIngridient) => el.id === action.payload);
       return {
         ...state,
         order: {
           ...state.order,
-          main: state.order.main.filter((el: IIngridient) => action.deleteIngridient !== el.id)
+          main: state.order.main.filter((el: IIngridient) => action.payload !== el.id)
         },
         ingridients: state.ingridients.map((el: IIngridient) => {
           if(ingridientId && el._id === ingridientId._id){
@@ -179,11 +179,11 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
         ...state,
         order: {
           ...state.order,
-          buns: action.data
+          buns: action.payload
         },
         ingridients: state.ingridients.map((el: IIngridient) => {
           if(el.type === 'bun'){
-            if(el._id === action.data._id){
+            if(el._id === action.payload._id){
               if(el.counter === 0){
                 el.counter++
               }
@@ -197,11 +197,11 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
       }
     }
     case ORDER_MOVE_INGRIDIENT: {
-      const dragItem = state.order.main[action.dragIndex];
-      const hoverItem = state.order.main[action.hoverIndex];
+      const dragItem = state.order.main[action.payload.dragIndex];
+      const hoverItem = state.order.main[action.payload.hoverIndex];
       const changedOrder = state.order.main;
-      changedOrder[action.dragIndex] = hoverItem;
-      changedOrder[action.hoverIndex] = dragItem;
+      changedOrder[action.payload.dragIndex] = hoverItem;
+      changedOrder[action.payload.hoverIndex] = dragItem;
       return {
         ...state,
         order: {

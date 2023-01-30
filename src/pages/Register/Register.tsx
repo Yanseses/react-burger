@@ -3,7 +3,7 @@ import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
 import { Link } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
-import { userRegister } from '../../services/actions/auth';
+import { userRegister } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { FormEvent } from 'react';
 

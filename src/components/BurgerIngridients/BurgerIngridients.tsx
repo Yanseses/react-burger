@@ -7,7 +7,7 @@ import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
-import { TAB_SWITCH } from "../../services/constants/main";
+import { tabSwitch } from "../../services/actions/main";
 
 export const BurgerIngridients: FC = () => {
   const location = useLocation();
@@ -22,11 +22,11 @@ export const BurgerIngridients: FC = () => {
   
   useEffect(() => {
     if(inWiewBuns){
-      dispatch({type: TAB_SWITCH, tab: 'bun'})
+      dispatch(tabSwitch('bun'))
     } else if(inWiewSauce){
-      dispatch({type: TAB_SWITCH, tab: 'sauce'})
+      dispatch(tabSwitch('sauce'))
     } else if(inWiewMain){
-      dispatch({type: TAB_SWITCH, tab: 'main'})
+      dispatch(tabSwitch('main'))
     }
   }, [dispatch, inWiewBuns, inWiewMain, inWiewSauce]);
   

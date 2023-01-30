@@ -19,7 +19,7 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_FAILED,
   USER_RESET_PASSWORD_SUCCESS
-} from '../constants/auth';
+} from '../actionTypes/auth';
 
 type TUser = {
   name: string,
@@ -92,8 +92,8 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -118,8 +118,8 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -168,8 +168,8 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -212,8 +212,8 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
         changeUserFailed: false,
         user: {
           ...state.user,
-          email: action.user.email,
-          name: action.user.name
+          email: action.payload.email,
+          name: action.payload.name
         }
       }
     }

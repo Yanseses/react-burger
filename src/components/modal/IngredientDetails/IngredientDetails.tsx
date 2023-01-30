@@ -3,7 +3,7 @@ import styles from './ingredientDetails.module.css'
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { useEffect, FC } from 'react';
 import { IIngridient, TUrlParams } from '../../../utils/types';
-import { ADD_MODAL_INGRIDIENTS } from '../../../services/constants/main';
+import { addModalIngridient } from '../../../services/actions/main';
 
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();
@@ -15,10 +15,7 @@ export const IngridientDetails: FC = () => {
   const data = ingridients.length > 0 ? ingridients.find((el: IIngridient) => el._id === id) : {};
 
   useEffect(() => {
-    dispatch({
-      type: ADD_MODAL_INGRIDIENTS,
-      data
-    })
+    dispatch(addModalIngridient(data))
   }, [dispatch, ingridients]);
 
   return (

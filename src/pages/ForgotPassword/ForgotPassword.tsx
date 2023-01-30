@@ -1,7 +1,7 @@
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FormEvent } from 'react';
 import styles from './forgotPassword.module.css';
-import { userForgotPassword } from '../../services/actions/auth';
+import { userForgotPassword } from '../../services/thunks/auth';
 import { Form } from '../../components/Form/Form';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';

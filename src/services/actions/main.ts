@@ -1,5 +1,3 @@
-import { getCookie } from '../../utils/cookie';
-import { request } from '../api';
 import { v4 as uuidv4 } from 'uuid';
 import {
   GET_INGRIDIENTS_REQUEST,
@@ -16,31 +14,8 @@ import {
   TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
-} from '../constants/main';
+} from '../actionTypes/main';
 import { IIngridient } from '../../utils/types';
-import { AppDispatch } from '../types';
-
-interface IIngridientsResponse {
-  data: IIngridient[];
-  statusText: string
-}
-
-type TOrder = {
-  createdAt: string,
-  ingredients: IIngridient[],
-  name: string,
-  number: number,
-  price: number,
-  status: string,
-  updatedAt: string,
-  _id: string
-}
-
-interface IAproveOrderResponse {
-  name: string;
-  order: TOrder;
-  statusText?: string;
-}
 
 export interface IIngridientsRequest {
   readonly type: typeof GET_INGRIDIENTS_REQUEST
@@ -52,7 +27,7 @@ export interface IIngridientsFailed {
 
 export interface IIngridientsSuccess {
   readonly type: typeof GET_INGRIDIENTS_SUCCESS;
-  ingridients: ReadonlyArray<IIngridient>
+  payload: ReadonlyArray<IIngridient>
 }
 
 export interface IOrderRequest {
@@ -65,7 +40,7 @@ export interface IOrderFailed {
 
 export interface IOrderSuccess {
   readonly type: typeof ORDER_SUCCESS;
-  orderNumber: number 
+  payload: number 
 }
 
 export interface IOrderClear {
@@ -82,28 +57,30 @@ export interface IOrderMainChange {
 
 export interface IOrderBunsChange {
   readonly type: typeof ORDER_BUNS_CHANGE;
-  data: IIngridient
+  payload: IIngridient
 }
 
 export interface IOrderMainDelete {
   readonly type: typeof ORDER_MAIN_DELETE;
-  deleteIngridient: string
+  payload: string
 }
 
 export interface IOrderMoveIngridient {
   readonly type: typeof ORDER_MOVE_INGRIDIENT;
-  dragIndex: number;
-  hoverIndex: number;
+  payload: {
+    dragIndex: number;
+    hoverIndex: number;
+  }
 }
 
 export interface ITabSwitch {
   readonly type: typeof TAB_SWITCH;
-  tab: string
+  payload: string
 }
 
 export interface IAddModalIngridient {
   readonly type: typeof ADD_MODAL_INGRIDIENTS;
-  data: IIngridient
+  payload: IIngridient
 }
 
 export interface IOrderChangePrice {
@@ -125,75 +102,100 @@ export type TMainActions = IIngridientsRequest
   | IAddModalIngridient
   | IOrderChangePrice
 
-export function getIngridientsData() {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: GET_INGRIDIENTS_REQUEST
-    });
-    request<IIngridientsResponse>('/ingredients')
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_INGRIDIENTS_SUCCESS,
-            ingridients: res.data
-          });
-        } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        dispatch({
-          type: GET_INGRIDIENTS_FAILED
-        });
-      })
-    }
+export const ingridientsRequest = (): IIngridientsRequest => {
+  return {
+    type: GET_INGRIDIENTS_REQUEST
   }
-  
-export function approveOrderNumber(data: { ingridients: IIngridient[] }){
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: ORDER_REQUEST
-    });
-    request<IAproveOrderResponse>('/orders', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: 'Bearer ' + getCookie('accessToken')
-      },
-      body: JSON.stringify(data)
-    }).then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: ORDER_SUCCESS,
-            orderNumber: res.order.number
-          })
-          dispatch({
-            type: ORDER_CLEAR
-          })
-        } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        dispatch({
-          type: ORDER_FAILED
-        });
-      })
-    }
-  }
+}
 
-export function addIngridientOrder(item: IIngridient){
+export const ingridientsFailed = (): IIngridientsFailed => {
+  return {
+    type: GET_INGRIDIENTS_FAILED
+  }
+}
+
+export const ingridientsSuccess = (ingridients: IIngridient[]): IIngridientsSuccess => {
+  return {
+    type: GET_INGRIDIENTS_SUCCESS,
+    payload: ingridients
+  }
+}
+
+export const orderRequest = (): IOrderRequest => {
+  return {
+    type: ORDER_REQUEST
+  }
+}
+
+export const orderFailed = (): IOrderFailed => {
+  return {
+    type: ORDER_FAILED
+  }
+}
+
+export const orderSuccess = (orderNumber: number): IOrderSuccess => {
+  return {
+    type: ORDER_SUCCESS,
+    payload: orderNumber
+  }
+}
+
+export const orderClear = (): IOrderClear => {
+  return {
+    type: ORDER_CLEAR
+  }
+}
+
+export const orderMainChange = (item: IIngridient): IOrderMainChange => {
   return {
     type: ORDER_MAIN_CHANGE,
     payload: {
       data: item,
       id: uuidv4(),
     }
+  }
+}
+
+export const orderBunsChange = (data: IIngridient): IOrderBunsChange => {
+  return {
+    type: ORDER_BUNS_CHANGE,
+    payload: data
+  }
+}
+
+export const orderMainDelete = (data: string): IOrderMainDelete => {
+  return {
+    type: ORDER_MAIN_DELETE,
+    payload: data
+  }
+}
+
+export const orderMoveIngridient = (hoverIndex: number, dragIndex: number): IOrderMoveIngridient => {
+  return {
+    type: ORDER_MOVE_INGRIDIENT,
+    payload: {
+      hoverIndex,
+      dragIndex
+    }
+  }
+}
+
+export const tabSwitch = (tab: string): ITabSwitch => {
+  return {
+    type: TAB_SWITCH,
+    payload: tab
+  }
+}
+
+export const addModalIngridient = (data: IIngridient): IAddModalIngridient => {
+  return {
+    type: ADD_MODAL_INGRIDIENTS,
+    payload: data
+  }
+}
+
+export const orderChangePrice = (): IOrderChangePrice => {
+  return {
+    type: ORDER_CHANGE_PRICE
   }
 }

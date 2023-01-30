@@ -2,7 +2,7 @@ import { MouseEvent, FC } from 'react';
 import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
 import { useDispatch } from '../../services/hooks';
-import { userLogout } from '../../services/actions/auth';
+import { userLogout } from '../../services/thunks/auth';
 
 export const Aside: FC = () => {
   const dispatch = useDispatch();

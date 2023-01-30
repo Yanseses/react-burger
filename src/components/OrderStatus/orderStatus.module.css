@@ -1,0 +1,20 @@
+.orderStatus__wrapper {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 24px;
+}
+
+.orderStatus__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.orderStatus__itemColor {
+  list-style: none;
+  color: var(--colors-interface-success);
+}
+
+.orderStatus__item {
+  list-style: none;
+}

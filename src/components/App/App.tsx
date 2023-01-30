@@ -14,9 +14,9 @@ import {
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from '../../services/hooks';
 import { useEffect } from 'react';
-import { getIngridientsData } from '../../services/actions/main';
+import { getIngridientsData } from '../../services/thunks/main';
 import { getCookie } from '../../utils/cookie';
-import { getUserData } from '../../services/actions/auth';
+import { getUserData } from '../../services/thunks/auth';
 import { Modal } from '../modal/Modal';
 import { IngridientDetails } from '../modal/IngredientDetails/IngredientDetails';
 

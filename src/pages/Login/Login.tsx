@@ -4,7 +4,7 @@ import { FormEvent } from 'react';
 import { Form } from '../../components/Form/Form';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { userAuth } from '../../services/actions/auth';
+import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 
 export default function Login(){

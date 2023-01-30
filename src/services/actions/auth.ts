@@ -1,5 +1,3 @@
-import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
-import { request } from "../api";
 import {
   CHANGE_USER_REQUEST,
   CHANGE_USER_SUCCESS,
@@ -20,37 +18,9 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_FAILED,
   USER_RESET_PASSWORD_SUCCESS
-} from '../constants/auth';
-import { AppDispatch } from "../types";
+} from '../actionTypes/auth';
+import { TUserData } from '../thunks/auth';
 
-type TErrorStatus = {
-  statusText?: string
-}
-
-type TUserData = {
-  name: string,
-  email: string,
-  password?: string
-}
-
-type TAuthResponse = {
-  accessToken: string,
-  refreshToken: string,
-  user: TUserData,
-} & TErrorStatus;
-
-type TUserResponse = {
-  user: TUserData,
-} & TErrorStatus;
-
-type TResponseWithMessage = {
-  message: string
-} & TErrorStatus;
-
-type TResetPassword = {
-  password: string,
-  token: string,
-} & TErrorStatus;
 
 export interface IChangeUserRequest {
   readonly type: typeof CHANGE_USER_REQUEST
@@ -58,7 +28,7 @@ export interface IChangeUserRequest {
 
 export interface IChangeUserSuccess {
   readonly type: typeof CHANGE_USER_SUCCESS
-  user: TUserData
+  payload: TUserData
 }
 
 export interface IChangeUserFailed {
@@ -75,7 +45,7 @@ export interface IGetUserFailed {
 
 export interface IGetUserSuccess {
   readonly type: typeof GET_USER_SUCCESS
-  user: TUserData
+  payload: TUserData
 }
 
 export interface IUserAuthRequest {
@@ -88,7 +58,7 @@ export interface IUserAuthFailed {
 
 export interface IUserAuthSuccess {
   readonly type: typeof USER_AUTH_SUCCESS
-  user: TUserData
+  payload: TUserData
 }
 
 export interface IUserLogoutRequest {
@@ -113,7 +83,7 @@ export interface IUserRegisterFailed {
 
 export interface IUserRegisterSuccess {
   readonly type: typeof USER_REGISTER_SUCCESS
-  user: TUserData
+  payload: TUserData
 }
 
 export interface IUserPatchPassword {
@@ -152,261 +122,120 @@ export type TAuthActions = IUserPasswordResetSuccess
   | IChangeUserSuccess
   | IChangeUserRequest
 
-export function userRegister(registerData: TUserData) {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: USER_REGISTER_REQUEST
-    });
-    request<TAuthResponse>('/auth/register', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(registerData)
-    }).then(res => {
-      console.log(res)
-      if(res && res.success){ 
-        setCookie('refreshToken', res.refreshToken);
-        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        dispatch({
-          type: USER_REGISTER_SUCCESS,
-          user: res.user
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => {
-      console.log(err)
-      dispatch({
-        type: USER_REGISTER_FAILED
-      });
-    })
+export const changeUserRequest = (): IChangeUserRequest => {
+  return {
+    type: CHANGE_USER_REQUEST
   }
 }
 
-export function userAuth(authData: TUserData) {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: USER_AUTH_REQUEST
-    });
-    request<TAuthResponse>('/auth/login', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(authData)
-    }).then(res => {
-      if (res && res.success) {
-        setCookie('refreshToken', res.refreshToken);
-        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        dispatch({
-          type: USER_AUTH_SUCCESS,
-          user: res.user
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => {
-      console.log(err)
-      dispatch({
-        type: USER_AUTH_FAILED
-      });
-    })
+export const changeUserSuccess = (user: TUserData): IChangeUserSuccess => {
+  return {
+    type: CHANGE_USER_SUCCESS,
+    payload: user
   }
 }
 
-export function getUserData() {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: GET_USER_REQUEST
-    });
-    request<TUserResponse>('/auth/user', {
-      method: 'GET',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: 'Bearer ' + getCookie('accessToken')
-      },
-    }).then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            user: res.user
-          });
-        } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
-        }
-    }).catch(err => {
-      console.log(err)
-      deleteCookie('accessToken');
-      deleteCookie('refreshToken');
-      dispatch({
-        type: GET_USER_FAILED
-      });
-      // @ts-ignore
-      dispatch(userRefreshToken());
-    })
+export const changeUserFailed = (): IChangeUserFailed => {
+  return {
+    type: CHANGE_USER_FAILED
   }
 }
 
-export function userRefreshToken(){
-  return function(dispatch: AppDispatch){
-    request<TAuthResponse>('/auth/token', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({token: getCookie('refreshToken')})
-    }).then(res => {
-      if(res && res.success){
-        setCookie('refreshToken', res.refreshToken);
-        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        // @ts-ignore
-        dispatch(getUserData())
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => console.log(err))
+export const getUserRequest = (): IGetUserRequest => {
+  return {
+    type: GET_USER_REQUEST
   }
 }
 
-export function changeUserData(userData: TUserData) {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: CHANGE_USER_REQUEST
-    });
-    request<TUserResponse>('/auth/user', {
-      method: 'PATCH',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: 'Bearer ' + getCookie('accessToken')
-      },
-      body: JSON.stringify(userData)
-    }).then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: CHANGE_USER_SUCCESS,
-          user: res.user
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => {
-      console.log(err)
-      dispatch({
-        type: CHANGE_USER_FAILED
-      });
-    })
+export const getUserFailed = (): IGetUserFailed => {
+  return {
+    type: GET_USER_FAILED
   }
 }
 
-export function userLogout() {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: USER_LOGOUT_REQUEST
-    });
-    request<TResponseWithMessage>('/auth/logout', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({token: getCookie('refreshToken')})
-    }).then(res => {
-      console.log(res)
-      if (res && res.success) {
-        deleteCookie('accessToken');
-        deleteCookie('refreshToken');
-        dispatch({
-          type: USER_LOGOUT_SUCCESS
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => {
-      console.log(err)
-      dispatch({
-        type: USER_LOGOUT_FAILED
-      });
-    })
+export const getUserSuccess = (user: TUserData): IGetUserSuccess => {
+  return {
+    type: GET_USER_SUCCESS,
+    payload: user
   }
 }
 
-export function userForgotPassword(email: string) {
-  return function(dispatch: AppDispatch) {
-    request<TResponseWithMessage>('/password-reset', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({email})
-    }).then(res => {
-      console.log(res)
-      if (res && res.success) {
-        dispatch({
-          type: USER_PASSWORD_PATCH
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => console.log(err))
+export const userAuthRequest = (): IUserAuthRequest => {
+  return {
+    type: USER_AUTH_REQUEST
   }
 }
 
-export function userResetPassword(resetData: TResetPassword) {
-  return function(dispatch: AppDispatch) {
-    dispatch({
-      type: USER_RESET_PASSWORD_REQUEST
-    });
-    request<TResponseWithMessage>('/password-reset/reset', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(resetData)
-    }).then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: USER_RESET_PASSWORD_SUCCESS
-        });
-      } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
-      }
-    }).catch(err => {
-      console.log(err)
-      dispatch({
-        type: USER_RESET_PASSWORD_FAILED
-      });
-    })
+export const userAuthFailed = (): IUserAuthFailed => {
+  return {
+    type: USER_AUTH_FAILED
+  }
+}
+
+export const userAuthSucces = (user: TUserData): IUserAuthSuccess => {
+  return {
+    type: USER_AUTH_SUCCESS,
+    payload: user
+  }
+}
+
+export const userLogoutRequest = (): IUserLogoutRequest => {
+  return {
+    type: USER_LOGOUT_REQUEST
+  }
+}
+
+export const userLogoutFailed = (): IUserLogoutFailed => {
+  return {
+    type: USER_LOGOUT_FAILED
+  }
+}
+
+export const userLogoutSuccess = (): IUserLogoutSuccess => {
+  return {
+    type: USER_LOGOUT_SUCCESS
+  }
+}
+
+export const userRegisterRequest = (): IUserRegisterRequest => {
+  return {
+    type: USER_REGISTER_REQUEST
+  }
+}
+
+export const userRegisterFailed = (): IUserRegisterFailed => {
+  return {
+    type: USER_REGISTER_FAILED
+  }
+}
+
+export const userRegisterSuccess = (user: TUserData): IUserRegisterSuccess => {
+  return {
+    type: USER_REGISTER_SUCCESS,
+    payload: user
+  }
+}
+
+export const userPatchPassword = (): IUserPatchPassword => {
+  return {
+    type: USER_PASSWORD_PATCH
+  }
+}
+
+export const userPasswordResetRequest = (): IUserPasswordResetRequest => {
+  return {
+    type: USER_RESET_PASSWORD_REQUEST
+  }
+}
+
+export const userPasswordResetFailed = (): IUserPasswordResetFailed => {
+  return {
+    type: USER_RESET_PASSWORD_FAILED
+  }
+}
+
+export const userPasswordResetSuccess = (): IUserPasswordResetSuccess => {
+  return {
+    type: USER_RESET_PASSWORD_SUCCESS
   }
 }

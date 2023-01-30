@@ -1,0 +1,15 @@
+import { FC } from "react";
+
+interface IDone {
+  title: string,
+  total: string
+}
+
+export const Done: FC<IDone> = ({ title, total }) => {
+  return (
+    <div>
+      <p className='text text_type_main-medium'>{title}</p>
+      <p className='text text_type_digits-large'>{total}</p>
+    </div>
+  )
+}

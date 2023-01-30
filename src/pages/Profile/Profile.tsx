@@ -4,7 +4,7 @@ import { Form } from '../../components/Form/Form';
 import { useEffect, useRef, useState, FocusEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { Aside } from '../../components/Aside/Aside';
-import { changeUserData } from '../../services/actions/auth';
+import { changeUserData } from '../../services/thunks/auth';
 import { Redirect } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { useForm } from '../../hooks/useForm';

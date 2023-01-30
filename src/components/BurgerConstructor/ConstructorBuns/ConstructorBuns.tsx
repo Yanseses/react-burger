@@ -4,7 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { IIngridient } from '../../../utils/types';
-import { ORDER_BUNS_CHANGE } from '../../../services/constants/main';
+import { ORDER_BUNS_CHANGE } from '../../../services/actionTypes/main';
 
 type TBunsType = {
   type: 'top' | 'bottom' | undefined

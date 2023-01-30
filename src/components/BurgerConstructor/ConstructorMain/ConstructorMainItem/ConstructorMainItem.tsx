@@ -4,7 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "../../../../services/hooks";
 import styles from './constructorMainItem.module.css';
 import { IIngridient } from "../../../../utils/types";
-import { ORDER_MOVE_INGRIDIENT } from "../../../../services/constants/main";
+import { ORDER_MOVE_INGRIDIENT } from "../../../../services/actionTypes/main";
 
 interface IConstructorMainItem {
   element: IIngridient,
@@ -37,8 +37,10 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
 
         dispatch({
           type: ORDER_MOVE_INGRIDIENT,
-          dragIndex,
-          hoverIndex
+          payload: {
+            dragIndex,
+            hoverIndex
+          }
         })
         item.index = hoverIndex;
       }

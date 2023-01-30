@@ -4,7 +4,7 @@ import { Form } from '../../components/Form/Form';
 import { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { userResetPassword } from '../../services/actions/auth';
+import { userResetPassword } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 
 export default function ResetPassword(){

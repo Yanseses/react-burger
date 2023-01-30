@@ -13,3 +13,15 @@
   grid-template-columns: 600px 580px;
   column-gap: 60px;
 }
+
+.feed__ready {
+  display: grid;
+  row-gap: 60px;
+  grid-template-rows: repeat(3, auto);
+}
+
+.feed__readyHead {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 36px;
+}
