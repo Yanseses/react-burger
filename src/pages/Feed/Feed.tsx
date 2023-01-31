@@ -16,8 +16,8 @@ export default function Feed(){
             <OrderStatus name={'Готовы'} orderList={readyList} colorList/>
             <OrderStatus name={'В работе'} orderList={readyList} />
           </div>
-          <Done title={'Выполнено за все время:'} total={'28 752'}/>
-          <Done title={'Выполнено за сегодня:'} total={'138'}/>
+          <Done title={'Выполнено за все время:'}/>
+          <Done title={'Выполнено за сегодня:'}/>
         </section>
       </div>
     </main>

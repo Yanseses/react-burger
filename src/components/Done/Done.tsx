@@ -2,10 +2,10 @@ import { FC } from "react";
 
 interface IDone {
   title: string,
-  total: string
+  total?: string
 }
 
-export const Done: FC<IDone> = ({ title, total }) => {
+export const Done: FC<IDone> = ({ title, total = 0 }) => {
   return (
     <div>
       <p className='text text_type_main-medium'>{title}</p>
