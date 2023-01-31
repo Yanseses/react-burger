@@ -8,7 +8,7 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
   const { image, _id, name, price, type, counter = 0 } = props;
   const [{ opacity }, ref] = useDrag({
     type: type === 'bun' ? 'bun' : 'main',
-    item: props ,
+    item: props,
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
     })

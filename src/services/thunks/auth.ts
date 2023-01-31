@@ -46,7 +46,6 @@ export function userRegister(registerData: TUserData) {
       },
       body: JSON.stringify(registerData)
     }).then(res => {
-      console.log(res)
       if(res && res.success){ 
         setCookie('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
@@ -185,7 +184,6 @@ export function userLogout() {
       },
       body: JSON.stringify({token: getCookie('refreshToken')})
     }).then(res => {
-      console.log(res)
       if (res && res.success) {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
@@ -213,7 +211,6 @@ export function userForgotPassword(email: string) {
       },
       body: JSON.stringify({email})
     }).then(res => {
-      console.log(res)
       if (res && res.success) {
         dispatch(userPatchPassword());
       } else {

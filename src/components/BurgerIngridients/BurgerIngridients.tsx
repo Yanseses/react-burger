@@ -15,7 +15,7 @@ export const BurgerIngridients: FC = () => {
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
   const [ mainRef, inWiewMain, entryMain ] = useInView({threshold: 0});
   const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
-  const { activeTab, data }: any = useSelector<any>(store => ({
+  const { activeTab, data } = useSelector(store => ({
     activeTab: store.main.activeTab,
     data: store.main.ingridients,
   }));

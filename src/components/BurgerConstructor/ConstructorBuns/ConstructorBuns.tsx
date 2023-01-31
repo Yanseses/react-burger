@@ -4,7 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { IIngridient } from '../../../utils/types';
-import { ORDER_BUNS_CHANGE } from '../../../services/actionTypes/main';
+import { orderBunsChange } from '../../../services/actions/main';
 
 type TBunsType = {
   type: 'top' | 'bottom' | undefined
@@ -12,18 +12,18 @@ type TBunsType = {
 
 export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
   const dispatch = useDispatch();
-  const buns: any = useSelector<any>(state => state.main.order.buns)
-  const [{ isHoverBuns } , bunsDrop] = useDrop({
+  const buns = useSelector(state => state.main.order.buns)
+  const [{ isHoverBuns } , bunsDrop] = useDrop<
+    IIngridient, 
+    unknown,
+    { isHoverBuns: boolean }
+  >({
     accept: 'bun',
     collect: monitor => ({
       isHoverBuns: monitor.isOver(),
     }),
-    drop(item: IIngridient | unknown) {
-      dispatch({
-        type: ORDER_BUNS_CHANGE,
-        // @ts-ignore
-        data: item
-      })
+    drop(item: IIngridient) {
+      dispatch(orderBunsChange(item))
     },
   });
 

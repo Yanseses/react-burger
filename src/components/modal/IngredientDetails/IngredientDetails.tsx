@@ -8,38 +8,44 @@ import { addModalIngridient } from '../../../services/actions/main';
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
-  const { ingridients, ingridientModal }: any = useSelector(store => ({
+  const { ingridients, ingridientModal } = useSelector(store => ({
     ingridients: store.main.ingridients,
     ingridientModal: store.main.ingridientModal
   }));
-  const data = ingridients.length > 0 ? ingridients.find((el: IIngridient) => el._id === id) : {};
 
   useEffect(() => {
-    dispatch(addModalIngridient(data))
-  }, [dispatch, ingridients]);
+    const data = ingridients.find((el: IIngridient) => el._id === id);
+
+    if(data){
+      dispatch(addModalIngridient(data))
+    }
+  }, [dispatch, id, ingridients]);
 
   return (
     <div className={styles.ingredientDetails}>
-      <img src={ingridientModal.image_large} alt={ingridientModal.name} />
+      <img 
+        src={ingridientModal ? ingridientModal.image_large : ''} 
+        alt={ingridientModal ? ingridientModal.name : ''} 
+      />
       <h3 className={`${styles.ingridientDetails__title} text text_type_main-medium mt-4`}>
-        {ingridientModal.name}
+        {ingridientModal && ingridientModal.name}
       </h3>
       <ul className={`${styles.ingredientDetails__detail} mt-8 text text_color_inactive`}>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <p className='text_type_main-default'>Калории, ккал</p>
-          <p className="text_type_digits-default">{ingridientModal.calories}</p>
+          <p className="text_type_digits-default">{ingridientModal && ingridientModal.calories}</p>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <p className='text_type_main-default'>Белки, г</p>
-          <p className="text_type_digits-default">{ingridientModal.proteins}</p>
+          <p className="text_type_digits-default">{ingridientModal && ingridientModal.proteins}</p>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <p className='text_type_main-default'>Жиры, г</p>
-          <p className="text_type_digits-default">{ingridientModal.fat}</p>
+          <p className="text_type_digits-default">{ingridientModal && ingridientModal.fat}</p>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <p className='text_type_main-default'>Углеводы, г</p>
-          <p className="text_type_digits-default">{ingridientModal.carbohydrates}</p>
+          <p className="text_type_digits-default">{ingridientModal && ingridientModal.carbohydrates}</p>
         </li>
       </ul>
     </div>

@@ -1,6 +1,6 @@
 import { Middleware } from "redux";
 
-export const socketMiddleware = (wsUrl: any, wsActions: any): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: any): Middleware => {
   return store => {
     let socket: WebSocket | null = null;
 

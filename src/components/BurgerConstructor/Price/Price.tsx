@@ -4,7 +4,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from "../../../services/hooks";
 
 export const Price: FC = () => {
-  const orderPrice: any = useSelector<any>(store => store.main.orderPrice);
+  const orderPrice = useSelector(store => store.main.orderPrice);
   
   return (
     <div className={`${style.price} mr-10`}>

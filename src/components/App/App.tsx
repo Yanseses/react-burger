@@ -52,6 +52,9 @@ export default function App() {
         <ProtectedRoute path={'/profile/orders'} onlyForAuth exact>
           <History />
         </ProtectedRoute>
+        <ProtectedRoute path={'/profile/orders/:id'} onlyForAuth exact>
+          <History />
+        </ProtectedRoute>
         <ProtectedRoute path={'/forgot-password'} exact>
           <ForgotPassword />
         </ProtectedRoute>
@@ -78,7 +81,7 @@ export default function App() {
         </Route>
       </Switch>
 
-      { modal && modal.pathname === '/' && (
+      { modal && (
         <Route path={'/ingridients/:id'}>
           <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
             <IngridientDetails />

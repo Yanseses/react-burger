@@ -14,7 +14,9 @@ interface IWsState {
   connectionsError: string,
   totalToday: number,
   total: number,
-  orders: IWsOrder[] | []
+  orders: IWsOrder[] | [],
+  readyOrders: number[],
+  waitingOrders: number[]
 }
 
 const initialState: IWsState = {
@@ -22,6 +24,8 @@ const initialState: IWsState = {
   connectionsError: '',
   totalToday: 0,
   total: 0,
+  readyOrders: [],
+  waitingOrders: [],
   orders: [],
 }
 

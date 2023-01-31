@@ -23,15 +23,15 @@ export type TOrder = {
 }
 
 export type TMainState = {
-  ingridients: ReadonlyArray<IIngridient>;
+  ingridients: IIngridient[];
   ingridientsRequest: boolean;
   ingridientsFailed: boolean;
   orderPrice: number;
   orderRequest: boolean;
   orderFailed: boolean;
   activeTab: string;
-  orderNumber: number | null;
-  ingridientModal: IIngridient | undefined;
+  orderNumber: number;
+  ingridientModal: IIngridient | null;
   order: TOrder;
 }
 
@@ -39,7 +39,7 @@ const mainInitialState = {
   ingridients: [],
   ingridientsRequest: false,
   ingridientsFailed: false,
-  ingridientModal: undefined,
+  ingridientModal: null,
   orderPrice: 0,
   orderRequest: false,
   orderFailed: false,
@@ -48,7 +48,7 @@ const mainInitialState = {
     main: []
   },
   activeTab: 'bun',
-  orderNumber: null
+  orderNumber: 0
 };
 
 export const mainStore = (state: TMainState = mainInitialState, action: TMainActions) => {
