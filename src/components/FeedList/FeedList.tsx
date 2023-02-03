@@ -1,20 +1,12 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import styles from './feedList.module.css';
-import { FeedItem } from "./FeedItem/FeedItem";
 
-export const FeedList: FC = () => {
+export const FeedList: FC<PropsWithChildren> = ({children}) => {
 
   return (
     <section className={styles.feedList}>
       <ul className={styles.feedList__list}>
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
+        { children }
       </ul>
     </section>
   )

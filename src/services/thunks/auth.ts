@@ -102,17 +102,15 @@ export function getUserData() {
         Authorization: 'Bearer ' + getCookie('accessToken')
       },
     }).then(res => {
-        if (res && res.success) {
-          dispatch(getUserSuccess(res.user));
-        } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
-        }
+      if (res && res.success) {
+        dispatch(getUserSuccess(res.user));
+      } else {
+        return Promise.reject(`Ошибка ${res.statusText}`)
+      }
     }).catch(err => {
       console.log(err)
       deleteCookie('accessToken');
-      deleteCookie('refreshToken');
       dispatch(getUserFailed());
-      // @ts-ignore
       dispatch(userRefreshToken());
     })
   }
@@ -131,15 +129,18 @@ export function userRefreshToken(){
       },
       body: JSON.stringify({token: getCookie('refreshToken')})
     }).then(res => {
+      console.log(res)
       if(res && res.success){
         setCookie('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        // @ts-ignore
         dispatch(getUserData())
       } else {
         return Promise.reject(`Ошибка ${res.statusText}`)
       }
-    }).catch(err => console.log(err))
+    }).catch(err => {
+      deleteCookie('refreshToken')
+      console.log(err)
+    })
   }
 }
 

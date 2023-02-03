@@ -1,3 +1,4 @@
+import { getCookie } from '../../utils/cookie';
 import { Middleware } from "redux";
 
 export const socketMiddleware = (wsUrl: string, wsActions: any): Middleware => {
@@ -5,12 +6,13 @@ export const socketMiddleware = (wsUrl: string, wsActions: any): Middleware => {
     let socket: WebSocket | null = null;
 
     return next => action => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      const { user } = getState().user;
-      if (type === wsInit && user) {
-        socket = new WebSocket(`${wsUrl}?token=${user.token}`);
+      const token = getCookie('accessToken');
+      
+      if (type === wsInit) {
+        socket = new WebSocket(`${wsUrl}/orders/all`);
       }
       if (socket) {
         socket.onopen = event => {
@@ -36,7 +38,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: any): Middleware => {
         };
 
         if (type === wsSendMessage) {
-          const message = { ...payload, token: user.token };
+          const message = { ...payload, token: token };
           socket.send(JSON.stringify(message));
         }
       }

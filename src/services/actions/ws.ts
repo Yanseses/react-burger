@@ -1,4 +1,5 @@
 import {
+  WS_CONNECTION_OPEN,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
@@ -6,8 +7,13 @@ import {
   WS_SEND_MESSAGE
 } from '../actionTypes/ws';
 
+interface IWsConnectionOpen {
+  readonly type: typeof WS_CONNECTION_OPEN;
+}
+
 interface IWsConnectionSuccess {
-  readonly type: typeof WS_CONNECTION_SUCCESS
+  readonly type: typeof WS_CONNECTION_SUCCESS,
+  payload: any
 }
 
 interface IWsConnectionError {
@@ -33,10 +39,18 @@ export type TWsActions = IWsConnectionSuccess
   | IWsConnectionClosed
   | IWsGetMessage
   | IWsSendMessage
+  | IWsConnectionOpen
 
-export const wsConnectionSuccess = (): IWsConnectionSuccess => {
+export const wsConnectionOpen = (): IWsConnectionOpen => {
   return {
-    type: WS_CONNECTION_SUCCESS
+    type: WS_CONNECTION_OPEN
+  }
+}
+
+export const wsConnectionSuccess = (event: Event): IWsConnectionSuccess => {
+  return {
+    type: WS_CONNECTION_SUCCESS,
+    payload: event
   }
 }
 

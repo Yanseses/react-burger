@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "../../../../services/hooks";
 import styles from './constructorMainItem.module.css';
@@ -12,7 +12,7 @@ interface IConstructorMainItem {
   index: number
 }
 
-export default function ConstructorMainItem({ element, onClick, index }: IConstructorMainItem): JSX.Element {
+export const ConstructorMainItem: FC<IConstructorMainItem> = ({ element, onClick, index }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
   const [{ opacity }, constructorDragRef] = useDrag({

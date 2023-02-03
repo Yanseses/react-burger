@@ -4,10 +4,11 @@ import styles from './orderStatus.module.css';
 interface IOrderStatus {
   name: string,
   orderList: string[],
-  colorList?: boolean
+  isReady?: boolean
 }
 
-export const OrderStatus: FC<IOrderStatus> = ({name, orderList, colorList}) => {
+export const OrderStatus: FC<IOrderStatus> = ({name, orderList, isReady}) => {
+
   return (
     <div className={styles.orderStatus__wrapper}>
       <h3 className='text text_type_main-medium'>
@@ -15,7 +16,7 @@ export const OrderStatus: FC<IOrderStatus> = ({name, orderList, colorList}) => {
       </h3>
       <ul className={`${styles.orderStatus__list} text text_type_digits-default`}>
         { orderList && orderList.map((el: any) => (
-          <li className={colorList ? styles.orderStatus__itemColor : styles.orderStatus__item}>{el}</li>
+          <li key={el} className={isReady ? styles.orderStatus__itemColor : styles.orderStatus__item}>{el}</li>
           )) 
         }
       </ul>

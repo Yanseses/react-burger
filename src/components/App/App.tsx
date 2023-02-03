@@ -27,13 +27,11 @@ export default function App() {
   const modal = location.state?.modal;
 
   useEffect(() => {
-    if(getCookie('accessToken')){
+    if(getCookie('refreshToken')){
 
-      // @ts-ignore
       dispatch(getUserData())
     }
 
-    // @ts-ignore
     dispatch(getIngridientsData())
   }, [dispatch]);
 

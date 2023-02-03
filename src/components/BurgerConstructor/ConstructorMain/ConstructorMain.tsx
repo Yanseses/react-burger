@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { orderMainChange, orderMainDelete } from "../../../services/actions/main";
 import { useCallback, FC } from 'react';
-import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
+import { ConstructorMainItem } from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
 
 export const ConstructorMain: FC = () => {
@@ -27,8 +27,9 @@ export const ConstructorMain: FC = () => {
   });
   
   const handleRemove = useCallback((e: string | undefined) => {
-    // @ts-ignore
-    dispatch(orderMainDelete(e))
+    if(e){
+      dispatch(orderMainDelete(e))
+    }
   }, [dispatch]);
   
   const defaultIngridients = (

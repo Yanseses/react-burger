@@ -7,7 +7,7 @@
   height: 85%;
 }
 
-.feed__wrapper {
+.feed__container {
   width: inherit;
   display: grid;
   grid-template-columns: 600px 580px;

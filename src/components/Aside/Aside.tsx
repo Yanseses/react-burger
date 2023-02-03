@@ -10,7 +10,6 @@ export const Aside: FC = () => {
   const handleLogout = (e: MouseEvent): void => {
     e.preventDefault();
     
-    // @ts-ignore
     dispatch(userLogout());
   }
 

@@ -6,3 +6,7 @@
   grid-template-columns: 320px auto;
   column-gap: 60px;
 }
+
+.history__list {
+  padding-top: 40px;
+}
