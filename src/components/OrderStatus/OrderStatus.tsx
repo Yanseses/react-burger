@@ -3,7 +3,7 @@ import styles from './orderStatus.module.css';
 
 interface IOrderStatus {
   name: string,
-  orderList: string[],
+  orderList: number[],
   isReady?: boolean
 }
 

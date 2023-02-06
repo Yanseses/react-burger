@@ -6,8 +6,12 @@ import { useDispatch, useSelector } from '../../services/hooks';
 import styles from './feed.module.css'
 import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/ws';
 import { FeedItem } from '../../components/FeedList/FeedItem/FeedItem';
+import { Link, useLocation } from 'react-router-dom';
+import { WS_ALL_ORDERS } from '../../utils/constants';
+import { IWsOrder } from '../../utils/types';
 
 export default function Feed(){
+  const location = useLocation();
   const dispatch = useDispatch();
   const { 
     orders, 
@@ -24,7 +28,7 @@ export default function Feed(){
   }));
 
   useEffect(() => {
-    dispatch(wsConnectionOpen());
+    dispatch(wsConnectionOpen(WS_ALL_ORDERS));
 
     return () => {
       dispatch(wsConnectionClosed())
@@ -36,8 +40,16 @@ export default function Feed(){
       <h1 className='text text_type_main-large'>Лента заказов</h1>
       <div className={styles.feed__container}>
         <FeedList>
-          { orders && orders.map((el: any) => (
-            <FeedItem key={el._id} {...el}/>
+          { orders && orders.map((el: IWsOrder) => (
+            <Link 
+              key={el._id} 
+              className={styles.feed__link}
+              to={{
+                pathname: `/feed/${el._id}`,
+                state: { modal: location }
+              }}>
+              <FeedItem {...el}/>
+            </Link>
             )) 
           }
         </FeedList>

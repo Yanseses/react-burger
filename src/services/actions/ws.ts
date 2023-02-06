@@ -1,3 +1,4 @@
+import { IWsOrder } from '../../utils/types';
 import {
   WS_CONNECTION_OPEN,
   WS_CONNECTION_SUCCESS,
@@ -7,8 +8,15 @@ import {
   WS_SEND_MESSAGE
 } from '../actionTypes/ws';
 
+interface IOrderMessage {
+  orders: IWsOrder[],
+  total: number,
+  totalToday: number
+}
+
 interface IWsConnectionOpen {
-  readonly type: typeof WS_CONNECTION_OPEN;
+  readonly type: typeof WS_CONNECTION_OPEN,
+  payload: any
 }
 
 interface IWsConnectionSuccess {
@@ -17,16 +25,16 @@ interface IWsConnectionSuccess {
 }
 
 interface IWsConnectionError {
-  readonly type: typeof WS_CONNECTION_ERROR
+  readonly type: typeof WS_CONNECTION_ERROR,
 }
 
 interface IWsConnectionClosed {
-  readonly type: typeof WS_CONNECTION_CLOSED
+  readonly type: typeof WS_CONNECTION_CLOSED,
 }
 
 interface IWsGetMessage {
   readonly type: typeof WS_GET_MESSAGE,
-  payload: any
+  payload: IOrderMessage
 }
 
 interface IWsSendMessage {
@@ -41,9 +49,10 @@ export type TWsActions = IWsConnectionSuccess
   | IWsSendMessage
   | IWsConnectionOpen
 
-export const wsConnectionOpen = (): IWsConnectionOpen => {
+export const wsConnectionOpen = (url: string): IWsConnectionOpen => {
   return {
-    type: WS_CONNECTION_OPEN
+    type: WS_CONNECTION_OPEN,
+    payload: url
   }
 }
 
@@ -56,13 +65,13 @@ export const wsConnectionSuccess = (event: Event): IWsConnectionSuccess => {
 
 export const wsConnectionError = (): IWsConnectionError => {
   return {
-    type: WS_CONNECTION_ERROR
+    type: WS_CONNECTION_ERROR,
   }
 }
 
 export const wsConnectionClosed = (): IWsConnectionClosed => {
   return {
-    type: WS_CONNECTION_CLOSED
+    type: WS_CONNECTION_CLOSED,
   }
 }
 

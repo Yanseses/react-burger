@@ -17,3 +17,15 @@ export interface IIngridient {
 export type TUrlParams = {
   id: string
 }
+
+export interface IWsOrder {
+  name: string,
+  number: number,
+  updatedAt: string,
+  createdAt: string,
+  status: 'done' | 'created' | 'pending',
+  ingredients: string[],
+  price: number,
+  isPrivate?: boolean,
+  _id?: string,
+}

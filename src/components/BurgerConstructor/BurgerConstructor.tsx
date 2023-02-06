@@ -3,7 +3,6 @@ import { useState, useEffect, FC } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
-import { OrderDetails } from "../modal/OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { approveOrderNumber } from "../../services/thunks/main";
 import { ConstructorBuns } from './ConstructorBuns/ConstructorBuns';
@@ -11,6 +10,7 @@ import { ConstructorMain } from './ConstructorMain/ConstructorMain';
 import { useHistory } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
 import { ORDER_CHANGE_PRICE } from '../../services/actionTypes/main';
+import { OrderSuccess } from '../modal/OrderSuccess/OrderSuccess';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ export const BurgerConstructor: FC = () => {
   
       { isModalOpen && orderNumber && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
-          <OrderDetails />
+          <OrderSuccess />
         </Modal>
         ) 
       }

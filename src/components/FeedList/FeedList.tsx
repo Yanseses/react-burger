@@ -5,9 +5,9 @@ export const FeedList: FC<PropsWithChildren> = ({children}) => {
 
   return (
     <section className={styles.feedList}>
-      <ul className={styles.feedList__list}>
+      <div className={styles.feedList__list}>
         { children }
-      </ul>
+      </div>
     </section>
   )
 }

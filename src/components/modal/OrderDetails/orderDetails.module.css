@@ -1,30 +1,21 @@
-.orderDetails {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 
-.orderDetails__identification {
-  margin: 0;
-}
-
-.orderDetails__title {
-  margin: 0;
-}
-
-.orderDetails__main {
+.orderDetails__head {
   display: grid;
-  row-gap: 60px;
-  justify-items: center;
-}
-
-.orderDetails__descr {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
   row-gap: 8px;
 }
 
-.orderDetails__descrText {
-  margin: 0;
-  text-align: center;
+.orderDetails__main {
+  height: 360px;
+  width: 100%;
+}
+
+.orderDetails__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderDetails__price {
+  display: flex;
+  column-gap: 9px;
+  align-items: center;
 }

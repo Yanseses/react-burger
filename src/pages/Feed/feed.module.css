@@ -7,6 +7,18 @@
   height: 85%;
 }
 
+.feed__link {
+  text-decoration: none;
+  color: var(--text-primary-color);
+  width: inherit;
+  list-style: none;
+  background-color: var(--background);
+  padding: 24px;
+  border-radius: 40px;
+  display: grid;
+  row-gap: 24px;
+}
+
 .feed__container {
   width: inherit;
   display: grid;

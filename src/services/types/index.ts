@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
-import { store } from '../store';
+import { store } from '../../index';
 import { TMainActions } from '../actions/main';
 import { TAuthActions } from '../actions/auth';
 import { TWsActions } from '../actions/ws';

@@ -1,0 +1,30 @@
+.orderSuccess {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.orderSuccess__identification {
+  margin: 0;
+}
+
+.orderSuccess__title {
+  margin: 0;
+}
+
+.orderSuccess__main {
+  display: grid;
+  row-gap: 60px;
+  justify-items: center;
+}
+
+.orderSuccess__descr {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 8px;
+}
+
+.orderSuccess__descrText {
+  margin: 0;
+  text-align: center;
+}

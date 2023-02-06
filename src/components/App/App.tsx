@@ -19,6 +19,8 @@ import { getCookie } from '../../utils/cookie';
 import { getUserData } from '../../services/thunks/auth';
 import { Modal } from '../modal/Modal';
 import { IngridientDetails } from '../modal/IngredientDetails/IngredientDetails';
+import DetailOrder from '../../pages/DetailOrder/DetailOrder';
+import { OrderDetails } from '../modal/OrderDetails/OrderDetails';
 
 export default function App() {
   const history = useHistory();
@@ -51,7 +53,7 @@ export default function App() {
           <History />
         </ProtectedRoute>
         <ProtectedRoute path={'/profile/orders/:id'} onlyForAuth exact>
-          <History />
+          <DetailOrder />
         </ProtectedRoute>
         <ProtectedRoute path={'/forgot-password'} exact>
           <ForgotPassword />
@@ -66,7 +68,7 @@ export default function App() {
           <Feed />
         </Route>
         <Route path={'/feed/:id'} exact>
-          <Feed />
+          <DetailOrder />
         </Route>
         <Route path={'/ingridients/:id'} exact>
           <Ingridients />
@@ -80,11 +82,34 @@ export default function App() {
       </Switch>
 
       { modal && (
-        <Route path={'/ingridients/:id'}>
-          <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
-            <IngridientDetails />
-          </Modal>
-        </Route>
+        <>
+          <Route path={'/ingridients/:id'}>
+            <Modal 
+              title={'Детали ингридиента'} 
+              onClose={() => history.goBack()}
+              >
+              <IngridientDetails />
+            </Modal>
+          </Route>
+          <Route path={'/feed/:id'}>
+            <Modal 
+              title={'#034533'} 
+              onClose={() => history.goBack()}
+              titleStyle={'text_type_digits-default'}
+              >
+              <OrderDetails />
+            </Modal>
+          </Route>
+          <Route path={'/profile/orders/:id'}>
+            <Modal 
+              title={'#034533'} 
+              onClose={() => history.goBack()}
+              titleStyle={'text_type_digits-default'}
+              >
+              <OrderDetails />
+            </Modal>
+          </Route>
+        </>
       )}
     </>
   );

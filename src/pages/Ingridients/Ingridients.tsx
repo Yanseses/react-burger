@@ -6,7 +6,7 @@ import { IIngridient, TUrlParams } from '../../utils/types';
 
 export default function Ingridients(){
   const { id } = useParams<TUrlParams>();
-  const ingridients: any = useSelector<any>(store => store.main.ingridients);
+  const ingridients = useSelector(store => store.main.ingridients);
   const data = ingridients.length > 0 ? ingridients.find((el: IIngridient) => el._id === id) : {};
 
   if(!data){

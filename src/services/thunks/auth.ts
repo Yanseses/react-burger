@@ -129,7 +129,6 @@ export function userRefreshToken(){
       },
       body: JSON.stringify({token: getCookie('refreshToken')})
     }).then(res => {
-      console.log(res)
       if(res && res.success){
         setCookie('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);

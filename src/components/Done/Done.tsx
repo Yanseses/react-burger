@@ -2,7 +2,7 @@ import { FC } from "react";
 
 interface IDone {
   title: string,
-  total?: string
+  total?: number
 }
 
 export const Done: FC<IDone> = ({ title, total = 0 }) => {

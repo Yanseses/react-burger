@@ -6,12 +6,13 @@ import { ModalOverlay } from "./ModalOverlay/ModalOverlay";
 
 type TModal = {
   title: string,
+  titleStyle?: string,
   onClose: () => void
 }
 
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-export const Modal: FC<PropsWithChildren<TModal>> = ({title, onClose, children}) => {
+export const Modal: FC<PropsWithChildren<TModal>> = ({title, titleStyle = 'text_type_main-large', onClose, children}) => {
   const modalRef = React.useRef<HTMLElement>(null);
   
   useEffect(() => {
@@ -38,7 +39,7 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({title, onClose, children})
     <ModalOverlay modalRef={modalRef}>
       <section className={`${styles.modal} p-10`}>
         <div className={styles.modal__head}>
-          <h2 className={`${styles.modal__title} text text_type_main-large`}>
+          <h2 className={`text ${titleStyle}`}>
             {title}
           </h2>
           <button className={styles.modal__cross} onClick={onClose}>

@@ -1,43 +1,51 @@
 import { getCookie } from '../../utils/cookie';
 import { Middleware } from "redux";
+import { 
+  WS_CONNECTION_OPEN, 
+  WS_SEND_MESSAGE 
+} from '../actionTypes/ws';
+import { 
+  wsConnectionClosed, 
+  wsConnectionError, 
+  wsConnectionSuccess, 
+  wsGetMessage 
+} from '../actions/ws';
 
-export const socketMiddleware = (wsUrl: string, wsActions: any): Middleware => {
+export const socketMiddleware = (): Middleware => {
   return store => {
     let socket: WebSocket | null = null;
-
+    
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      const token = getCookie('accessToken');
-      
-      if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}/orders/all`);
+
+      if (type === WS_CONNECTION_OPEN) {
+        socket = new WebSocket(payload);
       }
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: onOpen, payload: event });
+          dispatch(wsConnectionSuccess(event));
         };
 
         socket.onerror = event => {
-          dispatch({ type: onError, payload: event });
+          dispatch(wsConnectionError());
         };
 
         socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-
-          dispatch({ type: onMessage, payload: restParsedData });
+          dispatch(wsGetMessage(restParsedData));
         };
 
         socket.onclose = event => {
           if(event.code !== 1000){
-            dispatch({ type: onClose, payload: event });
+            dispatch(wsConnectionClosed());
           }
         };
 
-        if (type === wsSendMessage) {
+        if (type === WS_SEND_MESSAGE) {
+          const token = getCookie('accessToken');
           const message = { ...payload, token: token };
           socket.send(JSON.stringify(message));
         }
