@@ -1,8 +1,10 @@
 import { FC } from "react";
 import styles from './feedItem.module.css';
-import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IIngridient, IWsOrder } from "../../../utils/types";
 import { useSelector } from "../../../services/hooks";
+import { Price } from "../../BurgerConstructor/Price/Price";
+import { IngridientsIcon } from "../../BurgerIngridients/IngridientsIcon/IngridientsIcon";
 
 export const FeedItem: FC<IWsOrder> = ({ 
   name, 
@@ -45,20 +47,20 @@ export const FeedItem: FC<IWsOrder> = ({
         ) 
       }
       <div className={styles.feedItem__orderDetail}>
-        <ul className={styles.feedItem__ingridients}>
+        <div className={styles.feedItem__ingridients}>
           { actualIngredients.map((el: IIngridient | undefined, i: number) => (
-            <li className={styles.feedItem__imgContainer} style={{ zIndex: 50 - i, left: 30 * i }}>
-              <img src={el!.image_mobile} alt="" className={styles.feedItem__img}/>
-            </li>
+            <IngridientsIcon 
+              key={i}
+              image={el?.image_mobile} 
+              index={i} 
+              extraClass={styles.feedItem__img}/>
             )) 
           }
-        </ul>
-        <div className={styles.feedItem__orderPrice}>
-        <p className='text text_type_digits-default'>
-          { actualIngredients.reduce((acc: number, curr: IIngridient | undefined) => curr!.price + acc, 0) }
-        </p> 
-        <CurrencyIcon type="primary" />
         </div>
+        <Price 
+          price={actualIngredients.reduce((acc: number, curr: IIngridient | undefined) => curr!.price + acc, 0)} 
+          textSize={'default'}
+        />
       </div>
     </>
   )

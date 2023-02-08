@@ -1,5 +1,12 @@
 import { IWsOrder } from "../../utils/types";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_OPEN, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE } from "../actionTypes/ws";
+import { 
+  WS_ADD_MODAL_ORDER,
+  WS_CONNECTION_CLOSED, 
+  WS_CONNECTION_ERROR, 
+  WS_CONNECTION_OPEN, 
+  WS_CONNECTION_SUCCESS, 
+  WS_GET_MESSAGE 
+} from "../actionTypes/ws";
 import { TWsActions } from "../actions/ws";
 
 interface IWsState {
@@ -58,13 +65,24 @@ export const wsState = (state = initialState, action: TWsActions) => {
     case WS_CONNECTION_CLOSED: {
       return {
         ...state,
-        wsConnected: false
+        wsConnected: false,
+        orders: [],
+        readyOrders: [],
+        waitingOrders: [],
+        totalToday: 0,
+        totalAll: 0
       }
     }
     case WS_CONNECTION_ERROR: {
       return {
         ...state,
         wsConnected: false
+      }
+    }
+    case WS_ADD_MODAL_ORDER: {
+      return {
+        ...state,
+        orderModal: action.payload
       }
     }
     default: {

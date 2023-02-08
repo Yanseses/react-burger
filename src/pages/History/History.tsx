@@ -35,7 +35,7 @@ export default function History(){
               key={el._id} 
               className={styles.history__link}
               to={{
-                pathname: `/profile/orders/${el._id}`,
+                pathname: `/profile/orders/${el.number}`,
                 state: { modal: location }
               }}>
               <FeedItem {...el} isPrivate/>

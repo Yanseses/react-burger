@@ -7,9 +7,9 @@ export default function DetailOrder(){
   const { id } = useParams<TUrlParams>();
 
   return (
-    <main className={styles.ingridients}>
-      <section className={styles.ingridients__item}>
-        <h2 className="text text_type_main-large">{`#${id}`}</h2>
+    <main className={styles.detailOrder}>
+      <section className={styles.detailOrder__order}>
+        <h2 className={`${styles.detailOrder__title} text text_type_digits-default`}>{`#${id}`}</h2>
         <OrderDetails />
       </section>
     </main>

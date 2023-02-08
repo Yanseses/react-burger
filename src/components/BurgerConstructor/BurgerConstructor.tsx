@@ -16,10 +16,11 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
-  const { order, orderNumber, userAuthorized }: any = useSelector<any>(store => ({
+  const { order, orderNumber, userAuthorized, price }= useSelector(store => ({
     order: store.main.order,
     orderNumber: store.main.orderNumber,
-    userAuthorized: store.auth.userAuthorized
+    userAuthorized: store.auth.userAuthorized,
+    price: store.main.orderPrice
   }));
   
   useEffect(() => {
@@ -56,7 +57,7 @@ export const BurgerConstructor: FC = () => {
         <ConstructorBuns type={'bottom'}/> 
       </div>
       <div className={styles.constructor__checkout}>
-        <Price />
+        <Price textSize={'medium'} price={price}/>
         <Button 
           htmlType="button" 
           type='primary' 

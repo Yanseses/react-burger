@@ -93,7 +93,7 @@ export default function App() {
           </Route>
           <Route path={'/feed/:id'}>
             <Modal 
-              title={'#034533'} 
+              title={`#${location.pathname.split('/', 3)[2]}`} 
               onClose={() => history.goBack()}
               titleStyle={'text_type_digits-default'}
               >
@@ -102,7 +102,7 @@ export default function App() {
           </Route>
           <Route path={'/profile/orders/:id'}>
             <Modal 
-              title={'#034533'} 
+              title={`#${location.pathname.split('/', 4)[3]}`} 
               onClose={() => history.goBack()}
               titleStyle={'text_type_digits-default'}
               >

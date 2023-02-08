@@ -1,0 +1,9 @@
+.detailOrder {
+  width: 580px;
+  margin: 0 auto;
+  padding-top: 120px;
+}
+
+.detailOrder__title {
+  text-align: center;
+}
