@@ -1,5 +1,5 @@
 import { IWsOrder } from "../../utils/types";
-import { getOrderFailed, getOrderRequest, wsAddModalOrder } from "../actions/ws";
+import { wsAddModalOrder } from "../actions/ws";
 import { request } from "../api";
 import { AppDispatch } from "../types";
 
@@ -10,7 +10,6 @@ type TOrderResponce = {
 
 export function getOrderData(number: number) {
   return function(dispatch: AppDispatch) {
-    dispatch(getOrderRequest());
     request<TOrderResponce>(`/orders/${number}`)
       .then(res => {
         if (res && res.success) {
@@ -21,7 +20,6 @@ export function getOrderData(number: number) {
       })
       .catch(err => {
         console.log(err)
-        dispatch(getOrderFailed());
       })
     }
   }

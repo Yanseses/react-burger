@@ -6,10 +6,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
-  WS_ADD_MODAL_ORDER,
-  MODAL_ORDER_REQUEST,
-  MODAL_ORDER_FAILED,
-  MODAL_ORDER_SUCCESS
+  WS_ADD_MODAL_ORDER
 } from '../actionTypes/ws';
 
 interface IOrderMessage {
@@ -51,19 +48,6 @@ interface IWsAddModalOrder {
   payload: IWsOrder
 }
 
-interface IGetOrderRequest {
-  readonly type: typeof MODAL_ORDER_REQUEST
-}
-
-interface IGetOrderFailed {
-  readonly type: typeof MODAL_ORDER_FAILED
-}
-
-interface IGetOrderSuccess {
-  readonly type: typeof MODAL_ORDER_SUCCESS,
-  payload: IWsOrder
-}
-
 export type TWsActions = IWsConnectionSuccess
   | IWsConnectionError
   | IWsConnectionClosed
@@ -71,9 +55,6 @@ export type TWsActions = IWsConnectionSuccess
   | IWsSendMessage
   | IWsConnectionOpen
   | IWsAddModalOrder
-  | IGetOrderRequest
-  | IGetOrderFailed
-  | IGetOrderSuccess
 
 export const wsConnectionOpen = (url: string): IWsConnectionOpen => {
   return {
@@ -118,25 +99,6 @@ export const wsSendMessage = (message: any): IWsSendMessage => {
 export const wsAddModalOrder = (order: IWsOrder): IWsAddModalOrder => {
   return {
     type: WS_ADD_MODAL_ORDER,
-    payload: order
-  };
-};
-
-export const getOrderRequest = (): IGetOrderRequest => {
-  return {
-    type: MODAL_ORDER_REQUEST
-  };
-};
-
-export const getOrderFailed = (): IGetOrderFailed => {
-  return {
-    type: MODAL_ORDER_FAILED
-  };
-};
-
-export const getOrderSuccess = (order: IWsOrder): IGetOrderSuccess => {
-  return {
-    type: MODAL_ORDER_SUCCESS,
     payload: order
   };
 };
