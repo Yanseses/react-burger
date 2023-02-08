@@ -9,7 +9,7 @@ import { useForm } from '../../hooks/useForm';
 
 export default function ForgotPassword(){
   const dispatch = useDispatch();
-  const userPasswordPatch: any = useSelector<any>(state => state.auth.userPasswordPatch)
+  const userPasswordPatch = useSelector(state => state.auth.userPasswordPatch)
   const { values, handleChange } = useForm({
     email: ''
   });
@@ -17,7 +17,6 @@ export default function ForgotPassword(){
   const handleForm = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    // @ts-ignore
     dispatch(userForgotPassword(values.email));
   }
 

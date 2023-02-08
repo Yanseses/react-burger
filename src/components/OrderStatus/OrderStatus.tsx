@@ -15,7 +15,7 @@ export const OrderStatus: FC<IOrderStatus> = ({name, orderList, isReady}) => {
         { name }
       </h3>
       <ul className={`${styles.orderStatus__list} text text_type_digits-default`}>
-        { orderList && orderList.map((el: any) => (
+        { orderList.map((el: number) => (
           <li key={el} className={isReady ? styles.orderStatus__itemColor : styles.orderStatus__item}>{el}</li>
           )) 
         }

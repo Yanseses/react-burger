@@ -38,8 +38,7 @@ export const BurgerConstructor: FC = () => {
           ? [order.buns._id, ...order.main.map((el: IIngridient) => el._id), order.buns._id]
           : [order.buns._id, order.buns._id];
   
-        // @ts-ignore
-        dispatch(approveOrderNumber({ ingredients: orderMain }));
+        dispatch(approveOrderNumber({ data: orderMain }));
         setIsModalOpen(true)
       }
     } else {
@@ -48,6 +47,7 @@ export const BurgerConstructor: FC = () => {
       })
     }
   }
+
   
   return (
     <section className={`${styles.main} pt-25 pl-8 pr-4`}>
@@ -68,7 +68,7 @@ export const BurgerConstructor: FC = () => {
         </Button>
       </div>
   
-      { isModalOpen && orderNumber && (
+      { isModalOpen && orderNumber !== 0 && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
           <OrderSuccess />
         </Modal>

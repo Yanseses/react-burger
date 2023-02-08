@@ -51,11 +51,10 @@ export const OrderDetails: FC = () => {
           <div className={styles.orderDetails__ingridientWrapper}>
             <ul className={styles.orderDetails__ingridient}>
               { orderIngridients!.map((el: IIngridient | undefined, i: number) => {
-                console.log(el)
                   return (
                     <li key={i} className={styles.orderDetails__ingridientItem}>
                       <IngridientsIcon image={el!.image_mobile} />
-                      <p>{el?.name}</p>
+                      <p className='text text_type_main-default'>{el?.name}</p>
                       <Price price={el!.price} textSize={'default'}/>
                     </li>
                     )

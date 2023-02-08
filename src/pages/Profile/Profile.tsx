@@ -10,7 +10,7 @@ import { getCookie } from '../../utils/cookie';
 import { useForm } from '../../hooks/useForm';
 
 export default function Profile(){
-  const user: any = useSelector<any>(store => store.auth.user);
+  const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const [ disabledNameInput, setDisabledNameInput ] = useState<boolean>(true);
@@ -34,7 +34,6 @@ export default function Profile(){
       setDisabledNameInput(!disabledNameInput);
     }
 
-    // @ts-ignore
     dispatch(changeUserData(values));
   }
 

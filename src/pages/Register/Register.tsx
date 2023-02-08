@@ -18,7 +18,6 @@ export default function Register(){
   const handleRegister = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    // @ts-ignore
     dispatch(userRegister(values))
   }
 

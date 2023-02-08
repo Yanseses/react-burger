@@ -99,7 +99,8 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
     case ORDER_REQUEST: {
       return {
         ...state,
-        orderRequest: true
+        orderRequest: true,
+        orderNumber: 0
       }
     }
     case ORDER_FAILED: {

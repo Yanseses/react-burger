@@ -1,6 +1,7 @@
 import { getCookie } from '../../utils/cookie';
 import { Middleware } from "redux";
 import { 
+  WS_CONNECTION_CLOSED,
   WS_CONNECTION_OPEN, 
   WS_SEND_MESSAGE 
 } from '../actionTypes/ws';
@@ -10,6 +11,14 @@ import {
   wsConnectionSuccess, 
   wsGetMessage 
 } from '../actions/ws';
+
+enum WSStatus {
+  СLOSE_NORMAL = 1000,
+  CLOSE_GOING_AWAY = 1001,
+  CLOSE_PROTOCOL_ERROR = 1002,
+  CLOSE_UNSUPPORTED = 1003,
+  CLOSED_NO_STATUS = 1005
+}
 
 export const socketMiddleware = (): Middleware => {
   return store => {
@@ -39,7 +48,7 @@ export const socketMiddleware = (): Middleware => {
         };
 
         socket.onclose = event => {
-          if(event.code !== 1000){
+          if(event.code !== WSStatus.СLOSE_NORMAL){
             dispatch(wsConnectionClosed());
           }
         };
@@ -48,6 +57,10 @@ export const socketMiddleware = (): Middleware => {
           const token = getCookie('accessToken');
           const message = { ...payload, token: token };
           socket.send(JSON.stringify(message));
+        }
+
+        if (type === WS_CONNECTION_CLOSED) {
+          dispatch(wsConnectionClosed());
         }
       }
 

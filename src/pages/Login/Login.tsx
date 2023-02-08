@@ -19,7 +19,6 @@ export default function Login(){
   const handleLoginForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // @ts-ignore
     dispatch(userAuth(values));
   }
 

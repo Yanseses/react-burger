@@ -12,6 +12,10 @@ import {
   orderSuccess
 } from "../actions/main";
 
+interface IApproveOrderNumber {
+  data: string[]
+}
+
 interface IIngridientsResponse {
   data: IIngridient[];
   statusText: string
@@ -52,7 +56,7 @@ export function getIngridientsData() {
     }
   }
   
-export function approveOrderNumber(data: { ingridients: IIngridient[] }){
+export function approveOrderNumber(data: IApproveOrderNumber){
   return function(dispatch: AppDispatch) {
     dispatch(orderRequest());
     request<IAproveOrderResponse>('/orders', {

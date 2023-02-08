@@ -1,12 +1,30 @@
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { request } from "../api";
 import { AppDispatch } from "../types";
-import { changeUserFailed, changeUserRequest, changeUserSuccess, getUserFailed, getUserRequest, getUserSuccess, userAuthFailed, userAuthRequest, userAuthSucces, userLogoutFailed, userLogoutRequest, userLogoutSuccess, userPasswordResetFailed, userPasswordResetRequest, userPasswordResetSuccess, userPatchPassword, userRegisterFailed, userRegisterRequest, userRegisterSuccess } from "../actions/auth";
+import { 
+  changeUserFailed, 
+  changeUserRequest, 
+  changeUserSuccess, 
+  getUserFailed, 
+  getUserRequest, 
+  getUserSuccess, 
+  userAuthFailed, 
+  userAuthRequest, 
+  userAuthSucces, 
+  userLogoutFailed, 
+  userLogoutRequest, 
+  userLogoutSuccess, 
+  userPasswordResetFailed, 
+  userPasswordResetRequest, 
+  userPasswordResetSuccess, 
+  userPatchPassword, 
+  userRegisterFailed, 
+  userRegisterRequest, 
+  userRegisterSuccess 
+} from "../actions/auth";
 
 export type TUserData = {
-  name: string,
-  email: string,
-  password?: string
+  [n: string]: string
 }
 
 type TErrorStatus = {
@@ -25,11 +43,6 @@ type TUserResponse = {
 
 type TResponseWithMessage = {
   message: string
-} & TErrorStatus;
-
-type TResetPassword = {
-  password: string,
-  token: string,
 } & TErrorStatus;
 
 export function userRegister(registerData: TUserData) {
@@ -220,7 +233,7 @@ export function userForgotPassword(email: string) {
   }
 }
 
-export function userResetPassword(resetData: TResetPassword) {
+export function userResetPassword(resetData: TUserData) {
   return function(dispatch: AppDispatch) {
     dispatch(userPasswordResetRequest());
     request<TResponseWithMessage>('/password-reset/reset', {
