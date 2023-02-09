@@ -50,6 +50,7 @@ export const socketMiddleware = (): Middleware => {
         socket.onclose = event => {
           if(event.code !== WSStatus.СLOSE_NORMAL){
             dispatch(wsConnectionClosed());
+            socket?.close();
           }
         };
 
@@ -60,7 +61,7 @@ export const socketMiddleware = (): Middleware => {
         }
 
         if (type === WS_CONNECTION_CLOSED) {
-          dispatch(wsConnectionClosed());
+          socket.close();
         }
       }
 

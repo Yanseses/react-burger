@@ -13,7 +13,7 @@ import {
 } from "../actions/main";
 
 interface IApproveOrderNumber {
-  data: string[]
+  ingredients: string[]
 }
 
 interface IIngridientsResponse {

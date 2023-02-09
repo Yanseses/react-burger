@@ -17,7 +17,7 @@ export const FeedItem: FC<IWsOrder> = ({
   const ingridients = useSelector(store => store.main.ingridients);
   const actualIngredients = ingredients.map((el: string) => {
     return ingridients.find((ingridient: IIngridient) => ingridient._id === el)
-  })
+  });
   
   return (
     <>

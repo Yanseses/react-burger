@@ -38,7 +38,7 @@ export const BurgerConstructor: FC = () => {
           ? [order.buns._id, ...order.main.map((el: IIngridient) => el._id), order.buns._id]
           : [order.buns._id, order.buns._id];
   
-        dispatch(approveOrderNumber({ data: orderMain }));
+        dispatch(approveOrderNumber({ ingredients: orderMain }));
         setIsModalOpen(true)
       }
     } else {
