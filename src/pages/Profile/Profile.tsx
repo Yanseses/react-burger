@@ -2,15 +2,15 @@ import { Input, PasswordInput, EmailInput } from '@ya.praktikum/react-developer-
 import styles from './profile.module.css';
 import { Form } from '../../components/Form/Form';
 import { useEffect, useRef, useState, FocusEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { Aside } from '../../components/Aside/Aside';
-import { changeUserData } from '../../services/actions/auth';
+import { changeUserData } from '../../services/thunks/auth';
 import { Redirect } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { useForm } from '../../hooks/useForm';
 
 export default function Profile(){
-  const user: any = useSelector<any>(store => store.auth.user);
+  const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const [ disabledNameInput, setDisabledNameInput ] = useState<boolean>(true);
@@ -34,7 +34,6 @@ export default function Profile(){
       setDisabledNameInput(!disabledNameInput);
     }
 
-    // @ts-ignore
     dispatch(changeUserData(values));
   }
 

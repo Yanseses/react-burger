@@ -1,0 +1,23 @@
+.orderStatus__wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 24px;
+}
+
+.orderStatus__list {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: repeat(10, auto);
+  row-gap: 8px;
+  column-gap: 6px;
+  grid-auto-flow: column;
+}
+
+.orderStatus__itemColor {
+  list-style: none;
+  color: var(--colors-interface-success);
+}
+
+.orderStatus__item {
+  list-style: none;
+}

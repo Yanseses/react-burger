@@ -1,9 +1,9 @@
 import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { addIngridientOrder, ORDER_MAIN_DELETE } from "../../../services/actions";
+import { useDispatch, useSelector } from "../../../services/hooks";
+import { orderMainChange, orderMainDelete } from "../../../services/actions/main";
 import { useCallback, FC } from 'react';
-import ConstructorMainItem from './ConstructorMainItem/ConstructorMainItem';
+import { ConstructorMainItem } from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
 
 export const ConstructorMain: FC = () => {
@@ -21,16 +21,15 @@ export const ConstructorMain: FC = () => {
     }),
     drop(item: IIngridient) {
       if(!item.hasOwnProperty('index')){
-        dispatch(addIngridientOrder(item))
+        dispatch(orderMainChange(item))
       }
     },
   });
   
   const handleRemove = useCallback((e: string | undefined) => {
-    dispatch({
-      type: ORDER_MAIN_DELETE,
-      deleteIngridient: e
-    })
+    if(e){
+      dispatch(orderMainDelete(e))
+    }
   }, [dispatch]);
   
   const defaultIngridients = (

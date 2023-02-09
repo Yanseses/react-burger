@@ -1,3 +1,4 @@
+import { TAuthActions } from '../actions/auth';
 import {
   CHANGE_USER_REQUEST,
   CHANGE_USER_SUCCESS,
@@ -18,7 +19,32 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_FAILED,
   USER_RESET_PASSWORD_SUCCESS
-} from '../actions/auth';
+} from '../actionTypes/auth';
+
+type TUser = {
+  name: string,
+  email: string,
+  password?: string
+}
+
+type TAuthState = {
+  changeUserRequest: boolean,
+  changeUserFailed: boolean,
+  registerRequest: boolean,
+  registerFailed: boolean,
+  logoutRequest: boolean,
+  logoutFailed: boolean,
+  authRequest: boolean,
+  authFailed: boolean,
+  userRequest: boolean,
+  userFailed: boolean,
+  userAuthorized: boolean,
+  userPasswordPatch: boolean,
+  userWriteEmail: boolean,
+  dropPasswordRequest: boolean,
+  dropPasswordFailed: boolean,
+  user: TUser
+}
 
 const initialState = {
   changeUserRequest: false,
@@ -43,7 +69,7 @@ const initialState = {
   dropPasswordFailed: false,
 };
 
-export const authStore = (state = initialState, action) => {
+export const authStore = (state: TAuthState = initialState, action: TAuthActions) => {
   switch (action.type) {
     case USER_AUTH_REQUEST: {
       return {
@@ -66,8 +92,8 @@ export const authStore = (state = initialState, action) => {
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -92,8 +118,8 @@ export const authStore = (state = initialState, action) => {
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -142,8 +168,8 @@ export const authStore = (state = initialState, action) => {
         userAuthorized: true,
         user: {
           ...state.user,
-          name: action.user.name,
-          email: action.user.email
+          name: action.payload.name,
+          email: action.payload.email
         }
       }
     }
@@ -186,8 +212,8 @@ export const authStore = (state = initialState, action) => {
         changeUserFailed: false,
         user: {
           ...state.user,
-          email: action.user.email,
-          name: action.user.name
+          email: action.payload.email,
+          name: action.payload.name
         }
       }
     }

@@ -3,13 +3,13 @@ import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
 import { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userResetPassword } from '../../services/actions/auth';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { userResetPassword } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
-  const userPasswordPatch: any = useSelector<any>(store => store.auth.userPasswordPatch);
+  const userPasswordPatch = useSelector(store => store.auth.userPasswordPatch);
   const { values, handleChange } = useForm({
     password: '',
     token: ''
@@ -18,7 +18,6 @@ export default function ResetPassword(){
   const handleResetPassword = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    // @ts-ignore
     dispatch(userResetPassword(values));
   }
 
@@ -46,7 +45,7 @@ export default function ResetPassword(){
             type={'text'}
             placeholder={'Введите код из письма'}
             name={'token'}
-            errorText={'Ошибка'}
+            errorText={'Ошибка заполняемых данных'}
             size={'default'}
           />
           <Button htmlType="submit" type="primary">Сохранить</Button>

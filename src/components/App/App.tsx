@@ -8,15 +8,19 @@ import {
   ForgotPassword, 
   Login, 
   Constructor, 
-  Ingridients } from '../../pages/index';
+  Ingridients,
+  Feed,
+  History } from '../../pages/index';
 import { ProtectedRoute } from '../ProtectedRoute';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { useEffect } from 'react';
-import { getIngridientsData } from '../../services/actions/index';
+import { getIngridientsData } from '../../services/thunks/main';
 import { getCookie } from '../../utils/cookie';
-import { getUserData } from '../../services/actions/auth';
+import { getUserData } from '../../services/thunks/auth';
 import { Modal } from '../modal/Modal';
 import { IngridientDetails } from '../modal/IngredientDetails/IngredientDetails';
+import DetailOrder from '../../pages/DetailOrder/DetailOrder';
+import { OrderDetails } from '../modal/OrderDetails/OrderDetails';
 
 export default function App() {
   const history = useHistory();
@@ -25,11 +29,11 @@ export default function App() {
   const modal = location.state?.modal;
 
   useEffect(() => {
-    if(getCookie('accessToken')){
-      // @ts-ignore
+    if(getCookie('refreshToken')){
+
       dispatch(getUserData())
     }
-    // @ts-ignore
+
     dispatch(getIngridientsData())
   }, [dispatch]);
 
@@ -46,7 +50,10 @@ export default function App() {
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path={'/profile/orders'} onlyForAuth exact>
-          <NotFound />
+          <History />
+        </ProtectedRoute>
+        <ProtectedRoute path={'/profile/orders/:id'} onlyForAuth exact>
+          <DetailOrder />
         </ProtectedRoute>
         <ProtectedRoute path={'/forgot-password'} exact>
           <ForgotPassword />
@@ -57,6 +64,12 @@ export default function App() {
         <ProtectedRoute path={'/reset-password'} exact>
           <ResetPassword />
         </ProtectedRoute>
+        <Route path={'/feed'} exact>
+          <Feed />
+        </Route>
+        <Route path={'/feed/:id'} exact>
+          <DetailOrder />
+        </Route>
         <Route path={'/ingridients/:id'} exact>
           <Ingridients />
         </Route>
@@ -69,11 +82,34 @@ export default function App() {
       </Switch>
 
       { modal && (
-        <Route path={'/ingridients/:id'}>
-          <Modal title={'Детали ингридиента'} onClose={() => history.goBack()}>
-            <IngridientDetails />
-          </Modal>
-        </Route>
+        <>
+          <Route path={'/ingridients/:id'}>
+            <Modal 
+              title={'Детали ингридиента'} 
+              onClose={() => history.goBack()}
+              >
+              <IngridientDetails />
+            </Modal>
+          </Route>
+          <Route path={'/feed/:id'}>
+            <Modal 
+              title={`#${location.pathname.split('/', 3)[2]}`} 
+              onClose={() => history.goBack()}
+              titleStyle={'text_type_digits-default'}
+              >
+              <OrderDetails />
+            </Modal>
+          </Route>
+          <Route path={'/profile/orders/:id'}>
+            <Modal 
+              title={`#${location.pathname.split('/', 4)[3]}`} 
+              onClose={() => history.goBack()}
+              titleStyle={'text_type_digits-default'}
+              >
+              <OrderDetails />
+            </Modal>
+          </Route>
+        </>
       )}
     </>
   );

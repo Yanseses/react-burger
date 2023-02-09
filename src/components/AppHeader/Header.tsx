@@ -17,7 +17,7 @@ const Header: FC = () => {
         <div className={styles.header__container}>
           <nav className={styles.header__navList}>
             <Item text={'Конструктор'} Icon={BurgerIcon} link={'/'} />
-            <Item text={'Лента заказов'} Icon={ListIcon} link={'/some-link'} />
+            <Item text={'Лента заказов'} Icon={ListIcon} link={'/feed'} />
           </nav>
           <Link to={'/'}>
             <Logo />

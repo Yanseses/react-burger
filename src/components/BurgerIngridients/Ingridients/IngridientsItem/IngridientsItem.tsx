@@ -1,14 +1,15 @@
-import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import styles from'./ingridientsItem.module.css';
 import { FC } from "react";
 import { IIngridient } from "../../../../utils/types";
+import { Price } from "../../../BurgerConstructor/Price/Price";
 
 export const IngridientsItem: FC<IIngridient> = (props) => {
   const { image, _id, name, price, type, counter = 0 } = props;
   const [{ opacity }, ref] = useDrag({
     type: type === 'bun' ? 'bun' : 'main',
-    item: props ,
+    item: props,
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
     })
@@ -22,13 +23,7 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       id={_id}>
       <div className={styles.ingridientsItem__head}>
         <img src={image} alt={name} />
-        <div className={styles.ingridientsItem__price}>
-          <p className={styles.ingridientsItem__text}>
-            {price}
-          </p>
-          <CurrencyIcon type='primary' />
-        </div>
-
+        <Price textSize={'default'} price={price}/>
       </div>
       <p className={styles.ingridientsItem__text}>
         {name}

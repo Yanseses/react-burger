@@ -1,11 +1,8 @@
 import { useState, ChangeEvent } from "react";
+import { TUserData } from "../services/thunks/auth";
 
-type TUseForm = {
-  [name: string]: string
-}
-
-export function useForm(inputValues: TUseForm){
-  const [values, setValues] = useState<TUseForm>(inputValues);
+export function useForm(inputValues: TUserData){
+  const [values, setValues] = useState<TUserData>(inputValues);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {value, name} = event.target;

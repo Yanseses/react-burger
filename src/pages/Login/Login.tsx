@@ -3,14 +3,14 @@ import styles from './login.module.css';
 import { FormEvent } from 'react';
 import { Form } from '../../components/Form/Form';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userAuth } from '../../services/actions/auth';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 
 export default function Login(){
   const history = useHistory();
   const dispatch = useDispatch();
-  const userAuthorized = useSelector<any>(store => store.auth.userAuthorized);
+  const userAuthorized = useSelector(store => store.auth.userAuthorized);
   const { values, handleChange } = useForm({
     email: '',
     password: ''
@@ -18,7 +18,7 @@ export default function Login(){
 
   const handleLoginForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // @ts-ignore
+
     dispatch(userAuth(values));
   }
 

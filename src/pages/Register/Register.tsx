@@ -2,8 +2,8 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { userRegister } from '../../services/actions/auth';
+import { useDispatch } from '../../services/hooks';
+import { userRegister } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { FormEvent } from 'react';
 
@@ -18,7 +18,6 @@ export default function Register(){
   const handleRegister = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    // @ts-ignore
     dispatch(userRegister(values))
   }
 

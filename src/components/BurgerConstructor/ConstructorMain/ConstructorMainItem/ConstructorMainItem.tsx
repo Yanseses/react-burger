@@ -1,10 +1,10 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
-import { ORDER_MOVE_INGRIDIENT } from '../../../../services/actions';
+import { useDispatch } from "../../../../services/hooks";
 import styles from './constructorMainItem.module.css';
 import { IIngridient } from "../../../../utils/types";
+import { orderMoveIngridient } from "../../../../services/actions/main";
 
 interface IConstructorMainItem {
   element: IIngridient,
@@ -12,7 +12,7 @@ interface IConstructorMainItem {
   index: number
 }
 
-export default function ConstructorMainItem({ element, onClick, index }: IConstructorMainItem): JSX.Element {
+export const ConstructorMainItem: FC<IConstructorMainItem> = ({ element, onClick, index }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
   const [{ opacity }, constructorDragRef] = useDrag({
@@ -35,11 +35,7 @@ export default function ConstructorMainItem({ element, onClick, index }: IConstr
         if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
         if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
-        dispatch({
-          type: ORDER_MOVE_INGRIDIENT,
-          dragIndex,
-          hoverIndex
-        })
+        dispatch(orderMoveIngridient(dragIndex, hoverIndex))
         item.index = hoverIndex;
       }
     }

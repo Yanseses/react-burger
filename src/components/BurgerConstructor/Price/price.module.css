@@ -1,4 +1,10 @@
 .price {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 8px;
   align-items: center;
+}
+
+.price__title {
+  margin: 4px 0;
 }

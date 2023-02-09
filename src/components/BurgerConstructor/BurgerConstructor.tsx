@@ -3,22 +3,24 @@ import { useState, useEffect, FC } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
-import { OrderDetails } from "../modal/OrderDetails/OrderDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { approveOrderNumber, ORDER_CHANGE_PRICE } from "../../services/actions";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { approveOrderNumber } from "../../services/thunks/main";
 import { ConstructorBuns } from './ConstructorBuns/ConstructorBuns';
 import { ConstructorMain } from './ConstructorMain/ConstructorMain';
 import { useHistory } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
+import { ORDER_CHANGE_PRICE } from '../../services/actionTypes/main';
+import { OrderSuccess } from '../modal/OrderSuccess/OrderSuccess';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
-  const { order, orderNumber, userAuthorized }: any = useSelector<any>(store => ({
+  const { order, orderNumber, userAuthorized, price }= useSelector(store => ({
     order: store.main.order,
     orderNumber: store.main.orderNumber,
-    userAuthorized: store.auth.userAuthorized
+    userAuthorized: store.auth.userAuthorized,
+    price: store.main.orderPrice
   }));
   
   useEffect(() => {
@@ -36,7 +38,6 @@ export const BurgerConstructor: FC = () => {
           ? [order.buns._id, ...order.main.map((el: IIngridient) => el._id), order.buns._id]
           : [order.buns._id, order.buns._id];
   
-        // @ts-ignore
         dispatch(approveOrderNumber({ ingredients: orderMain }));
         setIsModalOpen(true)
       }
@@ -46,6 +47,7 @@ export const BurgerConstructor: FC = () => {
       })
     }
   }
+
   
   return (
     <section className={`${styles.main} pt-25 pl-8 pr-4`}>
@@ -55,7 +57,7 @@ export const BurgerConstructor: FC = () => {
         <ConstructorBuns type={'bottom'}/> 
       </div>
       <div className={styles.constructor__checkout}>
-        <Price />
+        <Price textSize={'medium'} price={price}/>
         <Button 
           htmlType="button" 
           type='primary' 
@@ -66,9 +68,9 @@ export const BurgerConstructor: FC = () => {
         </Button>
       </div>
   
-      { isModalOpen && orderNumber && (
+      { isModalOpen && orderNumber !== 0 && (
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
-          <OrderDetails />
+          <OrderSuccess />
         </Modal>
         ) 
       }

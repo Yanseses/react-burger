@@ -1,13 +1,13 @@
 import { useEffect, FC } from "react";
 import { useInView } from 'react-intersection-observer';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import styles from './burgerIngridients.module.css';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
-import { TAB_SWITCH } from '../../services/actions/index';
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
+import { tabSwitch } from "../../services/actions/main";
 
 export const BurgerIngridients: FC = () => {
   const location = useLocation();
@@ -15,18 +15,18 @@ export const BurgerIngridients: FC = () => {
   const [ bunsRef, inWiewBuns, entryBuns ] = useInView({threshold: 0});
   const [ mainRef, inWiewMain, entryMain ] = useInView({threshold: 0});
   const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
-  const { activeTab, data }: any = useSelector<any>(store => ({
+  const { activeTab, data } = useSelector(store => ({
     activeTab: store.main.activeTab,
     data: store.main.ingridients,
   }));
   
   useEffect(() => {
     if(inWiewBuns){
-      dispatch({type: TAB_SWITCH, tab: 'bun'})
+      dispatch(tabSwitch('bun'))
     } else if(inWiewSauce){
-      dispatch({type: TAB_SWITCH, tab: 'sauce'})
+      dispatch(tabSwitch('sauce'))
     } else if(inWiewMain){
-      dispatch({type: TAB_SWITCH, tab: 'main'})
+      dispatch(tabSwitch('main'))
     }
   }, [dispatch, inWiewBuns, inWiewMain, inWiewSauce]);
   
