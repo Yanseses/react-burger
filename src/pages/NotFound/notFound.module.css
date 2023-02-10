@@ -12,9 +12,5 @@
   row-gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.notFound__title {
-  margin: 0;
   text-align: center;
 }

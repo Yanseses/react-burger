@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { userResetPassword } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
+import { Text } from '../../components/Text/Text';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
@@ -50,10 +51,10 @@ export default function ResetPassword(){
           />
           <Button htmlType="submit" type="primary">Сохранить</Button>
         </Form>
-        <div className={`${styles.resetPassword__textContent} text text_type_main-default`}>
-          <p className={styles.resetPassword__textLine}>
-          Вспомнили пароль? <Link to='/login'>Войти</Link>
-          </p>
+        <div className={styles.resetPassword__textContent}>
+          <Text As='p' textSize='default'>
+            Вспомнили пароль? <Link to='/login'>Войти</Link>
+          </Text>
         </div>
       </section>
     </main>

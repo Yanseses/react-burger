@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
 import { useDispatch } from '../../services/hooks';
 import { userLogout } from '../../services/thunks/auth';
+import { Text } from '../Text/Text';
 
 export const Aside: FC = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ export const Aside: FC = () => {
           Выход
         </a>
       </div>
-      <p className='text text_type_main-default text_color_inactive'>
+      <Text As='p' textSize='default' isInactive>
         В этом разделе вы можете изменить свои персональные данные
-      </p>
+      </Text>
     </aside>
   )
 }

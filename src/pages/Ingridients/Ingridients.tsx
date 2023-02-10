@@ -3,6 +3,7 @@ import { IngridientDetails } from "../../components/modal/IngredientDetails/Ingr
 import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
 import { IIngridient, TUrlParams } from '../../utils/types';
+import { Text } from '../../components/Text/Text';
 
 export default function Ingridients(){
   const { id } = useParams<TUrlParams>();
@@ -18,7 +19,7 @@ export default function Ingridients(){
   return (
     <main className={styles.ingridients}>
       <section className={styles.ingridients__item}>
-        <h2 className="text text_type_main-large">Детали ингридиента</h2>
+        <Text As='h2' textSize='large'>Детали ингридиента</Text>
         <IngridientDetails />
       </section>
     </main>

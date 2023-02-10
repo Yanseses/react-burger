@@ -4,6 +4,7 @@ import styles from'./ingridientsItem.module.css';
 import { FC } from "react";
 import { IIngridient } from "../../../../utils/types";
 import { Price } from "../../../BurgerConstructor/Price/Price";
+import { Text } from "../../../Text/Text";
 
 export const IngridientsItem: FC<IIngridient> = (props) => {
   const { image, _id, name, price, type, counter = 0 } = props;
@@ -21,13 +22,11 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       style={{opacity}}
       ref={ref} 
       id={_id}>
-      <div className={styles.ingridientsItem__head}>
         <img src={image} alt={name} />
         <Price textSize={'default'} price={price}/>
-      </div>
-      <p className={styles.ingridientsItem__text}>
-        {name}
-      </p>
+        <Text As='p' textSize='default'>
+          { name }
+        </Text>
       
       { counter > 0 && (
         <Counter count={counter} size="small" />

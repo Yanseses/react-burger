@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
+import { Text } from '../../components/Text/Text';
 
 export default function Login(){
   const history = useHistory();
@@ -44,13 +45,13 @@ export default function Login(){
             />
           <Button htmlType="submit" type="primary">Войти</Button>
         </Form>
-        <div className={`${styles.login__textContent} text text_type_main-default`}>
-          <p className={styles.login__textLine}>
+        <div className={styles.login__textContent}>
+          <Text As='p' textSize='default'>
             Вы — новый пользователь? <Link to={'/register'}>Зарегистрироваться</Link>
-          </p>
-          <p className={styles.login__textLine}>
+          </Text>
+          <Text As='p' textSize='default'>
             Забыли пароль? <Link to={'/forgot-password'}>Восстановить пароль</Link>
-          </p>
+          </Text>
         </div>
       </section>
     </main>

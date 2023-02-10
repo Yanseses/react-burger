@@ -1,5 +1,6 @@
 import styles from './form.module.css';
 import { FC, PropsWithChildren, FormEvent } from 'react';
+import { Text } from '../Text/Text';
 
 type TForm = {
   title?: string,
@@ -10,7 +11,7 @@ export const Form: FC<PropsWithChildren<TForm>> = ({title, children, onSubmit}) 
   return (
     <form className={`${styles.form} mb-20`} onSubmit={onSubmit}>
       { title && (
-        <h2 className={`${styles.form__title} text text_type_main-medium`}>{title}</h2>
+        <Text As='h3' textSize='medium'>{title}</Text>
         )
       }
       {children}

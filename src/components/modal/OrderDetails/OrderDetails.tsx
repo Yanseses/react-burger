@@ -8,6 +8,7 @@ import { wsAddModalOrder } from '../../../services/actions/ws';
 import { Price } from '../../BurgerConstructor/Price/Price';
 import { IngridientsIcon } from '../../BurgerIngridients/IngridientsIcon/IngridientsIcon';
 import { getOrderData } from '../../../services/thunks/ws';
+import { Text } from '../../Text/Text';
 
 export const OrderDetails: FC = () => {
   const dispatch = useDispatch();
@@ -32,10 +33,10 @@ export const OrderDetails: FC = () => {
   return orderModal && (
     <div className={`${styles.orderDetails} mt-5`}>
       <div className={styles.orderDetails__head}>
-        <h2 className='text text_type_main-medium'>
+        <Text As='h2' textSize='medium'>
           { orderModal && orderModal.name }
-        </h2>
-        <p className='text text_type_main-default'>
+        </Text>
+        <Text As='p' textSize='default'>
           { 
             orderModal && orderModal.status === 'done'
               ? 'Выполнено'
@@ -43,18 +44,18 @@ export const OrderDetails: FC = () => {
                 ? 'Создано'
                 : 'Ожидание'
           }
-        </p>
+        </Text>
       </div>
       <div className={styles.orderDetails__wrapper}>
         <section className={`${styles.orderDetails__main}`}>
-          <h3 className='text text_type_main-medium'>Состав</h3>
+          <Text As='h3' textSize='medium'>Состав</Text>
           <div className={styles.orderDetails__ingridientWrapper}>
             <ul className={styles.orderDetails__ingridient}>
               { orderIngridients!.map((el: IIngridient | undefined, i: number) => {
                   return (
                     <li key={i} className={styles.orderDetails__ingridientItem}>
                       <IngridientsIcon image={el!.image_mobile} />
-                      <p className='text text_type_main-default'>{el?.name}</p>
+                      <Text As='p' textSize='default'>{el?.name}</Text>
                       <Price price={el!.price} textSize={'default'}/>
                     </li>
                     )

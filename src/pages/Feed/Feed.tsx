@@ -9,6 +9,7 @@ import { FeedItem } from '../../components/FeedList/FeedItem/FeedItem';
 import { Link, useLocation } from 'react-router-dom';
 import { WS_ALL_ORDERS } from '../../utils/constants';
 import { IWsOrder } from '../../utils/types';
+import { Text } from '../../components/Text/Text';
 
 export default function Feed(){
   const location = useLocation();
@@ -37,22 +38,34 @@ export default function Feed(){
 
   return (
     <main className={styles.feed}>
-      <h1 className='text text_type_main-large'>Лента заказов</h1>
+      <Text As='h1' textSize='large'>
+        Лента заказов
+      </Text>
       <div className={styles.feed__container}>
-        <FeedList>
-          { orders && orders.map((el: IWsOrder) => (
-            <Link 
-              key={el._id} 
-              className={styles.feed__link}
-              to={{
-                pathname: `/feed/${el.number}`,
-                state: { modal: location }
-              }}>
-              <FeedItem {...el}/>
-            </Link>
-            )) 
-          }
-        </FeedList>
+        { orders.length > 0 
+          ? (
+          <FeedList>
+            { orders && orders.map((el: IWsOrder) => (
+              <Link 
+                key={el._id} 
+                className={styles.feed__link}
+                to={{
+                  pathname: `/feed/${el.number}`,
+                  state: { modal: location }
+                }}>
+                <FeedItem {...el}/>
+              </Link>
+              ))
+            }
+          </FeedList>
+          ) : (
+          <div className={styles.feed__voidList}>
+            <Text As='p' textSize='medium' isInactive>
+              Список заказов - пуст
+            </Text>
+          </div>
+          )
+        }
         <section className={styles.feed__ready}>
           <div className={styles.feed__readyHead}>
             <OrderStatus name={'Готовы'} orderList={readyOrders} isReady/>

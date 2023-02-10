@@ -1,26 +1,9 @@
 .ingridientsItem {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
   cursor: pointer;
   position: relative;
-}
-
-.ingridientsItem__head {
-  display: inherit;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ingridientsItem__text {
-  margin: 4px 0;
   text-align: center;
-}
-
-.ingridientsItem__price {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 8px;
-  align-items: center;
+  grid-template-rows: auto 1fr 1fr;
+  justify-items: center;
+  row-gap: 8px;
 }

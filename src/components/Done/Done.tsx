@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Text } from "../Text/Text";
 
 interface IDone {
   title: string,
@@ -8,8 +9,8 @@ interface IDone {
 export const Done: FC<IDone> = ({ title, total = 0 }) => {
   return (
     <>
-      <p className='text text_type_main-medium'>{title}</p>
-      <p className='text text_type_digits-large'>{total}</p>
+      <Text As='p' textSize='medium'>{title}</Text>
+      <Text As='p' numberSize='large'>{total}</Text>
     </>
   )
 }

@@ -8,7 +8,7 @@ import { IIngridient } from '../../../utils/types';
 
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
-  const main: any = useSelector<any>(state => state.main.order.main);
+  const main = useSelector(state => state.main.order.main);
   const [{ isHoverMain } , mainDrop] = useDrop<
     IIngridient, 
     unknown, 
