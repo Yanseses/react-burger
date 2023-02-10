@@ -1,7 +1,6 @@
 import { getCookie } from '../../utils/cookie';
 import { Middleware } from "redux";
 import { 
-  WS_CONNECTION_CLOSED,
   WS_CONNECTION_OPEN, 
   WS_SEND_MESSAGE 
 } from '../actionTypes/ws';
@@ -58,10 +57,6 @@ export const socketMiddleware = (): Middleware => {
           const token = getCookie('accessToken');
           const message = { ...payload, token: token };
           socket.send(JSON.stringify(message));
-        }
-
-        if (type === WS_CONNECTION_CLOSED) {
-          socket.close();
         }
       }
 

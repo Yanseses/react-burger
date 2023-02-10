@@ -19,14 +19,10 @@ export const Text: FC<PropsWithChildren<IText>> = ({
 }) => {
 
   return (
-    <As className={
-      textSize
-        ? isInactive 
-          ? `text text_type_main-${textSize} text_color_inactive`
-          : `text text_type_main-${textSize}`
-        : isInactive
-          ? `text text_type_digits-${numberSize} text_color_inactive`
-          : `text text_type_digits-${numberSize}`
+    <As className={ 
+      textSize 
+        ? `text text_type_main-${textSize} ${ isInactive ? 'text_color_inactive' : '' }`
+        : `text text_type_digits-${numberSize} ${isInactive ? 'text_color_inactive' : ''}`
     }>
       { children }
     </As>

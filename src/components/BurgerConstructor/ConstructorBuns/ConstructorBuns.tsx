@@ -5,6 +5,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { IIngridient } from '../../../utils/types';
 import { orderBunsChange } from '../../../services/actions/main';
+import { Text } from '../../Text/Text';
 
 type TBunsType = {
   type: 'top' | 'bottom' | undefined
@@ -33,7 +34,9 @@ export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
       ${ type === 'top' ? styles.buns__top : styles.buns__bottom }
       ${ isHoverBuns ? styles.buns__hovered : '' }
       `}>
-        Перетащите булку
+        <Text As='p' textSize='small'>
+          Перетащите булку
+        </Text>
     </div>
   )
 
