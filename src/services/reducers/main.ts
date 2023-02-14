@@ -35,7 +35,7 @@ export type TMainState = {
   order: TOrder;
 }
 
-const mainInitialState = {
+export const mainInitialState = {
   ingridients: [],
   ingridientsRequest: false,
   ingridientsFailed: false,

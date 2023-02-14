@@ -9,11 +9,11 @@ type TIngridientsCategory = {
 
 export const Ingridients: FC<PropsWithChildren<TIngridientsCategory>> = ({title, children, refCategory}) => {
   return (
-    <li className="mb-10" ref={refCategory}>
+    <li className={styles.ingridients} ref={refCategory}>
       <Text As='h3' textSize='medium'>
         { title }
       </Text>
-      <ul className={`pl-4 pr-4 pt-6 ${styles.ingridientsList}`}>
+      <ul className={`pl-4 pr-4 ${styles.ingridientsList}`}>
         {children}
       </ul>
     </li>

@@ -11,6 +11,8 @@
   height: 60vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  display: grid;
+  row-gap: 40px;
 }
 
 .burgerIngridients__link {
