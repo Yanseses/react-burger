@@ -33,7 +33,8 @@ export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
       ${styles.buns__default} 
       ${ type === 'top' ? styles.buns__top : styles.buns__bottom }
       ${ isHoverBuns ? styles.buns__hovered : '' }
-      `}>
+      `}
+      id={type}>
         <Text As='p' textSize='small'>
           Перетащите булку
         </Text>
