@@ -21,7 +21,7 @@ interface IWsState {
   orderModal: null | IWsOrder
 }
 
-const initialState: IWsState = {
+export const initialState: IWsState = {
   wsConnection: false,
   wsConnected: false,
   connectionError: '',
