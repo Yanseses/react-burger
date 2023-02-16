@@ -5,6 +5,7 @@ import { IIngridient, IWsOrder } from "../../../utils/types";
 import { useSelector } from "../../../services/hooks";
 import { Price } from "../../BurgerConstructor/Price/Price";
 import { IngridientsIcon } from "../../BurgerIngridients/IngridientsIcon/IngridientsIcon";
+import { Text } from "../../Text/Text";
 
 export const FeedItem: FC<IWsOrder> = ({ 
   name, 
@@ -22,16 +23,16 @@ export const FeedItem: FC<IWsOrder> = ({
   return (
     <>
       <div className={styles.feedItem__head}>
-        <p className={`${styles.feedItem__orderNumber} text text_type_digits-default`}>
+        <Text As='p' numberSize='default'>
           { `#${number}` }
-        </p>
-        <p className={`${styles.feedItem__orderDate} text text_type_main-default text_color_inactive`}>
+        </Text>
+        <Text As='p' textSize='default' isInactive>
           <FormattedDate date={new Date(updatedAt)} />
-        </p>
+        </Text>
       </div>
-      <p className='text text_type_main-medium'>
+      <Text As='p' textSize='medium'>
         { name }
-      </p>
+      </Text>
       { isPrivate && (
         <p className={ status === 'done' 
           ? `${styles.feedItem__status} text text_type_main-default` 

@@ -5,10 +5,11 @@ import { orderMainChange, orderMainDelete } from "../../../services/actions/main
 import { useCallback, FC } from 'react';
 import { ConstructorMainItem } from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
+import { Text } from '../../Text/Text';
 
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
-  const main: any = useSelector<any>(state => state.main.order.main);
+  const main = useSelector(state => state.main.order.main);
   const [{ isHoverMain } , mainDrop] = useDrop<
     IIngridient, 
     unknown, 
@@ -34,7 +35,9 @@ export const ConstructorMain: FC = () => {
   
   const defaultIngridients = (
     <li className={`${styles.main__default} ${isHoverMain ? styles.main__hovered : ''}`}>
-      Перетащите ингридиенты
+      <Text As='p' textSize='small'>
+        Перетащите ингридиенты
+      </Text>
     </li>
   )
   

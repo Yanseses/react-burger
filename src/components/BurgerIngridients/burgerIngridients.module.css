@@ -1,3 +1,9 @@
+.burgerIngridients {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 20px;
+}
+
 .burgerIngridients__list {
   list-style: none;
   padding: 0;
@@ -5,6 +11,8 @@
   height: 60vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  display: grid;
+  row-gap: 40px;
 }
 
 .burgerIngridients__link {

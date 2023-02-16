@@ -8,6 +8,7 @@ import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
 import { tabSwitch } from "../../services/actions/main";
+import { Text } from "../Text/Text";
 
 export const BurgerIngridients: FC = () => {
   const location = useLocation();
@@ -47,10 +48,10 @@ export const BurgerIngridients: FC = () => {
   }
   
   return (
-    <section className="pt-10 text text_type_main-default">
-      <h2 className="text_type_main-large mb-0 mt-0">
+    <section className={`${styles.burgerIngridients} pt-10`}>
+      <Text As='h2' textSize='large'>
         Соберите бургер
-      </h2>
+      </Text>
       <div className={styles.burgerIngridients__tabs}>
         <Tab value="bun" active={activeTab === 'bun'} onClick={handleClickTabs}>
           Булки
@@ -62,7 +63,7 @@ export const BurgerIngridients: FC = () => {
           Начинки
         </Tab>
       </div>
-      <ul className={`${styles.burgerIngridients__list} mt-10`}>
+      <ul className={`${styles.burgerIngridients__list} mt-5`}>
         <Ingridients title={'Булки'} refCategory={bunsRef}>
           { data && data
             .filter((el: IIngridient) => el.type === 'bun') 

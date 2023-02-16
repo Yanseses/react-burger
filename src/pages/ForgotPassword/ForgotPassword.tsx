@@ -6,6 +6,7 @@ import { Form } from '../../components/Form/Form';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useForm } from '../../hooks/useForm';
+import { Text } from '../../components/Text/Text';
 
 export default function ForgotPassword(){
   const dispatch = useDispatch();
@@ -40,9 +41,9 @@ export default function ForgotPassword(){
           <Button htmlType="submit" type="primary">Восстановить</Button>
         </Form>
         <div className={`${styles.forgotPassword__textContent} text text_type_main-default`}>
-          <p className={styles.forgotPassword__textLine}>
+          <Text As='p' textSize='default'>
             Вспомнили пароль? <Link to={'/login'}>Войти</Link>
-          </p>
+          </Text>
         </div>
       </section>
     </main>

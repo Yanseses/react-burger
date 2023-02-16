@@ -46,7 +46,7 @@ type TAuthState = {
   user: TUser
 }
 
-const initialState = {
+export const initialState = {
   changeUserRequest: false,
   changeUserFailed: false,
   registerRequest: false,

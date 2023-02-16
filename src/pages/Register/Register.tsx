@@ -6,6 +6,7 @@ import { useDispatch } from '../../services/hooks';
 import { userRegister } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { FormEvent } from 'react';
+import { Text } from '../../components/Text/Text';
 
 export default function Register(){
   const dispatch = useDispatch();
@@ -47,10 +48,10 @@ export default function Register(){
           />
           <Button htmlType="submit" type="primary">Зарегистрироваться</Button>
         </Form>
-        <div className={`${styles.register__textContent} text text_type_main-default`}>
-          <p className={styles.register__textLine}>
+        <div className={styles.register__textContent}>
+          <Text As='p' textSize='default'>
             Уже зарегистрированы? <Link to={'/login'}>Войти</Link>
-          </p>
+          </Text>
         </div>
       </section>
     </main>

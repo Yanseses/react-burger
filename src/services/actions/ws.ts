@@ -9,7 +9,7 @@ import {
   WS_ADD_MODAL_ORDER
 } from '../actionTypes/ws';
 
-interface IOrderMessage {
+export interface IOrderMessage {
   orders: IWsOrder[],
   total: number,
   totalToday: number

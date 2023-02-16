@@ -1,18 +1,19 @@
 import { FC } from 'react';
 import style from './price.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TNumberSize, Text } from '../../Text/Text';
 
 interface IPrice {
   price: number,
-  textSize: 'medium' | 'large' | 'default'
+  textSize: TNumberSize
 }
 
-export const Price: FC<IPrice> = ({price, textSize}) => {  
+export const Price: FC<IPrice> = ({ price, textSize }) => {  
   return (
     <div className={`${style.price}`}>
-      <p className={`${style.price__title} text text_type_digits-${textSize}`}>
-        {price}
-      </p>
+      <Text As='p' numberSize={`${textSize}`}>
+        { price }
+      </Text>
       <CurrencyIcon type="primary" />
     </div>
   )

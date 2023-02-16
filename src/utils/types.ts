@@ -25,7 +25,6 @@ export interface IWsOrder {
   createdAt: string,
   status: 'done' | 'created' | 'pending',
   ingredients: string[],
-  price: number,
   isPrivate?: boolean,
   _id?: string,
 }

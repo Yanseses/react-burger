@@ -1,5 +1,6 @@
-.title {
-  margin: 0;
+.ingridients {
+  display: grid;
+  row-gap: 24px;
 }
 
 .ingridientsList {
