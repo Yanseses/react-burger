@@ -50,13 +50,13 @@ export const BurgerConstructor: FC = () => {
 
   
   return (
-    <section className={`${styles.main} pt-25 pl-8 pr-4`}>
-      <div className={`${styles.constructor}`}>
+    <section className={`${styles.constructor} pt-25 pl-8 pr-4`}>
+      <div className={`${styles.constructor__order}`}>
         <ConstructorBuns type={'top'}/>
         <ConstructorMain />
         <ConstructorBuns type={'bottom'}/> 
       </div>
-      <div className={styles.constructor__checkout}>
+      <div className={styles.constructor__controls}>
         <Price textSize={'medium'} price={price}/>
         <Button 
           htmlType="button" 

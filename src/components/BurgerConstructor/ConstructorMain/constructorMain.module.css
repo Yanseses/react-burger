@@ -4,7 +4,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   max-height: 40vh;
   overflow-y: scroll;
   width: 100%;

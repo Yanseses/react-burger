@@ -22,3 +22,15 @@
   list-style: none;
   display: flex;
 }
+
+@media screen and (max-width: 1305px) {
+  .header__section {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .header__section {
+    display: none;
+  }
+}
