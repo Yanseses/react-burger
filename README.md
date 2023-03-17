@@ -1,5 +1,5 @@
 # Project React-burger
-
+![Image alt](https://github.com/Yanseses/react-burger/blob/main/src/images/mainPage.png)
 This project was created with Create React App & Yandex.Practicum
 If you need looking him, click on [Link](https://yanseses.github.io/react-burger/index.html)
 
