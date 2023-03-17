@@ -1,4 +1,5 @@
 # Project React-burger
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
 
 This project was created with Create React App & Yandex.Practicum
 If you need looking him, click on [Link](https://yanseses.github.io/react-burger/index.html)
