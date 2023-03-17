@@ -4,7 +4,7 @@
 This project was created with Create React App & Yandex.Practicum
 If you need looking him, click on [Link](https://yanseses.github.io/react-burger/index.html)
 
-## How use
+### How use
 To use the project locally, download the main branch to your computer, then run the following commands:
 
 #### `npm start`
