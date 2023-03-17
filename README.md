@@ -1,5 +1,5 @@
 # Project React-burger
-![This is an image](https://disk.yandex.ru/i/tpuf_Wep_bwhmQ)
+![This is an image](https://ibb.co/k4ztTrk)
 
 This project was created with Create React App & Yandex.Practicum
 If you need looking him, click on [Link](https://yanseses.github.io/react-burger/index.html)
