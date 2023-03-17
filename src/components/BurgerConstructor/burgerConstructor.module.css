@@ -1,18 +1,24 @@
-.main {
+.constructor {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.constructor {
+.constructor__order {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   align-items: flex-end;
 }
 
-.constructor__checkout {
+.constructor__controls {
   display: flex;
   justify-content: flex-end;
   column-gap: 40px;
+}
+
+@media screen and (max-width: 1305px) {
+  .constructor {
+    display: none;
+  }
 }
