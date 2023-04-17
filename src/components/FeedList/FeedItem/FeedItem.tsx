@@ -59,7 +59,8 @@ export const FeedItem: FC<IWsOrder> = ({
           }
         </div>
         <Price 
-          price={actualIngredients.reduce((acc: number, curr: IIngridient | undefined) => curr!.price + acc, 0)} 
+          price={actualIngredients.reduce((acc: number, curr: IIngridient | undefined) => 
+            curr ? curr.price + acc : 0, 0)} 
           textSize={'default'}
         />
       </div>
