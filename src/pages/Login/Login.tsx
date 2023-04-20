@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from '../../services/hooks';
 import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
+import { Loader } from '../../components/Loader/Loader';
 
 export default function Login(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector(store => store.auth.authUser.error);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
+  const request = useSelector(store => store.auth.authUser.request);
   const { values, handleChange } = useForm({
     email: '',
     password: ''
@@ -68,6 +70,11 @@ export default function Login(){
           </Text>
         </div>
       </section>
+
+      { request && (
+        <Loader />  
+        ) 
+      }
     </main>
   )
 }

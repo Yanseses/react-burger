@@ -11,17 +11,17 @@ import { useNavigate } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
 import { ORDER_CHANGE_PRICE } from '../../services/actionTypes/main';
 import { OrderSuccess } from '../modal/OrderSuccess/OrderSuccess';
+import { Loader } from '../Loader/Loader';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
-  const { order, orderNumber, userAuthorized, price } = useSelector(store => ({
-    order: store.main.order.data,
-    orderNumber: store.main.order.successNumber,
-    userAuthorized: store.auth.user.authorized,
-    price: store.main.order.price
-  }));
+  const request = useSelector(store => store.main.order.request);
+  const order = useSelector(store => store.main.order.data);
+  const orderNumber = useSelector(store => store.main.order.successNumber);
+  const userAuthorized = useSelector(store => store.auth.user.authorized);
+  const price = useSelector(store => store.main.order.price)
   
   useEffect(() => {
     if(order.buns !== null || order.main.length > 0){
@@ -71,6 +71,11 @@ export const BurgerConstructor: FC = () => {
         <Modal title={''} onClose={() => setIsModalOpen(false)}>
           <OrderSuccess />
         </Modal>
+        ) 
+      }
+
+      { request && (
+        <Loader />  
         ) 
       }
     </section>

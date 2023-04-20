@@ -115,7 +115,6 @@ export function getUserData() {
         Authorization: 'Bearer ' + getCookie('accessToken')
       },
     }).then(res => {
-      console.log(res)
       if (res && res.success) {
         dispatch(getUserSuccess(res.user));
       } else {
