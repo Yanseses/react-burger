@@ -1,5 +1,5 @@
 import Header from '../AppHeader/Header';
-import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { Route, useLocation, Routes, useNavigate } from 'react-router-dom';
 import { 
   NotFound, 
   Register, 
@@ -9,8 +9,7 @@ import {
   Login, 
   Constructor, 
   Ingridients,
-  Feed,
-  History } from '../../pages/index';
+  Feed } from '../../pages/index';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useDispatch } from '../../services/hooks';
 import { useEffect } from 'react';
@@ -23,9 +22,9 @@ import DetailOrder from '../../pages/DetailOrder/DetailOrder';
 import { OrderDetails } from '../modal/OrderDetails/OrderDetails';
 
 export default function App() {
-  const history = useHistory();
-  const location = useLocation<{modal: Location}>()
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const modal = location.state?.modal;
 
   useEffect(() => {
@@ -40,75 +39,75 @@ export default function App() {
   return (
     <>
       <Header />
-      <Switch 
-      // @ts-ignore
-      location={modal || location}>
-        <ProtectedRoute path={'/login'} exact>
-          <Login />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/profile'} onlyForAuth exact>
-          <Profile />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/profile/orders'} onlyForAuth exact>
-          <History />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/profile/orders/:id'} onlyForAuth exact>
-          <DetailOrder />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/forgot-password'} exact>
-          <ForgotPassword />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/register'} exact>
-          <Register />
-        </ProtectedRoute>
-        <ProtectedRoute path={'/reset-password'} exact>
-          <ResetPassword />
-        </ProtectedRoute>
-        <Route path={'/feed'} exact>
-          <Feed />
-        </Route>
-        <Route path={'/feed/:id'} exact>
-          <DetailOrder />
-        </Route>
-        <Route path={'/ingridients/:id'} exact>
-          <Ingridients />
-        </Route>
-        <Route path={'/'} exact>
-          <Constructor />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+      <Routes location={modal || location}>
+        <Route path={'/login'} element={
+          <ProtectedRoute>
+            <Login />
+          </ProtectedRoute>
+        } />
+        <Route path={'/forgot-password'} element={
+          <ProtectedRoute>
+            <ForgotPassword />
+          </ProtectedRoute>
+        } />
+        <Route path={'/register'} element={
+          <ProtectedRoute>
+            <Register />
+          </ProtectedRoute>
+        } />
+        <Route path={'/reset-password'} element={
+          <ProtectedRoute>
+            <ResetPassword />
+          </ProtectedRoute>
+        } />
+        <Route path='/profile/orders/:id' element={ 
+          <ProtectedRoute onlyForAuth>
+            <DetailOrder />
+          </ProtectedRoute>
+        } />
+        <Route path={'/profile/*'} element={ 
+          <ProtectedRoute onlyForAuth>
+           <Profile /> 
+          </ProtectedRoute>
+        } />
+        <Route path={'/feed'} element={ <Feed /> } />
+        <Route path={'/feed/:id'} element={ <DetailOrder /> } />
+        <Route path={'/ingridients/:id'} element={ <Ingridients /> } /> 
+        <Route path={'/react-burger/index.html'} element={ <Constructor /> } />   
+        <Route path={'/'} element={<Constructor />} />
+        <Route element={ <NotFound /> } />
+      </Routes>
 
       { modal && (
         <>
-          <Route path={'/ingridients/:id'}>
+        <Routes>
+          <Route path={'/ingridients/:id'} element={
             <Modal 
               title={'Детали ингридиента'} 
-              onClose={() => history.goBack()}
+              onClose={() => navigate('/')}
               >
               <IngridientDetails />
             </Modal>
-          </Route>
-          <Route path={'/feed/:id'}>
+          } />
+          <Route path={'/feed/:id'} element={
             <Modal 
               title={`#${location.pathname.split('/', 3)[2]}`} 
-              onClose={() => history.goBack()}
+              onClose={() => navigate('/feed/')}
               titleStyle={'text_type_digits-default'}
               >
               <OrderDetails />
             </Modal>
-          </Route>
-          <Route path={'/profile/orders/:id'}>
+          }/>
+          <Route path={'/profile/orders/:id'} element={
             <Modal 
               title={`#${location.pathname.split('/', 4)[3]}`} 
-              onClose={() => history.goBack()}
+              onClose={() => navigate('/profile/orders/')}
               titleStyle={'text_type_digits-default'}
               >
               <OrderDetails />
             </Modal>
-          </Route>
+          } />
+        </Routes>
         </>
       )}
     </>

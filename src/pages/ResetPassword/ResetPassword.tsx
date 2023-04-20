@@ -1,8 +1,8 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './resetPassword.module.css';
 import { Form } from '../../components/Form/Form';
-import { FormEvent } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { FormEvent, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { userResetPassword } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
@@ -10,24 +10,21 @@ import { Text } from '../../components/Text/Text';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
-  const userPasswordPatch = useSelector(store => store.auth.userPasswordPatch);
+  const navigate = useNavigate();
+  const userPasswordPatch = useSelector(store => store.auth.user.passwordPatch);
   const { values, handleChange } = useForm({
     password: '',
     token: ''
   })
 
+  useEffect(() => {
+    if(!userPasswordPatch) navigate('/forgot-password')
+  }, [navigate, userPasswordPatch])
+
   const handleResetPassword = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     dispatch(userResetPassword(values));
-  }
-
-  if(!userPasswordPatch){
-    return (
-      <Redirect to={{
-        pathname: '/forgot-password'
-      }}/>
-    )
   }
 
   return (

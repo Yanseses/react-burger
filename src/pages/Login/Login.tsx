@@ -1,17 +1,17 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Form } from '../../components/Form/Form';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
 
 export default function Login(){
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userAuthorized = useSelector(store => store.auth.userAuthorized);
+  const userAuthorized = useSelector(store => store.auth.user.authorized);
   const { values, handleChange } = useForm({
     email: '',
     password: ''
@@ -23,9 +23,9 @@ export default function Login(){
     dispatch(userAuth(values));
   }
 
-  if(userAuthorized){
-    history.goBack();
-  }
+  useEffect(() => {
+    if(userAuthorized) navigate('/profile');
+  }, [navigate, userAuthorized]);
 
   return (
     <main className={styles.login}>
@@ -43,7 +43,14 @@ export default function Login(){
             value={values.password} 
             onChange={handleChange}
             />
-          <Button htmlType="submit" type="primary">Войти</Button>
+          <Button 
+            htmlType="submit" 
+            type="primary"
+            disabled={
+              values.email.length > 5 && values.password.length > 5 ? false : true
+            }>
+              Войти
+          </Button>
         </Form>
         <div className={styles.login__textContent}>
           <Text As='p' textSize='default'>

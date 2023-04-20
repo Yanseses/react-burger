@@ -27,46 +27,68 @@ type TUser = {
   password?: string
 }
 
+type TRequest = {
+  request: boolean,
+  failed: boolean,
+  error: string
+}
+
 type TAuthState = {
-  changeUserRequest: boolean,
-  changeUserFailed: boolean,
-  registerRequest: boolean,
-  registerFailed: boolean,
-  logoutRequest: boolean,
-  logoutFailed: boolean,
-  authRequest: boolean,
-  authFailed: boolean,
-  userRequest: boolean,
-  userFailed: boolean,
-  userAuthorized: boolean,
-  userPasswordPatch: boolean,
-  userWriteEmail: boolean,
-  dropPasswordRequest: boolean,
-  dropPasswordFailed: boolean,
-  user: TUser
+  changeUser: TRequest,
+  registerUser: TRequest,
+  logoutUser: TRequest,
+  authUser: TRequest,
+  user: {
+    request: boolean,
+    failed: boolean,
+    error: string,
+    data: TUser,
+    authorized: boolean,
+    writeEmail: boolean,
+    passwordPatch: boolean
+  },
+  dropPassword: TRequest
 }
 
 export const initialState = {
-  changeUserRequest: false,
-  changeUserFailed: false,
-  registerRequest: false,
-  registerFailed: false,
-  logoutRequest: false,
-  logoutFailed: false,
-  authRequest: false,
-  authFailed: false,
-  userRequest: false,
-  userFailed: false,
-  user: {
-    name: '',
-    email: '',
-    password: ''
+  changeUser: {
+    request: false,
+    failed: false,
+    error: ''
   },
-  userAuthorized: false,
-  userPasswordPatch: false,
-  userWriteEmail: false,
-  dropPasswordRequest: false,
-  dropPasswordFailed: false,
+  registerUser: {
+    request: false,
+    failed: false,
+    error: ''
+  },
+  logoutUser: {
+    request: false,
+    failed: false,
+    error: ''
+  },
+  authUser: {
+    request: false,
+    failed: false,
+    error: ''
+  },
+  user: {
+    request: false,
+    failed: false,
+    error: '',
+    data: {
+      name: '',
+      email: '',
+      password: ''
+    },
+    authorized: false,
+    writeEmail: false,
+    passwordPatch: false
+  },
+  dropPassword: {
+    request: false,
+    failed: false,
+    error: ''
+  }
 };
 
 export const authStore = (state: TAuthState = initialState, action: TAuthActions) => {
@@ -74,154 +96,230 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
     case USER_AUTH_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        authUser: {
+          ...state.authUser,
+          request: true
+        }
       }
     }
     case USER_AUTH_FAILED: {
       return {
         ...state,
-        authFailed: true,
-        authRequest: false
+        authUser: {
+          request: false,
+          failed: true,
+          error: action.payload
+        }
       }
     }
     case USER_AUTH_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
-        userAuthorized: true,
+        authUser: {
+          ...state.authUser,
+          request: false,
+          failed: false,
+        },
         user: {
           ...state.user,
-          name: action.payload.name,
-          email: action.payload.email
+          authorized: true,
+          data: {
+            ...state.user.data,
+            name: action.payload.name,
+            email: action.payload.email
+          }
         }
       }
     }
     case GET_USER_REQUEST: {
       return {
         ...state,
-        userRequest: true
+        user: {
+          ...state.user,
+          request: true
+        }
       }
     }
     case GET_USER_FAILED: {
       return {
         ...state,
-        userFailed: true,
-        userRequest: false
+        user: {
+          ...state.user,
+          request: false,
+          failed: true,
+          error: action.payload
+        }
       }
     }
     case GET_USER_SUCCESS: {
       return {
         ...state,
-        userRequest: false,
-        userFailed: false,
-        userAuthorized: true,
         user: {
           ...state.user,
-          name: action.payload.name,
-          email: action.payload.email
+          request: false,
+          failed: false,
+          error: '',
+          authorized: true,
+          data: {
+            ...state.user.data,
+            name: action.payload.name,
+            email: action.payload.email
+          }
         }
       }
     }
     case USER_LOGOUT_REQUEST: {
       return {
         ...state,
-        logoutRequest: true
+        logoutUser: {
+          ...state.logoutUser,
+          request: true
+        }
       }
     }
     case USER_LOGOUT_FAILED: {
       return {
         ...state,
-        logoutRequest: false,
-        logoutFailed: true
+        logoutUser: {
+          request: false,
+          failed: true,
+          error: action.payload
+        }
       }
     }
     case USER_LOGOUT_SUCCESS: {
       return {
         ...state,
-        logoutRequest: false,
-        userAuthorized: false,
+        logoutUser: {
+          request: false,
+          failed: false,
+          error: ''
+        },
         user: {
-          name: '',
-          email: '',
-          password: ''
+          ...state.user,
+          authorized: false,
+          data: {
+            name: '',
+            email: '',
+            password: ''
+          }
         }
       }
     }
     case USER_REGISTER_REQUEST: {
       return {
         ...state,
-        registerRequest: true
+        registerUser: {
+          ...state.registerUser,
+          request: true
+        }
       }
     }
     case USER_REGISTER_FAILED: {
       return {
         ...state,
-        registerFailed: true,
-        registerRequest: false
+        registerUser: {
+          request: false,
+          failed: true,
+          error: action.payload
+        }
       }
     }
     case USER_REGISTER_SUCCESS: {
       return {
         ...state,
-        registerRequest: false,
-        userAuthorized: true,
+        registerUser: {
+          failed: false,
+          request: false,
+          error: ''
+        },
         user: {
           ...state.user,
-          name: action.payload.name,
-          email: action.payload.email
+          authorized: true,
+          data: {
+            ...state.user.data,
+            name: action.payload.name,
+            email: action.payload.email
+          }
         }
       }
     }
     case USER_PASSWORD_PATCH: {
       return {
         ...state,
-        userPasswordPatch: true
+        user: {
+          ...state.user,
+          passwordPatch: true
+        }
       }
     }
     case USER_RESET_PASSWORD_REQUEST: {
       return {
         ...state,
-        dropPasswordRequest: true
+        dropPassword: {
+          ...state.dropPassword,
+          request: true
+        }
       }
     }
     case USER_RESET_PASSWORD_FAILED: {
       return {
         ...state,
-        dropPasswordRequest: false,
-        dropPasswordFailed: true
+        dropPassword: {
+          request: false,
+          failed: true,
+          error: action.payload
+        }
       }
     }
     case USER_RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
-        userPasswordPatch: false,
-        dropPasswordRequest: false
+        user: {
+          ...state.user,
+          passwordPatch: false
+        },
+        dropPassword: {
+          ...state.dropPassword,
+          request: false
+        }
       }
     }
     case CHANGE_USER_REQUEST: {
       return {
         ...state,
-        changeUserRequest: true
-      }
-    }
-    case CHANGE_USER_SUCCESS: {
-      return {
-        ...state,
-        changeUserRequest: false,
-        changeUserFailed: false,
-        user: {
-          ...state.user,
-          email: action.payload.email,
-          name: action.payload.name
+        changeUser: {
+          ...state.changeUser,
+          request: true
         }
       }
     }
     case CHANGE_USER_FAILED: {
       return {
         ...state,
-        changeUserRequest: false,
-        changeUserFailed: true
+        changeUser: {
+          request: false,
+          failed: true,
+          error: action.payload
+        }
+      }
+    }
+    case CHANGE_USER_SUCCESS: {
+      return {
+        ...state,
+        changeUser: {
+          request: false,
+          failed: false,
+          error: ''
+        },
+        user: {
+          ...state.user,
+          data: {
+            ...state.user.data,
+            email: action.payload.email,
+            name: action.payload.name
+          }
+        }
       }
     }
     default: {

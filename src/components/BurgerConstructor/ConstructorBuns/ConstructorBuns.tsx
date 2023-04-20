@@ -13,7 +13,7 @@ type TBunsType = {
 
 export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
   const dispatch = useDispatch();
-  const buns = useSelector(state => state.main.order.buns)
+  const buns = useSelector(state => state.main.order.data.buns)
   const [{ isHoverBuns } , bunsDrop] = useDrop<
     IIngridient, 
     unknown,

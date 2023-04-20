@@ -13,7 +13,9 @@ export const Item: FC<PropsWithChildren<TItem>> = ({ text, Icon, link }) => {
   const location = useLocation();
 
   return (
-    <NavLink exact to={{ pathname: `${link}`}} className={styles.item} activeClassName={styles.item__active}>
+    <NavLink to={link} className={
+      ({isActive}) => isActive ? `${styles.item__active}` : `${styles.item}`
+      } end>
       <Icon type={location.pathname === link ? 'primary' : 'secondary'} />
       <Text As='span' textSize='default'>{text}</Text>
     </NavLink>

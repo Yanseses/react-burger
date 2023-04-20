@@ -46,7 +46,12 @@ export default function Register(){
             value={values.password}
             onChange={handleChange}
           />
-          <Button htmlType="submit" type="primary">Зарегистрироваться</Button>
+          <Button 
+            htmlType="submit" 
+            type="primary"
+            disabled={values.name.length > 3 && values.password.length > 5 && values.email.length > 3 ? false : true}>
+              Зарегистрироваться
+          </Button>
         </Form>
         <div className={styles.register__textContent}>
           <Text As='p' textSize='default'>

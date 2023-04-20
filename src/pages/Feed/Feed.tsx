@@ -49,10 +49,8 @@ export default function Feed(){
               <Link 
                 key={el._id} 
                 className={styles.feed__link}
-                to={{
-                  pathname: `/feed/${el.number}`,
-                  state: { modal: location }
-                }}>
+                to={`/feed/${el.number}`}
+                state={{ modal: location }}>
                 <FeedItem {...el}/>
               </Link>
               ))

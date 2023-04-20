@@ -18,7 +18,7 @@ export const BurgerIngridients: FC = () => {
   const [ sauceRef, inWiewSauce, entrySauce ] = useInView({threshold: 0});
   const { activeTab, data } = useSelector(store => ({
     activeTab: store.main.activeTab,
-    data: store.main.ingridients,
+    data: store.main.ingridients.data,
   }));
   
   useEffect(() => {
@@ -71,10 +71,8 @@ export const BurgerIngridients: FC = () => {
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
-                to={{
-                  pathname: `/ingridients/${el._id}`,
-                  state: { modal: location }
-                }}>
+                to={`/ingridients/${el._id}`}
+                state={{ modal: location }}>
                 <IngridientsItem {...el}/>
               </Link>
             ))
@@ -87,10 +85,8 @@ export const BurgerIngridients: FC = () => {
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
-                to={{
-                  pathname: `/ingridients/${el._id}`,
-                  state: { modal: location }
-                }}>
+                to={`/ingridients/${el._id}`}
+                state={{ modal: location }}>
                 <IngridientsItem {...el}/>
               </Link>
             ))
@@ -103,10 +99,8 @@ export const BurgerIngridients: FC = () => {
               <Link 
                 key={el._id} 
                 className={styles.burgerIngridients__link}
-                to={{
-                  pathname: `/ingridients/${el._id}`,
-                  state: { modal: location }
-                }}>
+                to={`/ingridients/${el._id}`}
+                state={{ modal: location }}>
                 <IngridientsItem {...el} />
               </Link>
             ))

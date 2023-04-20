@@ -16,7 +16,7 @@ export const OrderDetails: FC = () => {
   const order = 
     useSelector(store => store.ws.orders)
     .find((el: IWsOrder) => el.number === Number(id));
-  const ingridients = useSelector(store => store.main.ingridients);
+  const ingridients = useSelector(store => store.main.ingridients.data);
   const orderModal = useSelector(store => store.ws.orderModal);
   const orderIngridients = orderModal?.ingredients.map((elem: string) => {
     return ingridients.find((el: IIngridient) => el._id === elem);
@@ -54,9 +54,9 @@ export const OrderDetails: FC = () => {
               { orderIngridients!.map((el: IIngridient | undefined, i: number) => {
                   return (
                     <li key={i} className={styles.orderDetails__ingridientItem}>
-                      <IngridientsIcon image={el!.image_mobile} />
-                      <Text As='p' textSize='default'>{el?.name}</Text>
-                      <Price price={el!.price} textSize={'default'}/>
+                      <IngridientsIcon image={el ? el.image_mobile : ''} />
+                      <Text As='p' textSize='default'>{el ? el.name : 'Неизвестный ингридиент'}</Text>
+                      <Price price={el ? el.price : 0} textSize={'default'}/>
                     </li>
                     )
                   }
@@ -73,7 +73,8 @@ export const OrderDetails: FC = () => {
             />
           </div>
           <Price 
-            price={orderIngridients!.reduce((acc: number, curr: IIngridient | undefined) => curr!.price + acc, 0)} 
+            price={orderIngridients!.reduce((acc: number, curr: IIngridient | undefined) => 
+              curr ? curr.price + acc : 0, 0)} 
             textSize={'default'}
           />
         </div>

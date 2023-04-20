@@ -23,6 +23,7 @@ export interface IIngridientsRequest {
 
 export interface IIngridientsFailed {
   readonly type: typeof GET_INGRIDIENTS_FAILED
+  payload: string
 }
 
 export interface IIngridientsSuccess {
@@ -35,7 +36,8 @@ export interface IOrderRequest {
 }
 
 export interface IOrderFailed {
-  readonly type: typeof ORDER_FAILED
+  readonly type: typeof ORDER_FAILED,
+  payload: string
 }
 
 export interface IOrderSuccess {
@@ -108,9 +110,10 @@ export const ingridientsRequest = (): IIngridientsRequest => {
   }
 }
 
-export const ingridientsFailed = (): IIngridientsFailed => {
+export const ingridientsFailed = (error: string): IIngridientsFailed => {
   return {
-    type: GET_INGRIDIENTS_FAILED
+    type: GET_INGRIDIENTS_FAILED,
+    payload: error
   }
 }
 
@@ -127,9 +130,10 @@ export const orderRequest = (): IOrderRequest => {
   }
 }
 
-export const orderFailed = (): IOrderFailed => {
+export const orderFailed = (error: string): IOrderFailed => {
   return {
-    type: ORDER_FAILED
+    type: ORDER_FAILED,
+    payload: error
   }
 }
 

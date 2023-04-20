@@ -45,7 +45,7 @@ describe('Auth reducer', () => {
       authFailed: true
     }
 
-    expect(authStore(state, actions.userAuthFailed())).toEqual(userAuthState)
+    expect(authStore(state, actions.userAuthFailed(''))).toEqual(userAuthState)
   })
 
   test('User logout request', () => {
@@ -80,7 +80,7 @@ describe('Auth reducer', () => {
       logoutFailed: true
     }
 
-    expect(authStore(state, actions.userLogoutFailed())).toEqual(userLogout)
+    expect(authStore(state, actions.userLogoutFailed(''))).toEqual(userLogout)
   })
 
   test('Get user request', () => {
@@ -118,7 +118,7 @@ describe('Auth reducer', () => {
       userRequest: false
     }
 
-    expect(authStore(state, actions.getUserFailed())).toEqual(getUser)
+    expect(authStore(state, actions.getUserFailed(''))).toEqual(getUser)
   })
 
   test('User register request', () => {
@@ -156,7 +156,7 @@ describe('Auth reducer', () => {
       registerFailed: true
     }
 
-    expect(authStore(state, actions.userRegisterFailed())).toEqual(userRegister)
+    expect(authStore(state, actions.userRegisterFailed(''))).toEqual(userRegister)
   })
 
   test('Change user request', () => {
@@ -192,7 +192,7 @@ describe('Auth reducer', () => {
       changeUserFailed: true
     }
 
-    expect(authStore(state, actions.changeUserFailed())).toEqual(changeUserSuccess)
+    expect(authStore(state, actions.changeUserFailed(''))).toEqual(changeUserSuccess)
   })
 
   test('User reset password', () => {

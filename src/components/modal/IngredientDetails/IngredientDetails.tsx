@@ -9,9 +9,9 @@ import { Text } from '../../Text/Text';
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
-  const { ingridients, ingridientModal } = useSelector(store => ({
-    ingridients: store.main.ingridients,
-    ingridientModal: store.main.ingridientModal
+  const { ingridients, modal } = useSelector(store => ({
+    ingridients: store.main.ingridients.data,
+    modal: store.main.modal
   }));
 
   useEffect(() => {
@@ -25,28 +25,28 @@ export const IngridientDetails: FC = () => {
   return (
     <div className={styles.ingredientDetails}>
       <img 
-        src={ingridientModal ? ingridientModal.image_large : ''} 
-        alt={ingridientModal ? ingridientModal.name : ''} 
+        src={modal ? modal.image_large : ''} 
+        alt={modal ? modal.name : ''} 
       />
       <h3 className={`${styles.ingridientDetails__title} text text_type_main-medium mt-4`}>
-        {ingridientModal && ingridientModal.name}
+        {modal && modal.name}
       </h3>
       <ul className={`${styles.ingredientDetails__detail} mt-8`}>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <Text As='p' textSize='default' isInactive>Калории, ккал</Text>
-          <Text As='p' numberSize='default' isInactive>{ingridientModal && ingridientModal.calories}</Text>
+          <Text As='p' numberSize='default' isInactive>{modal && modal.calories}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <Text As='p' textSize='default' isInactive>Белки, г</Text>
-          <Text As='p' numberSize='default' isInactive>{ingridientModal && ingridientModal.proteins}</Text>
+          <Text As='p' numberSize='default' isInactive>{modal && modal.proteins}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <Text As='p' textSize='default' isInactive>Жиры, г</Text>
-          <Text As='p' numberSize='default' isInactive>{ingridientModal && ingridientModal.fat}</Text>
+          <Text As='p' numberSize='default' isInactive>{modal && modal.fat}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
           <Text As='p' textSize='default' isInactive>Углеводы, г</Text>
-          <Text As='p' numberSize='default' isInactive>{ingridientModal && ingridientModal.carbohydrates}</Text>
+          <Text As='p' numberSize='default' isInactive>{modal && modal.carbohydrates}</Text>
         </li>
       </ul>
     </div>

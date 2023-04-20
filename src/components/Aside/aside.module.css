@@ -14,18 +14,18 @@
 }
 
 .aside__link {
-  padding: 10px 0;
-  color: var(--text-inactive-color);
-  text-decoration: none;
-}
-
-.aside__linkActive {
-  color: var(--text-primary-color);
-}
-
-.aside__linkLogout {
+  margin: 0;
   padding: 10px 0;
   color: var(--text-inactive-color);
   text-decoration: none;
   cursor: pointer;
+}
+
+.aside__linkActive {
+  margin: 0;
+  padding: 10px 0;
+  color: var(--text-inactive-color);
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--text-primary-color);
 }

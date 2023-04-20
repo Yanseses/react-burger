@@ -9,7 +9,7 @@ import { Text } from '../../Text/Text';
 
 export const ConstructorMain: FC = () => {
   const dispatch = useDispatch();
-  const main = useSelector(state => state.main.order.main);
+  const main = useSelector(state => state.main.order.data.main);
   const [{ isHoverMain } , mainDrop] = useDrop<
     IIngridient, 
     unknown, 

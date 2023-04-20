@@ -12,7 +12,12 @@ type TModal = {
 
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
-export const Modal: FC<PropsWithChildren<TModal>> = ({title, titleStyle = 'text_type_main-large', onClose, children}) => {
+export const Modal: FC<PropsWithChildren<TModal>> = ({
+  title, 
+  titleStyle = 'text_type_main-large', 
+  onClose, 
+  children
+}) => {
   const modalRef = React.useRef<HTMLElement>(null);
   
   useEffect(() => {

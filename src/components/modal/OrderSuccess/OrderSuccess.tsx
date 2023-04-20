@@ -5,7 +5,7 @@ import styles from './orderSuccess.module.css';
 import { Text } from '../../Text/Text';
 
 export const OrderSuccess: FC = () => {
-  const orderNumber = useSelector(store => store.main.orderNumber);
+  const orderNumber = useSelector(store => store.main.order.successNumber);
 
   return (
     <div className={`${styles.orderSuccess} mt-4 mb-20 text`}>

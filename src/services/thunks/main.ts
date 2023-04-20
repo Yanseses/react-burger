@@ -51,7 +51,7 @@ export function getIngridientsData() {
       })
       .catch(err => {
         console.log(err)
-        dispatch(ingridientsFailed());
+        dispatch(ingridientsFailed(err));
       })
     }
   }
@@ -80,7 +80,7 @@ export function approveOrderNumber(data: IApproveOrderNumber){
       })
       .catch(err => {
         console.log(err)
-        dispatch(orderFailed());
+        dispatch(orderFailed(err));
       })
     }
   }

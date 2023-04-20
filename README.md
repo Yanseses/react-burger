@@ -29,11 +29,5 @@ Your app is ready to be deployed!
 Deploys the built application to github with the ability to view it.
 
 
-<<<<<<< sprint-6/step-1
 #### `npm run cypress:open`
 Opened application cypress for UI testing application.
-=======
-### `npm run cypress:open`
-
-Opened application cypress for UI testing application.
->>>>>>> main

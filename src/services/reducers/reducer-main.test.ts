@@ -72,10 +72,13 @@ describe('Main reducer', () => {
     const orderState = {
       ...state,
       order: {
-        main: [
-          ingridients[1]
-        ],
-        buns: ingridients[0]
+        ...state.order,
+        data: {
+          main: [
+            ingridients[1]
+          ],
+          buns: ingridients[0]
+        }
       }
     }
     const price = {
@@ -101,10 +104,13 @@ describe('Main reducer', () => {
     const orderState = {
       ...state,
       order: {
-        main: [
-          ingridients[1]
-        ],
-        buns: ingridients[0]
+        ...state.order,
+        data: {
+          main: [
+            ingridients[1]
+          ],
+          buns: ingridients[0]
+        }
       },
       orderPrice: 2964, 
     }

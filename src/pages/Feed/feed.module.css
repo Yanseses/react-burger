@@ -35,7 +35,7 @@
 
 .feed__ready {
   display: grid;
-  row-gap: 60px;
+  row-gap: 20px;
   grid-template-rows: repeat(3, auto);
 }
 

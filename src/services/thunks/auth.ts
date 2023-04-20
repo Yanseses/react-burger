@@ -68,7 +68,7 @@ export function userRegister(registerData: TUserData) {
       }
     }).catch(err => {
       console.log(err)
-      dispatch(userRegisterFailed());
+      dispatch(userRegisterFailed(err));
     })
   }
 }
@@ -96,7 +96,7 @@ export function userAuth(authData: TUserData) {
       }
     }).catch(err => {
       console.log(err)
-      dispatch(userAuthFailed());
+      dispatch(userAuthFailed(err));
     })
   }
 }
@@ -123,7 +123,7 @@ export function getUserData() {
     }).catch(err => {
       console.log(err)
       deleteCookie('accessToken');
-      dispatch(getUserFailed());
+      dispatch(getUserFailed(err));
       dispatch(userRefreshToken());
     })
   }
@@ -178,7 +178,7 @@ export function changeUserData(userData: TUserData) {
       }
     }).catch(err => {
       console.log(err)
-      dispatch(changeUserFailed());
+      dispatch(changeUserFailed(err));
     })
   }
 }
@@ -206,7 +206,7 @@ export function userLogout() {
       }
     }).catch(err => {
       console.log(err)
-      dispatch(userLogoutFailed());
+      dispatch(userLogoutFailed(err));
     })
   }
 }
@@ -254,7 +254,7 @@ export function userResetPassword(resetData: TUserData) {
       }
     }).catch(err => {
       console.log(err)
-      dispatch(userPasswordResetFailed());
+      dispatch(userPasswordResetFailed(err));
     })
   }
 }

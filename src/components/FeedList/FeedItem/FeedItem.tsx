@@ -15,7 +15,7 @@ export const FeedItem: FC<IWsOrder> = ({
   status, 
   isPrivate
 }) => {
-  const ingridients = useSelector(store => store.main.ingridients);
+  const ingridients = useSelector(store => store.main.ingridients.data);
   const actualIngredients = ingredients.map((el: string) => {
     return ingridients.find((ingridient: IIngridient) => ingridient._id === el)
   });

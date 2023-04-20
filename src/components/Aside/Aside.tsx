@@ -19,19 +19,21 @@ export const Aside: FC = () => {
       <div className={`${styles.aside__list} text text_type_main-medium mb-20`}>
         <NavLink 
           to={'/profile'}
-          className={styles.aside__link}
-          activeClassName={styles.aside__linkActive}>
+          className={({isActive}) => isActive ? `${styles.aside__linkActive}` : `${styles.aside__link}`}
+          end>
             Профиль
         </NavLink>
         <NavLink 
           to={'/profile/orders'}
-          className={styles.aside__link}
-          activeClassName={styles.aside__linkActive}>
+          className={({isActive}) => isActive ? `${styles.aside__linkActive}` : `${styles.aside__link}`}>
             История заказов
         </NavLink>
-        <a className={styles.aside__linkLogout} onClick={handleLogout}>
-          Выход
-        </a>
+        <NavLink 
+          to={'/login'}
+          className={({isActive}) => isActive ? `${styles.aside__linkActive}` : `${styles.aside__link}`}
+          onClick={handleLogout}>
+            Выход
+        </NavLink>
       </div>
       <Text As='p' textSize='default' isInactive>
         В этом разделе вы можете изменить свои персональные данные

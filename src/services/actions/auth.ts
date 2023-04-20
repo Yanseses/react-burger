@@ -33,6 +33,7 @@ export interface IChangeUserSuccess {
 
 export interface IChangeUserFailed {
   readonly type: typeof CHANGE_USER_FAILED
+  payload: string
 }
 
 export interface IGetUserRequest {
@@ -41,6 +42,7 @@ export interface IGetUserRequest {
 
 export interface IGetUserFailed {
   readonly type: typeof GET_USER_FAILED
+  payload: string
 }
 
 export interface IGetUserSuccess {
@@ -54,6 +56,7 @@ export interface IUserAuthRequest {
 
 export interface IUserAuthFailed {
   readonly type: typeof USER_AUTH_FAILED
+  payload: string
 }
 
 export interface IUserAuthSuccess {
@@ -67,6 +70,7 @@ export interface IUserLogoutRequest {
 
 export interface IUserLogoutFailed {
   readonly type: typeof USER_LOGOUT_FAILED
+  payload: string
 }
 
 export interface IUserLogoutSuccess {
@@ -79,6 +83,7 @@ export interface IUserRegisterRequest {
 
 export interface IUserRegisterFailed {
   readonly type: typeof USER_REGISTER_FAILED
+  payload: string
 }
 
 export interface IUserRegisterSuccess {
@@ -96,6 +101,7 @@ export interface IUserPasswordResetRequest {
 
 export interface IUserPasswordResetFailed {
   readonly type: typeof USER_RESET_PASSWORD_FAILED
+  payload: string
 }
 
 export interface IUserPasswordResetSuccess {
@@ -135,9 +141,10 @@ export const changeUserSuccess = (user: TUserData): IChangeUserSuccess => {
   }
 }
 
-export const changeUserFailed = (): IChangeUserFailed => {
+export const changeUserFailed = (error: string): IChangeUserFailed => {
   return {
-    type: CHANGE_USER_FAILED
+    type: CHANGE_USER_FAILED,
+    payload: error
   }
 }
 
@@ -147,9 +154,10 @@ export const getUserRequest = (): IGetUserRequest => {
   }
 }
 
-export const getUserFailed = (): IGetUserFailed => {
+export const getUserFailed = (error: string): IGetUserFailed => {
   return {
-    type: GET_USER_FAILED
+    type: GET_USER_FAILED,
+    payload: error
   }
 }
 
@@ -166,9 +174,10 @@ export const userAuthRequest = (): IUserAuthRequest => {
   }
 }
 
-export const userAuthFailed = (): IUserAuthFailed => {
+export const userAuthFailed = (error: string): IUserAuthFailed => {
   return {
-    type: USER_AUTH_FAILED
+    type: USER_AUTH_FAILED,
+    payload: error
   }
 }
 
@@ -185,9 +194,10 @@ export const userLogoutRequest = (): IUserLogoutRequest => {
   }
 }
 
-export const userLogoutFailed = (): IUserLogoutFailed => {
+export const userLogoutFailed = (error: string): IUserLogoutFailed => {
   return {
-    type: USER_LOGOUT_FAILED
+    type: USER_LOGOUT_FAILED,
+    payload: error
   }
 }
 
@@ -203,9 +213,10 @@ export const userRegisterRequest = (): IUserRegisterRequest => {
   }
 }
 
-export const userRegisterFailed = (): IUserRegisterFailed => {
+export const userRegisterFailed = (error: string): IUserRegisterFailed => {
   return {
-    type: USER_REGISTER_FAILED
+    type: USER_REGISTER_FAILED,
+    payload: error
   }
 }
 
@@ -228,9 +239,10 @@ export const userPasswordResetRequest = (): IUserPasswordResetRequest => {
   }
 }
 
-export const userPasswordResetFailed = (): IUserPasswordResetFailed => {
+export const userPasswordResetFailed = (error: string): IUserPasswordResetFailed => {
   return {
-    type: USER_RESET_PASSWORD_FAILED
+    type: USER_RESET_PASSWORD_FAILED,
+    payload: error
   }
 }
 
