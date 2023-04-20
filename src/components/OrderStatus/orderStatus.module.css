@@ -1,7 +1,7 @@
 .orderStatus__wrapper {
   display: grid;
   grid-template-rows: auto 1fr;
-  row-gap: 24px;
+  row-gap: 10px;
 }
 
 .orderStatus__list {

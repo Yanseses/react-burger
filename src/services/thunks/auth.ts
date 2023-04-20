@@ -64,7 +64,7 @@ export function userRegister(registerData: TUserData) {
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
         dispatch(userRegisterSuccess(res.user));
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       console.log(err)
@@ -92,7 +92,7 @@ export function userAuth(authData: TUserData) {
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
         dispatch(userAuthSucces(res.user));
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       console.log(err)
@@ -115,6 +115,7 @@ export function getUserData() {
         Authorization: 'Bearer ' + getCookie('accessToken')
       },
     }).then(res => {
+      console.log(res)
       if (res && res.success) {
         dispatch(getUserSuccess(res.user));
       } else {
@@ -147,7 +148,7 @@ export function userRefreshToken(){
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
         dispatch(getUserData())
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       deleteCookie('refreshToken')
@@ -174,7 +175,7 @@ export function changeUserData(userData: TUserData) {
       if (res && res.success) {
         dispatch(changeUserSuccess(res.user));
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       console.log(err)
@@ -202,7 +203,7 @@ export function userLogout() {
         deleteCookie('refreshToken');
         dispatch(userLogoutSuccess());
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       console.log(err)
@@ -227,7 +228,7 @@ export function userForgotPassword(email: string) {
       if (res && res.success) {
         dispatch(userPatchPassword());
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => console.log(err))
   }
@@ -250,7 +251,7 @@ export function userResetPassword(resetData: TUserData) {
       if (res && res.success) {
         dispatch(userPasswordResetSuccess());
       } else {
-        return Promise.reject(`Ошибка ${res.statusText}`)
+        return Promise.reject(`Error: ${res.statusText}`)
       }
     }).catch(err => {
       console.log(err)

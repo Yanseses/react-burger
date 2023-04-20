@@ -46,10 +46,9 @@ export function getIngridientsData() {
         if (res && res.success) {
           dispatch(ingridientsSuccess(res.data));
         } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
+          return Promise.reject(`Error: ${res.statusText}`)
         }
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log(err)
         dispatch(ingridientsFailed(err));
       })
@@ -71,16 +70,15 @@ export function approveOrderNumber(data: IApproveOrderNumber){
       },
       body: JSON.stringify(data)
     }).then(res => {
-        if (res && res.success) {
-          dispatch(orderSuccess(res.order.number))
-          dispatch(orderClear())
-        } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        dispatch(orderFailed(err));
-      })
-    }
+      if (res && res.success) {
+        dispatch(orderSuccess(res.order.number))
+        dispatch(orderClear())
+      } else {
+        return Promise.reject(`Error: ${res.statusText}`)
+      }
+    }).catch(err => {
+      console.log(err)
+      dispatch(orderFailed(err));
+    })
   }
+}

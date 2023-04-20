@@ -15,7 +15,7 @@ export default function ResetPassword(){
   const { values, handleChange } = useForm({
     password: '',
     token: ''
-  })
+  });
 
   useEffect(() => {
     if(!userPasswordPatch) navigate('/forgot-password')

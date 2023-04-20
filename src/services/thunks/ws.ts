@@ -15,10 +15,9 @@ export function getOrderData(number: number) {
         if (res && res.success) {
           dispatch(wsAddModalOrder(res.orders[0]));
         } else {
-          return Promise.reject(`Ошибка ${res.statusText}`)
+          return Promise.reject(`Error: ${res.statusText}`)
         }
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log(err)
       })
     }

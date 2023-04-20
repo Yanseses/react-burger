@@ -9,7 +9,7 @@ type TForm = {
 
 export const Form: FC<PropsWithChildren<TForm>> = ({title, children, onSubmit}) => {
   return (
-    <form className={`${styles.form} mb-20`} onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={onSubmit}>
       { title && (
         <Text As='h3' textSize='medium'>{title}</Text>
         )

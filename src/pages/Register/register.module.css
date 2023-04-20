@@ -5,6 +5,9 @@
 
 .register__section {
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 80px;
 }
 
 .register__textContent {

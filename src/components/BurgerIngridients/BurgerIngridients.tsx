@@ -65,7 +65,7 @@ export const BurgerIngridients: FC = () => {
       </div>
       <ul className={`${styles.burgerIngridients__list} mt-5`}>
         <Ingridients title={'Булки'} refCategory={bunsRef}>
-          { data && data
+          { data.length > 0 ? data
             .filter((el: IIngridient) => el.type === 'bun') 
             .map((el: IIngridient) => (
               <Link 
@@ -75,11 +75,13 @@ export const BurgerIngridients: FC = () => {
                 state={{ modal: location }}>
                 <IngridientsItem {...el}/>
               </Link>
-            ))
+            )) : (
+              <div>Ингридиенты не найдены</div>  
+            )
           }
         </Ingridients>
         <Ingridients title={'Соусы'} refCategory={sauceRef}>
-          { data && data
+          { data.length > 0  ? data
             .filter((el: IIngridient) => el.type === 'sauce') 
             .map((el: IIngridient) => (
               <Link 
@@ -89,11 +91,13 @@ export const BurgerIngridients: FC = () => {
                 state={{ modal: location }}>
                 <IngridientsItem {...el}/>
               </Link>
-            ))
+            )) : (
+              <div>Ингридиенты не найдены</div>
+              )
           }
         </Ingridients>
         <Ingridients title={'Начинки'} refCategory={mainRef}>
-          { data && data
+          { data.length > 0  ? data
             .filter((el: IIngridient) => el.type === 'main') 
             .map((el: IIngridient) => (
               <Link 
@@ -103,7 +107,9 @@ export const BurgerIngridients: FC = () => {
                 state={{ modal: location }}>
                 <IngridientsItem {...el} />
               </Link>
-            ))
+            )) : (
+            <div>Ингридиенты не найдены</div>
+            )
           }
         </Ingridients>
       </ul>

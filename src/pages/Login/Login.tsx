@@ -11,6 +11,7 @@ import { Text } from '../../components/Text/Text';
 export default function Login(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const error = useSelector(store => store.auth.authUser.error);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
   const { values, handleChange } = useForm({
     email: '',
@@ -51,6 +52,12 @@ export default function Login(){
             }>
               Войти
           </Button>
+          { error.length > 0 && (
+            <Text As='p' textSize='default'>
+              {error}
+            </Text>
+            ) 
+          }
         </Form>
         <div className={styles.login__textContent}>
           <Text As='p' textSize='default'>
