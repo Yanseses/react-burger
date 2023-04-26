@@ -42,7 +42,7 @@ export default function Login(){
             size={'default'}
             />
           <PasswordInput 
-            name={'password'} 
+            name={'password'}
             value={values.password} 
             onChange={handleChange}
             />
