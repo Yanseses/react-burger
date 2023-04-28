@@ -72,8 +72,7 @@ export default function App() {
         } />
         <Route path={'/feed'} element={ <Feed /> } />
         <Route path={'/feed/:id'} element={ <DetailOrder /> } />
-        <Route path={'/ingridients/:id'} element={ <Ingridients /> } /> 
-        <Route path={'/react-burger/index.html'} element={ <Constructor /> } />   
+        <Route path={'/ingridients/:id'} element={ <Ingridients /> } />   
         <Route path={'/'} element={<Constructor />} />
         <Route element={ <NotFound /> } />
       </Routes>
