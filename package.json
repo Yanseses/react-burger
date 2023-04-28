@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.2.1",
   "private": true,
-  "homepage": "/react-burger/",
+  "homepage": "/react-burger/#",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
