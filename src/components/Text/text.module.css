@@ -1,0 +1,19 @@
+.primary {
+  color: var(--text-primary-color);
+}
+
+.error {
+  color: var(--colors-interface-error)
+}
+
+.accent {
+  color: var(--colors-interface-accent);
+}
+
+.inactive {
+  color: var(--text-inactive-color);
+}
+
+.success {
+  color: var(--colors-interface-success);
+}

@@ -33,20 +33,20 @@ export const IngridientDetails: FC = () => {
       </h3>
       <ul className={`${styles.ingredientDetails__detail} mt-8`}>
         <li className={`${styles.ingredientDetails__detailItem}`}>
-          <Text As='p' textSize='default' isInactive>Калории, ккал</Text>
-          <Text As='p' numberSize='default' isInactive>{modal && modal.calories}</Text>
+          <Text As='p' textSize='default' color={'inactive'}>Калории, ккал</Text>
+          <Text As='p' numberSize='default' color={'inactive'}>{modal && modal.calories}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
-          <Text As='p' textSize='default' isInactive>Белки, г</Text>
-          <Text As='p' numberSize='default' isInactive>{modal && modal.proteins}</Text>
+          <Text As='p' textSize='default' color={'inactive'}>Белки, г</Text>
+          <Text As='p' numberSize='default' color={'inactive'}>{modal && modal.proteins}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
-          <Text As='p' textSize='default' isInactive>Жиры, г</Text>
-          <Text As='p' numberSize='default' isInactive>{modal && modal.fat}</Text>
+          <Text As='p' textSize='default' color={'inactive'}>Жиры, г</Text>
+          <Text As='p' numberSize='default' color={'inactive'}>{modal && modal.fat}</Text>
         </li>
         <li className={`${styles.ingredientDetails__detailItem}`}>
-          <Text As='p' textSize='default' isInactive>Углеводы, г</Text>
-          <Text As='p' numberSize='default' isInactive>{modal && modal.carbohydrates}</Text>
+          <Text As='p' textSize='default' color={'inactive'}>Углеводы, г</Text>
+          <Text As='p' numberSize='default' color={'inactive'}>{modal && modal.carbohydrates}</Text>
         </li>
       </ul>
     </div>

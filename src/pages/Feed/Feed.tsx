@@ -58,7 +58,7 @@ export default function Feed(){
           </FeedList>
           ) : (
           <div className={styles.feed__voidList}>
-            <Text As='p' textSize='medium' isInactive>
+            <Text As='p' textSize='medium' color={'inactive'}>
               Список заказов - пуст
             </Text>
           </div>

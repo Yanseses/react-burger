@@ -48,7 +48,7 @@ export default function History(){
         </FeedList>
         ) : (
           <div className={styles.history__voidList}>
-            <Text As='p' textSize='medium' isInactive>
+            <Text As='p' textSize='medium' color={'inactive'}>
               Cписок ваших заказов - пуст
             </Text>
           </div>

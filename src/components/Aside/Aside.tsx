@@ -35,7 +35,7 @@ export const Aside: FC = () => {
             Выход
         </NavLink>
       </div>
-      <Text As='p' textSize='default' isInactive>
+      <Text As='p' textSize='default' color={'inactive'}>
         В этом разделе вы можете изменить свои персональные данные
       </Text>
     </aside>

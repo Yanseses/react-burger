@@ -17,7 +17,7 @@ export const Item: FC<PropsWithChildren<TItem>> = ({ text, Icon, link }) => {
       ({isActive}) => isActive ? `${styles.item__active}` : `${styles.item}`
       } end>
       <Icon type={location.pathname === link ? 'primary' : 'secondary'} />
-      <Text As='span' textSize='default'>{text}</Text>
+      <Text As='span' textSize='default' color={location.pathname === link ? 'primary' : 'inactive'}>{text}</Text>
     </NavLink>
   )
 }

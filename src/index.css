@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +10,60 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.text {
+  padding: 0;
+  margin: 0;
+}
+
+.text_type_main-large {
+  font-family: Jet Brains Mono;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.text_type_main-medium {
+  font-family: Jet Brains Mono;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.text_type_main-small {
+  font-family: Jet Brains Mono;
+  font-size: 14px;
+  line-height: 1.43;
+  font-weight: 400;
+}
+
+.text_type_main-default {
+  font-family: Jet Brains Mono;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.text_type_digits-default {
+  font-family: Iceland;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: .86;
+}
+
+.text_type_digits-medium {
+  font-family: Iceland;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: .75;
+}
+
+.text_type_digits-large {
+  font-family: Iceland;
+  font-weight: 400;
+  font-size: 144px;
+  line-height: .83;
+}
+
+.text_color_inactive {
+  color: var(--text-inactive-color);
 }

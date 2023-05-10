@@ -26,7 +26,7 @@ export const FeedItem: FC<IWsOrder> = ({
         <Text As='p' numberSize='default'>
           { `#${number}` }
         </Text>
-        <Text As='p' textSize='default' isInactive>
+        <Text As='p' textSize='default' color={'inactive'}>
           <FormattedDate date={new Date(updatedAt)} />
         </Text>
       </div>

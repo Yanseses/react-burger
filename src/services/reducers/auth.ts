@@ -116,7 +116,7 @@ export const authStore = (state: TAuthState = initialState, action: TAuthActions
       return {
         ...state,
         authUser: {
-          ...state.authUser,
+          error: '',
           request: false,
           failed: false,
         },

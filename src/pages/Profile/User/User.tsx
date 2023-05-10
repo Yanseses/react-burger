@@ -7,7 +7,6 @@ import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-
 import { changeUserData } from "../../../services/thunks/auth";
 import { useNavigate } from "react-router-dom";
 
-
 export default function User(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,7 +56,6 @@ export default function User(){
           icon={'EditIcon'}
           name={'name'}
           error={false}
-          size={'default'}
         />
         <EmailInput
           onChange={handleChange}

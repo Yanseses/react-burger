@@ -33,13 +33,12 @@ export default function Login(){
   return (
     <main className={styles.login}>
       <section className={styles.login__section}>
-        <Form title={'Вход'} onSubmit={handleLoginForm}>
+        <Form title={'Вход'} onSubmit={handleLoginForm} error={error}>
           <EmailInput
             onChange={handleChange}
             value={values.email}
             placeholder={'E-mail'}
             name={'email'}
-            size={'default'}
             />
           <PasswordInput 
             name={'password'}
@@ -54,12 +53,6 @@ export default function Login(){
             }>
               Войти
           </Button>
-          { error.length > 0 && (
-            <Text As='p' textSize='default'>
-              {error}
-            </Text>
-            ) 
-          }
         </Form>
         <div className={styles.login__textContent}>
           <Text As='p' textSize='default'>
