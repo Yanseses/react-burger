@@ -1,4 +1,4 @@
-import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FormEvent, useEffect } from 'react';
 import styles from './forgotPassword.module.css';
 import { userForgotPassword } from '../../services/thunks/auth';
@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
+import { EmailInput } from '../../components/inputs/EmailInput/EmailInput';
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();

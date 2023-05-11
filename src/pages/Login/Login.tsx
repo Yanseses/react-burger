@@ -1,4 +1,4 @@
-import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import { FormEvent, useEffect } from 'react';
 import { Form } from '../../components/Form/Form';
@@ -8,11 +8,12 @@ import { userAuth } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
 import { Loader } from '../../components/Loader/Loader';
+import { EmailInput, PasswordInput } from '../../components/inputs';
 
 export default function Login(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector(store => store.auth.authUser.error);
+  const requestError = useSelector(store => store.auth.authUser.error);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
   const request = useSelector(store => store.auth.authUser.request);
   const { values, handleChange } = useForm({
@@ -33,7 +34,7 @@ export default function Login(){
   return (
     <main className={styles.login}>
       <section className={styles.login__section}>
-        <Form title={'Вход'} onSubmit={handleLoginForm} error={error}>
+        <Form title={'Вход'} onSubmit={handleLoginForm} error={requestError}>
           <EmailInput
             onChange={handleChange}
             value={values.email}

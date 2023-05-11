@@ -16,10 +16,15 @@ export const Form: FC<PropsWithChildren<TForm>> = ({title, error, children, onSu
         )
       }
       {children}
-      { error && error.length > 0 && error?.includes('401') && (
+      { error && error.length > 0 && (error?.includes('401') ? (
         <Text As='p' textSize='default' color='error'>
           Не корректная комбинация логин/пароль
         </Text>
+        ) : (
+          <Text As='p' textSize='default' color='error'>
+            Ошибка в заполнении данных. Попробуйте еще раз
+          </Text>
+          )
         )
       }
     </form>

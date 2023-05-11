@@ -1,3 +1,10 @@
+.input {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
 .input__wrapper {
   display: flex;
   cursor: text;
@@ -18,8 +25,12 @@
   cursor: not-allowed;
 }
 
-.input_active {
+.input__status_active {
   border: 2px solid var(--colors-interface-accent);
+}
+
+.input__status_error {
+  border: 2px solid var(--colors-interface-error);
 }
 
 .input__placeholder {

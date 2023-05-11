@@ -1,10 +1,12 @@
 import React, { FC, HTMLProps, useRef, useState } from "react";
 import styles from './passwordInput.module.css';
+import { Text } from "../../Text/Text";
 
 interface IPasswordInput extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   value: string;
   disabled?: boolean;
   name: string,
+  errorText?: string,
   icon?: 'EditIcon' | 'ShowIcon';
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onIconClick?(e: React.MouseEvent<HTMLDivElement>): void;
@@ -17,6 +19,7 @@ export const PasswordInput: FC<IPasswordInput> = ({
   disabled,
   name,
   onChange,
+  errorText = 'Не корректный пароль',
   icon = 'ShowIcon',
   onIconClick,
   onBlur,
@@ -28,6 +31,7 @@ export const PasswordInput: FC<IPasswordInput> = ({
   const [ error, setError ] = useState(false);
 
   const handleFocus = () => {
+    setError(false)
     if(!disabled){
       setFocused(true)
       inputRef.current?.focus();
@@ -41,24 +45,24 @@ export const PasswordInput: FC<IPasswordInput> = ({
   const handleOutFocuss = (event: any) => {
     setFocused(false)
     setType('password')
-    if(value.length < 5) setError(true)
+    if(value.length > 0 && value.length < 6) setError(true)
     if(!error && onBlur) onBlur(event)
   }
 
   return (
     <div 
-      className={styles.input}
+      className={styles.passwordInput}
       onFocus={handleFocus}
       onBlur={handleOutFocuss}
       onClick={handleFocus}>
-      <div className={`${styles.input__wrapper} ${disabled ? styles.input__disabled : ''} ${focused ? styles.input_active : ''}`} tabIndex={disabled ? undefined : 1}>
+      <div className={`${styles.passwordInput__wrapper} ${disabled ? styles.passwordInput__disabled : ''} ${focused ? styles.passwordInput__status_active : ''} ${error ? styles.passwordInput__status_error : ''} `} tabIndex={disabled ? undefined : 1}>
         <label
           onClick={iconClick}
-          className={`${ styles.input__placeholder } ${ focused ? styles.input__placeholder_focused : '' }  ${ value.length > 0 ? styles.input__placeholder_filled : '' } text_type_main-default`}>
+          className={`${ styles.passwordInput__placeholder } ${ focused ? styles.passwordInput__placeholder_focused : '' }  ${ value.length > 0 ? styles.passwordInput__placeholder_filled : '' } text_type_main-default`}>
           Пароль
         </label>
         <input
-          className={`${styles.input__textfield} ${ disabled ? `text_color_inactive text_type_main-default ${styles.input__textfield_disabled}` : 'text_type_main-default' }`}
+          className={`${styles.passwordInput__textfield} ${ disabled ? `text_color_inactive text_type_main-default ${styles.passwordInput__textfield_disabled}` : 'text_type_main-default' }`}
           type={type}
           name={name}
           value={value}
@@ -71,6 +75,12 @@ export const PasswordInput: FC<IPasswordInput> = ({
           {/* Icon */}
         </div>
       </div>
+      { error && (
+        <Text As="p" color={'error'}>
+          { errorText }
+        </Text>
+        ) 
+      }
     </div>
     )
 }
