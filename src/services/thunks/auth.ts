@@ -23,6 +23,13 @@ import {
   userRegisterSuccess 
 } from "../actions/auth";
 
+export type TUserDataNew = {
+  [n: string]: {
+    error: boolean,
+    data: string
+  }
+}
+
 export type TUserData = {
   [n: string]: string
 }

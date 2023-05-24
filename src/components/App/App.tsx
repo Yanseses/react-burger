@@ -91,7 +91,7 @@ export default function App() {
           <Route path={'/feed/:id'} element={
             <Modal 
               title={`#${location.pathname.split('/', 3)[2]}`} 
-              onClose={() => navigate('/feed/')}
+              onClose={() => navigate('/feed')}
               titleStyle={'text_type_digits-default'}
               >
               <OrderDetails />
@@ -100,7 +100,7 @@ export default function App() {
           <Route path={'/profile/orders/:id'} element={
             <Modal 
               title={`#${location.pathname.split('/', 4)[3]}`} 
-              onClose={() => navigate('/profile/orders/')}
+              onClose={() => navigate('/profile/orders')}
               titleStyle={'text_type_digits-default'}
               >
               <OrderDetails />

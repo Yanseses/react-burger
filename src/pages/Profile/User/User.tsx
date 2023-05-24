@@ -1,78 +1,104 @@
-import { useEffect, useRef, useState, FocusEvent } from "react";
+import { useEffect, FocusEvent } from "react";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { useForm } from "../../../hooks/useForm";
 import styles from './user.module.css';
 import { Form } from "../../../components/Form/Form";
-import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { EmailInput, PasswordInput, Input } from "../../../components/inputs";
 import { changeUserData } from "../../../services/thunks/auth";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../../../components/Loader/Loader";
 
 export default function User(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userAuthorized = useSelector(store => store.auth.user.authorized);
   const user = useSelector(store => store.auth.user.data);
-  const nameInputRef = useRef<HTMLInputElement | null>(null);
-  const [ disabledNameInput, setDisabledNameInput ] = useState<boolean>(true);
-  const { values, handleChange, setValues } = useForm({
-    name: '',
-    email: '',
-    password: ''
+  const request = useSelector(store => store.auth.changeUser.request)
+  const { values, handleChange, handleError, setValues } = useForm({
+    name: {
+      error: false,
+      data: ''
+    },
+    email: {
+      error: false,
+      data: ''
+    },
+    password: {
+      error: false,
+      data: ''
+    }
   });
 
   useEffect(() => {
-    setValues(user)
+    setValues({
+      name: {
+        ...values.name,
+        data: user.name
+      },
+      email: {
+        ...values.email,
+        data: user.email
+      },
+      password: {
+        ...values.password,
+        data: user.password ? user.password : ''
+      }
+    })
   }, [setValues, user]);
 
   useEffect(() => {
     if(!userAuthorized) navigate('/login')
   }, [navigate, userAuthorized])
 
-  const handleIconClick = (): void => {
-    setDisabledNameInput(!disabledNameInput);
-    setTimeout(() => nameInputRef.current?.focus(), 0)
-  }
-
   const handleFucusInput = (e: FocusEvent<HTMLInputElement>): void => {
-    if(e.target.name === 'name'){
-      setDisabledNameInput(!disabledNameInput);
-    }
-
-    dispatch(changeUserData(values));
+    dispatch(changeUserData({
+      name: values.name.data,
+      email: values.email.data,
+      password: values.password.data
+      })
+    );
   }
   
   return (
-    <section className={styles.user}>              
-      <Form>
-        <Input
-          type={'text'}
-          placeholder={'Имя'}
-          disabled={disabledNameInput}
-          onIconClick={handleIconClick}
-          onBlur={handleFucusInput}
-          ref={nameInputRef}
-          onChange={handleChange}
-          value={values.name}
-          icon={'EditIcon'}
-          name={'name'}
-          error={false}
-        />
-        <EmailInput
-          onChange={handleChange}
-          onBlur={handleFucusInput}
-          value={values.email}
-          name={'email'}
-          placeholder="Логин"
-          isIcon={true}
-        />
-        <PasswordInput
-          onChange={handleChange}
-          onBlur={handleFucusInput}
-          value={values.password}
-          name={'password'}
-          icon="EditIcon"
-        />
-      </Form>
-  </section>
+    <>
+      <section className={styles.user}>              
+        <Form>
+          <Input
+            isIcon
+            name={'name'}
+            placeholder={'Имя'}
+            error={values.name.error}
+            value={values.name.data}
+            onChange={handleChange}            
+            onInputError={handleError}
+            onBlur={handleFucusInput}
+          />
+          <EmailInput
+            value={values.email.data}
+            name={'email'}
+            error={values.email.error}
+            onInputError={handleError}
+            onChange={handleChange}
+            onBlur={handleFucusInput}
+            placeholder="Логин"
+            isIcon={true}
+          />
+          <PasswordInput
+            value={values.password.data}
+            name={'password'}
+            error={values.password.error}
+            editIcon
+            onInputError={handleError}
+            onChange={handleChange}
+            onBlur={handleFucusInput}
+          />
+        </Form>
+    </section>
+
+    { request && (
+      <Loader />  
+      ) 
+    }
+    </>
   )
 }

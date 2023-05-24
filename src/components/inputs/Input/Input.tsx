@@ -1,49 +1,55 @@
 import React, { FC, HTMLProps, useRef, useState } from "react";
 import styles from './input.module.css';
 import { Text } from "../../Text/Text";
+import { IHandlerError } from "../../../hooks/useForm";
+import { EditIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface IMainInput extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   value: string;
-  type?: 'text' | 'email' | 'password';
   placeholder?: string;
-  disabled?: boolean;
-  icon?: 'EditIcon' | 'ShowIcon';
-  errorText?: string;
+  error: boolean;
+  isIcon?: boolean;
   name: string;
+  onInputError(e: IHandlerError): void;
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onIconClick?(e: React.MouseEvent<HTMLDivElement>): void;
   onBlur?(e?: React.FocusEvent<HTMLInputElement>): void;
   onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
 }
 
-export const Input: FC<IMainInput> = ({ 
-  type = 'text',
+export const Input: FC<IMainInput> = ({
   name,
   value,
-  disabled,
   placeholder,
-  errorText = 'Ошибка заполнения данных',
+  isIcon,
+  error,
+  onInputError,
   onChange,
-  icon,
-  onIconClick,
   onBlur,
   onFocus,
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [ focused, setFocused ] = useState(false);
-  const [ error, setError ] = useState(false);
+  const [ disabled, setDisabled ] = useState(isIcon ? true : false);
 
   const handleFocus = () => {
-    if(error) setError(false)
     if(!disabled){
+      onInputError({ name, status: false })
       setFocused(true)
-      inputRef.current?.focus();
+      setTimeout(() => inputRef.current?.focus(), 0)
+    }
+  }
+
+  const handleIconClick = () => {
+    if(isIcon && !focused) {
+      setDisabled(!disabled)
+      setTimeout(() => inputRef.current?.focus(), 0)
     }
   }
 
   const handleOutFocuss = (event: any) => {
     setFocused(false)
-    if(value.length > 0 && value.length < 5) setError(true)
+    if(isIcon) setDisabled(true)
+    if(value.length > 0 && value.length < 2) onInputError({ name, status: true })
     if(!error && onBlur) onBlur(event)
   }
 
@@ -55,26 +61,29 @@ export const Input: FC<IMainInput> = ({
       onClick={handleFocus}>
       <div className={`${styles.input__wrapper} ${disabled ? styles.input__disabled : ''} ${focused ? styles.input__status_active : ''} ${ error ? styles.input__status_error : '' }`} tabIndex={disabled ? undefined : 1}>
         <label
-          className={`${ styles.input__placeholder } ${ focused ? styles.input__placeholder_focused : '' }  ${ value.length > 0 ? styles.input__placeholder_filled : '' } text_type_main-default`}>
+          className={`${ styles.input__placeholder } ${ focused ? styles.input__placeholder_focused : '' }  ${ value.length > 0 ? styles.input__placeholder_filled : '' } ${ disabled ? styles.input__placeholder_disabled : '' } text_type_main-default`}>
           { placeholder }
         </label>
         <input
           className={`${styles.input__textfield} ${ disabled ? `text_color_inactive text_type_main-default ${styles.input__textfield_disabled}` : 'text_type_main-default' }`}
           name={name}
-          type={type} 
+          type={'text'} 
           value={value}
           onChange={onChange}
           onFocus={onFocus}
           disabled={disabled}
           ref={inputRef}
         />
-        <div onClick={onIconClick}>
-          {/* Icon */}
-        </div>
+        { isIcon && (
+          <div onClick={handleIconClick} className={styles.input__iconWrapper}>
+            <EditIcon type="primary" />
+          </div>
+          ) 
+        }
       </div>
       { error && (
         <Text As="p" color={'error'}>
-          { errorText }
+          { 'Ошибка заполнения данных' }
         </Text>
         ) 
       }

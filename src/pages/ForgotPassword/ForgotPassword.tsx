@@ -7,14 +7,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
-import { EmailInput } from '../../components/inputs/EmailInput/EmailInput';
+import { EmailInput } from '../../components/inputs';
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userPasswordPatch = useSelector(state => state.auth.user.passwordPatch)
-  const { values, handleChange } = useForm({
-    email: ''
+  const { values, handleChange, handleError } = useForm({
+    email: {
+      error: false,
+      data: ''
+    }
   });
 
   useEffect(() => {
@@ -24,24 +27,25 @@ export default function ForgotPassword() {
   const handleForm = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    dispatch(userForgotPassword(values.email));
+    dispatch(userForgotPassword(values.email.data));
   }
   
   return (
     <main className={styles.forgotPassword}>
       <section className={styles.forgotPassword__section}>
         <Form title={'Восстановление пароля'} onSubmit={handleForm}>
-          <EmailInput
+          <EmailInput 
             name={'email'}
-            value={values.email}
+            error={values.email.error}
+            value={values.email.data}
             onChange={handleChange}
+            onInputError={handleError}
             placeholder="Укажите Email"
-            isIcon={false}
-          />
+            />
           <Button 
             htmlType="submit" 
             type="primary"
-            disabled={values.email.length > 4 ? false : true}>
+            disabled={values.email.data.length < 7 || values.email.error}>
               Восстановить
           </Button>
         </Form>

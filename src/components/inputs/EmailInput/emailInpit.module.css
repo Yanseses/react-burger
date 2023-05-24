@@ -51,6 +51,14 @@
   top: 8px;
 }
 
+.emailInput__placeholder_disabled {
+  cursor: not-allowed;
+}
+
+.emailInput__iconWrapper {
+  cursor: pointer;
+}
+
 .emailInput__textfield {
   cursor: text;
   display: block;

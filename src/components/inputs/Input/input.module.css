@@ -51,6 +51,14 @@
   top: 8px;
 }
 
+.input__placeholder_disabled {
+  cursor: not-allowed;
+}
+
+.input__iconWrapper {
+  cursor: pointer;
+}
+
 .input__textfield {
   cursor: text;
   display: block;

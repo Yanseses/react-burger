@@ -7,16 +7,21 @@ import { useDispatch, useSelector } from '../../services/hooks';
 import { userResetPassword } from '../../services/thunks/auth';
 import { useForm } from '../../hooks/useForm';
 import { Text } from '../../components/Text/Text';
-import { Input, PasswordInput } from '../../components/inputs';
+import { PasswordInput, Input } from '../../components/inputs';
 
 export default function ResetPassword(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const requestError = useSelector(store => store.auth.dropPassword.error);
   const userPasswordPatch = useSelector(store => store.auth.user.passwordPatch);
-  const { values, handleChange } = useForm({
-    password: '',
-    token: ''
+  const { values, handleChange, handleError } = useForm({
+    password: {
+      error: false,
+      data: ''
+    },
+    token: {
+      error: false,
+      data: ''
+    }
   });
 
   useEffect(() => {
@@ -26,25 +31,28 @@ export default function ResetPassword(){
   const handleResetPassword = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    dispatch(userResetPassword(values));
+    dispatch(userResetPassword({ password: values.password.data, token: values.token.data}));
   }
 
   return (
     <main className={styles.resetPassword}>
       <section className={styles.resetPassword__section}>
-        <Form title={'Восстановление пароля'} onSubmit={handleResetPassword} error={requestError}>
+        <Form title={'Восстановление пароля'} onSubmit={handleResetPassword}>
           <PasswordInput
-            value={values.password}
+            value={values.password.data}
+            error={values.password.error}
+            onInputError={handleError}
             onChange={handleChange}
             placeholder={'Введите новый пароль'}
             name={'password'} 
           />
           <Input
-            value={values.token}
-            onChange={handleChange}
-            type={'text'}
-            placeholder={'Введите код из письма'}
             name={'token'}
+            error={values.token.error}
+            value={values.token.data}
+            onInputError={handleError}
+            onChange={handleChange}
+            placeholder={'Введите код из письма'}
           />
           <Button htmlType="submit" type="primary">Изменить пароль</Button>
         </Form>

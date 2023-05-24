@@ -13,18 +13,23 @@ import { EmailInput, PasswordInput } from '../../components/inputs';
 export default function Login(){
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const requestError = useSelector(store => store.auth.authUser.error);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
   const request = useSelector(store => store.auth.authUser.request);
-  const { values, handleChange } = useForm({
-    email: '',
-    password: ''
+  const { values, handleChange, handleError } = useForm({
+    email: {
+      error: false,
+      data: ''
+    },
+    password: {
+      error: false,
+      data: ''
+    }
   });
 
   const handleLoginForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(userAuth(values));
+    dispatch(userAuth({ email: values.email.data, password: values.password.data }));
   }
 
   useEffect(() => {
@@ -34,24 +39,26 @@ export default function Login(){
   return (
     <main className={styles.login}>
       <section className={styles.login__section}>
-        <Form title={'Вход'} onSubmit={handleLoginForm} error={requestError}>
+        <Form title={'Вход'} onSubmit={handleLoginForm}>
           <EmailInput
             onChange={handleChange}
-            value={values.email}
+            onInputError={handleError}
+            error={values.email.error}
+            value={values.email.data}
             placeholder={'E-mail'}
             name={'email'}
             />
           <PasswordInput 
             name={'password'}
-            value={values.password} 
+            value={values.password.data} 
+            error={values.password.error}
             onChange={handleChange}
+            onInputError={handleError}
             />
           <Button 
             htmlType="submit" 
             type="primary"
-            disabled={
-              values.email.length > 5 && values.password.length > 5 ? false : true
-            }>
+            disabled={(values.email.error || values.password.error) || (values.email.data.length < 1 || values.password.data.length < 5)}>
               Войти
           </Button>
         </Form>
