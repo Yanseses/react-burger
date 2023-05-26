@@ -28,3 +28,17 @@
 .ingredientDetails__detailItem > p {
   margin: 0;
 }
+
+@media screen and (max-width: 850px) {
+  .ingredientDetails {
+    width: 100%;
+  }
+
+  .ingredientDetails__detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 32px;
+  }
+}

@@ -37,7 +37,8 @@ export default function ResetPassword(){
   return (
     <main className={styles.resetPassword}>
       <section className={styles.resetPassword__section}>
-        <Form title={'Восстановление пароля'} onSubmit={handleResetPassword}>
+        <Form onSubmit={handleResetPassword}>
+          <Text As='h3' textSize='medium'>Восстановление пароля</Text>
           <PasswordInput
             value={values.password.data}
             error={values.password.error}

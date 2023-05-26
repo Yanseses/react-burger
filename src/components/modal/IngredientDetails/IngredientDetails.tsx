@@ -5,14 +5,14 @@ import { useEffect, FC } from 'react';
 import { IIngridient, TUrlParams } from '../../../utils/types';
 import { addModalIngridient } from '../../../services/actions/main';
 import { Text } from '../../Text/Text';
+import { useMediaQuery } from 'react-responsive';
 
 export const IngridientDetails: FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
-  const { ingridients, modal } = useSelector(store => ({
-    ingridients: store.main.ingridients.data,
-    modal: store.main.modal
-  }));
+  const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
+  const modal = useSelector(store => store.main.modal);
+  const ingridients = useSelector(store => store.main.ingridients.data);
 
   useEffect(() => {
     const data = ingridients.find((el: IIngridient) => el._id === id);
@@ -25,7 +25,11 @@ export const IngridientDetails: FC = () => {
   return (
     <div className={styles.ingredientDetails}>
       <img 
-        src={modal ? modal.image_large : ''} 
+        src={modal 
+          ? isMobile 
+            ? modal.image
+            : modal.image_large
+          : ''} 
         alt={modal ? modal.name : ''} 
       />
       <h3 className={`${styles.ingridientDetails__title} text text_type_main-medium mt-4`}>

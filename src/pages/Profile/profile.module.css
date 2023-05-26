@@ -6,3 +6,12 @@
   grid-template-columns: 320px auto;
   column-gap: 60px;
 }
+
+@media screen and (max-width: 850px) {
+  .profile {
+    width: 100%;
+    display: flex;
+    margin: initial;
+    justify-content: center;
+  }
+}

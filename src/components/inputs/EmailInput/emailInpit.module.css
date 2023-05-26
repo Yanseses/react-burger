@@ -81,3 +81,9 @@
 .emailInput__textfield:-webkit-autofill {
   -webkit-text-fill-color: var(--text-primary-color);
 }
+
+@media screen and (max-width: 500px) {
+  .emailInput__wrapper {
+    width: 304px;
+  }
+}

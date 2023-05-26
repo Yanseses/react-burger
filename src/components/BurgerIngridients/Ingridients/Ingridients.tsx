@@ -13,7 +13,7 @@ export const Ingridients: FC<PropsWithChildren<TIngridientsCategory>> = ({title,
       <Text As='h3' textSize='medium'>
         { title }
       </Text>
-      <ul className={`pl-4 pr-4 ${styles.ingridientsList}`}>
+      <ul className={`pl-4 pr-4 ${styles.ingridients__list}`}>
         {children}
       </ul>
     </li>

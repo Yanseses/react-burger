@@ -39,7 +39,8 @@ export default function Login(){
   return (
     <main className={styles.login}>
       <section className={styles.login__section}>
-        <Form title={'Вход'} onSubmit={handleLoginForm}>
+        <Form onSubmit={handleLoginForm}>
+          <Text As='h3' textSize='medium'>Вход</Text>
           <EmailInput
             onChange={handleChange}
             onInputError={handleError}
@@ -63,12 +64,18 @@ export default function Login(){
           </Button>
         </Form>
         <div className={styles.login__textContent}>
+          <div className={styles.login__textLine}>
+            <Text As='p' textSize='default'>
+              Вы — новый пользователь?
+            </Text>
+            <Link to={'/register'}>Зарегистрироваться</Link>
+          </div>
+          <div className={styles.login__textLine}>
           <Text As='p' textSize='default'>
-            Вы — новый пользователь? <Link to={'/register'}>Зарегистрироваться</Link>
+            Забыли пароль?
           </Text>
-          <Text As='p' textSize='default'>
-            Забыли пароль? <Link to={'/forgot-password'}>Восстановить пароль</Link>
-          </Text>
+          <Link to={'/forgot-password'}>Восстановить пароль</Link>
+          </div>
         </div>
       </section>
 

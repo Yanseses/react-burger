@@ -1,10 +1,11 @@
 .buns {
-  width: 98%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .buns__default {
   padding: 16px 24px;
-  display: inline-block;
   background: var(--background-element);
   max-width: 536px;
   width: 100%;

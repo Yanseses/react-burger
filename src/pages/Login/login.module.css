@@ -17,6 +17,23 @@
   row-gap: 16px;
 }
 
-.login__input {
-  width: 80%;
+.login__textLine {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+}
+
+@media screen and (max-width: 500px) {
+  .login__section {
+    margin: 16px auto 0;
+  }
+
+  .login__textContent {
+    row-gap: 20px;
+  }
+
+  .login__textLine {
+    flex-direction: column;
+    align-items: center;
+  }
 }

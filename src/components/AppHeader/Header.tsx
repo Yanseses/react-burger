@@ -1,17 +1,16 @@
 import { memo, FC } from 'react';
 import styles from './header.module.css';
-import { Logo, ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Item } from "../Item/Item";
 import { Link } from "react-router-dom";
 import { useSelector } from '../../services/hooks';
+import { Logo, LogoMobile } from '../../utils/icons';
+import { useMediaQuery } from 'react-responsive';
 
 const Header: FC = () => {
-  const { userAuthorized, userName }: any = useSelector<any>(store => ({
-    userAuthorized: store.auth.user.authorized,
-    userName: store.auth.user.data.name
-  }));
-
-  // Проблема с отображением имени и навигацией из профиля
+  const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
+  const userAuthorized = useSelector(store => store.auth.user.authorized);
+  const userName = useSelector(store => store.auth.user.data.name);
 
   return (
     <header className={`p-4 ${styles.header}`}>
@@ -22,7 +21,7 @@ const Header: FC = () => {
             <Item text={'Лента заказов'} Icon={ListIcon} link={'/feed'} />
           </nav>
           <Link to={'/'}>
-            <Logo />
+            { isMobile ? ( <LogoMobile /> ) : ( <Logo /> ) }
           </Link>
         </div>
         <Item 

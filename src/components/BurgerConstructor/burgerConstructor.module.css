@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: flex-end;
 }
 
 .constructor__controls {
@@ -17,7 +16,11 @@
   column-gap: 40px;
 }
 
-@media screen and (max-width: 1305px) {
+@media screen and (max-width: 1240px) {
+
+}
+
+@media screen and (max-width: 850px) {
   .constructor {
     display: none;
   }

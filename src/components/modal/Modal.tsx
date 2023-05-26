@@ -44,7 +44,7 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({
     <ModalOverlay modalRef={modalRef}>
       <section className={`${styles.modal} p-10`}>
         <div className={styles.modal__head}>
-          <h2 className={`text ${titleStyle}`}>
+          <h2 className={`text ${titleStyle} ${styles.modal__title}`}>
             {title}
           </h2>
           <button className={styles.modal__cross} onClick={onClose}>

@@ -33,7 +33,8 @@ export default function ForgotPassword() {
   return (
     <main className={styles.forgotPassword}>
       <section className={styles.forgotPassword__section}>
-        <Form title={'Восстановление пароля'} onSubmit={handleForm}>
+        <Form onSubmit={handleForm}>
+          <Text As='h3' textSize='medium'>Восстановление пароля</Text>
           <EmailInput 
             name={'email'}
             error={values.email.error}

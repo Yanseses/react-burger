@@ -10,23 +10,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { WS_ALL_ORDERS } from '../../utils/constants';
 import { IWsOrder } from '../../utils/types';
 import { Text } from '../../components/Text/Text';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Feed(){
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' });
   const location = useLocation();
   const dispatch = useDispatch();
-  const { 
-    orders, 
-    totalToday, 
-    totalAll, 
-    readyOrders, 
-    waitingOrders 
-  } = useSelector(store => ({
-    orders: store.ws.orders,
-    totalToday: store.ws.totalToday,
-    totalAll: store.ws.totalAll,
-    readyOrders: store.ws.readyOrders,
-    waitingOrders: store.ws.waitingOrders
-  }));
+  const orders = useSelector(store => store.ws.orders);
+  const totalToday = useSelector(store => store.ws.totalToday);
+  const totalAll = useSelector(store => store.ws.totalAll);
+  const readyOrders = useSelector(store => store.ws.readyOrders);
+  const waitingOrders = useSelector(store => store.ws.waitingOrders);
 
   useEffect(() => {
     dispatch(wsConnectionOpen(WS_ALL_ORDERS));
@@ -41,38 +35,43 @@ export default function Feed(){
       <Text As='h1' textSize='large'>
         Лента заказов
       </Text>
-      <div className={styles.feed__container}>
-        { orders.length > 0 
-          ? (
-          <FeedList>
-            { orders && orders.map((el: IWsOrder) => (
-              <Link 
-                key={el._id} 
-                className={styles.feed__link}
-                to={`/feed/${el.number}`}
-                state={{ modal: location }}>
-                <FeedItem {...el}/>
-              </Link>
-              ))
-            }
-          </FeedList>
-          ) : (
-          <div className={styles.feed__voidList}>
-            <Text As='p' textSize='medium' color={'inactive'}>
-              Список заказов - пуст
-            </Text>
-          </div>
-          )
-        }
-        <section className={styles.feed__ready}>
-          <div className={styles.feed__readyHead}>
-            <OrderStatus name={'Готовы'} orderList={readyOrders} isReady/>
-            <OrderStatus name={'В работе'} orderList={waitingOrders} />
-          </div>
-          <Done title={'Выполнено за все время:'} total={totalAll}/>
-          <Done title={'Выполнено за сегодня:'} total={totalToday}/>
-        </section>
-      </div>
+      { isMobile ? (
+        <div>123</div>
+        ) : (
+        <div className={styles.feed__container}>
+          { orders.length > 0 
+            ? (
+            <FeedList>
+              { orders && orders.map((el: IWsOrder) => (
+                <Link 
+                  key={el._id} 
+                  className={styles.feed__link}
+                  to={`/feed/${el.number}`}
+                  state={{ modal: location }}>
+                  <FeedItem {...el}/>
+                </Link>
+                ))
+              }
+            </FeedList>
+            ) : (
+            <div className={styles.feed__voidList}>
+              <Text As='p' textSize='medium' color={'inactive'}>
+                Список заказов - пуст
+              </Text>
+            </div>
+            )
+          }
+          <section className={styles.feed__ready}>
+            <div className={styles.feed__readyHead}>
+              <OrderStatus name={'Готовы'} orderList={readyOrders} isReady/>
+              <OrderStatus name={'В работе'} orderList={waitingOrders} />
+            </div>
+            <Done title={'Выполнено за все время:'} total={totalAll}/>
+            <Done title={'Выполнено за сегодня:'} total={totalToday}/>
+          </section>
+        </div>
+        )
+      }
     </main>
   )
 }

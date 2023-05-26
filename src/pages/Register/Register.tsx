@@ -49,7 +49,8 @@ export default function Register(){
   return (
     <main className={styles.register}>
       <section className={styles.register__section}>
-        <Form title={'Регистрация'} onSubmit={handleRegister}>
+        <Form onSubmit={handleRegister}>
+          <Text As='h3' textSize='medium'>Регистрация</Text>
           <Input
             name={'name'}
             error={values.name.error}

@@ -48,7 +48,7 @@ export const BurgerConstructor: FC = () => {
 
   
   return (
-    <section className={`${styles.constructor} pt-25 pl-8 pr-4`}>
+    <section className={`${styles.constructor} pt-25`}>
       <div className={`${styles.constructor__order}`}>
         <ConstructorBuns type={'top'}/>
         <ConstructorMain />

@@ -23,14 +23,14 @@
   display: flex;
 }
 
-@media screen and (max-width: 1305px) {
+@media screen and (max-width: 1240px) {
   .header__section {
     width: 100%;
   }
 }
 
-@media screen and (max-width: 1050px) {
-  .header__section {
+@media screen and (max-width: 850px) {
+  .header__navList {
     display: none;
   }
 }

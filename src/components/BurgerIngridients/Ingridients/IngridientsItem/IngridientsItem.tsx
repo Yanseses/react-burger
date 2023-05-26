@@ -5,9 +5,11 @@ import { FC } from "react";
 import { IIngridient } from "../../../../utils/types";
 import { Price } from "../../../BurgerConstructor/Price/Price";
 import { Text } from "../../../Text/Text";
+import { useMediaQuery } from "react-responsive";
 
 export const IngridientsItem: FC<IIngridient> = (props) => {
-  const { image, _id, name, price, type, counter = 0 } = props;
+  const isMobile = useMediaQuery({ query: '(max-width: 1240px)' });
+  const { image, image_mobile, _id, name, price, type, counter = 0 } = props;
   const [{ opacity }, ref] = useDrag({
     type: type === 'bun' ? 'bun' : 'main',
     item: props,
@@ -22,7 +24,7 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       style={{opacity}}
       ref={ref} 
       id={_id}>
-        <img src={image} alt={name} />
+        <img src={isMobile ? image_mobile : image} alt={name} />
         <Price textSize={'default'} price={price}/>
         <Text As='p' textSize='default'>
           { name }

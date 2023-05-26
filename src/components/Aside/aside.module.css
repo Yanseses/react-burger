@@ -30,11 +30,7 @@
   color: var(--text-primary-color);
 }
 
-@media all and (max-width: 1024px) {
-
-}
-
-@media all and (max-width: 390px) {
+@media all and (max-width: 850px) {
   .aside {
     display: none;
   }

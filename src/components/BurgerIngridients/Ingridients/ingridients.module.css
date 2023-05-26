@@ -3,10 +3,20 @@
   row-gap: 24px;
 }
 
-.ingridientsList {
+.ingridients__list {
   list-style: none;
   margin: 0;
   display: grid;
   gap: 40px 24px;
   grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: 850px) {
+  .ingridients {
+    row-gap: 16px;
+  }
+
+  .ingridients__list {
+    gap: 20px 16px;
+  }
 }

@@ -6,3 +6,17 @@
   column-gap: 40px;
   grid-template-columns: 600px 600px;
 }
+
+@media screen and (max-width: 1240px) {
+  .constructor {
+    width: 90%;
+    column-gap: 3%;
+    grid-template-columns: 49% 48%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .constructor {
+    grid-template-columns: inherit;
+  }
+}

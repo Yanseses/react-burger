@@ -15,13 +15,20 @@
   row-gap: 40px;
 }
 
+.burgerIngridients__list_void {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .burgerIngridients__link {
   text-decoration: none;
   color: var(--text-primary-color);
 }
 
 .burgerIngridients__tabs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .burgerIngridients__list::-webkit-scrollbar {
