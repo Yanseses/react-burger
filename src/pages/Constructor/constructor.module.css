@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 1240px) {
   .constructor {
-    width: 90%;
+    width: 100%;
     column-gap: 3%;
     grid-template-columns: 49% 48%;
   }

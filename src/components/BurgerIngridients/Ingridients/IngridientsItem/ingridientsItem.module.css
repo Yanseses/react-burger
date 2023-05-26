@@ -7,3 +7,14 @@
   justify-items: center;
   row-gap: 8px;
 }
+
+.ingridientsItem__name {
+  height: 48px;
+}
+
+@media screen and (max-width: 850px) {
+  .ingridientsItem__name {
+    height: 60px;
+    font-size: 14px;
+  } 
+}

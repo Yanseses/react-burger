@@ -3,9 +3,17 @@
   padding-top: 120px;
 }
 
+.user__heading {
+  display: none;
+}
+
 @media screen and (max-width: 500px) {
   .user {
     padding: 0;
     margin: 16px auto 0;
+  }
+
+  .user__heading {
+    display: block;
   }
 }

@@ -12,10 +12,12 @@ import { IIngridient } from '../../utils/types';
 import { ORDER_CHANGE_PRICE } from '../../services/actionTypes/main';
 import { OrderSuccess } from '../modal/OrderSuccess/OrderSuccess';
 import { Loader } from '../Loader/Loader';
+import { useMediaQuery } from 'react-responsive';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
   const request = useSelector(store => store.main.order.request);
   const order = useSelector(store => store.main.order.data);
@@ -31,7 +33,7 @@ export const BurgerConstructor: FC = () => {
     }
   }, [order.main, order.buns, dispatch]);
   
-  const approveOrder = () => {
+  const handleApproveOrder = () => {
     if(userAuthorized){
       if(order.buns !== null && order.main.length){
         const orderMain = order.main
@@ -48,7 +50,7 @@ export const BurgerConstructor: FC = () => {
 
   
   return (
-    <section className={`${styles.constructor} pt-25`}>
+    <section className={`${styles.constructor}`}>
       <div className={`${styles.constructor__order}`}>
         <ConstructorBuns type={'top'}/>
         <ConstructorMain />
@@ -59,11 +61,11 @@ export const BurgerConstructor: FC = () => {
         <Button 
           htmlType="button" 
           type='primary' 
-          size="large"
-          onClick={approveOrder}
+          size={isMobile ? 'medium' : 'large'}
+          onClick={handleApproveOrder}
           disabled={ order.main.length > 0 && order.buns !== null ? false : true }
         >
-          Оформить заказ
+          { isMobile ? 'Смотреть заказ' : 'Оформить заказ' }
         </Button>
       </div>
   

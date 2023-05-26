@@ -7,6 +7,7 @@ import { EmailInput, PasswordInput, Input } from "../../../components/inputs";
 import { changeUserData } from "../../../services/thunks/auth";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../../components/Loader/Loader";
+import { Text } from "../../../components/Text/Text";
 
 export default function User(){
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function User(){
     <>
       <section className={styles.user}>              
         <Form>
+          <Text As='h3' textSize='medium' extraClass={styles.user__heading}>Профиль</Text>
           <Input
             isIcon
             name={'name'}

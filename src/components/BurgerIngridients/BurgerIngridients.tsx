@@ -48,7 +48,7 @@ export const BurgerIngridients: FC = () => {
   }
   
   return (
-    <section className={`${styles.burgerIngridients} pt-10`}>
+    <section className={styles.burgerIngridients}>
       <Text As='h2' textSize='large'>
         Соберите бургер
       </Text>

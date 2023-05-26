@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import styles from './text.module.css';
+import classNames from 'classnames'
 
 export type TNumberSize = 'default' | 'medium' | 'large';
 export type TTextSize = 'medium' | 'default' | 'large' | 'small';
@@ -9,7 +10,8 @@ interface IText {
   As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'div',
   textSize?: TTextSize,
   numberSize?: TNumberSize,
-  color?: TTextColor
+  color?: TTextColor,
+  extraClass?: string
 }
 
 export const Text: FC<PropsWithChildren<IText>> = ({ 
@@ -17,15 +19,19 @@ export const Text: FC<PropsWithChildren<IText>> = ({
   textSize,
   numberSize, 
   children,
-  color = 'primary'
+  color = 'primary',
+  extraClass
 }) => {
 
+  const classes = classNames(
+    extraClass,
+    'text',
+    styles[color],
+    textSize ? `text_type_main-${textSize}` : `text_type_digits-${numberSize}`,
+  );
+
   return (
-    <As className={ 
-      textSize 
-        ? `text text_type_main-${textSize} ${styles[color]}`
-        : `text text_type_digits-${numberSize} ${styles[color]}`
-    }>
+    <As className={classes}>
       { children }
     </As>
   )

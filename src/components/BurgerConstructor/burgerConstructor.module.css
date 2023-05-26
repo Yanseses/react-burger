@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 100px;
 }
 
 .constructor__order {
@@ -16,12 +17,18 @@
   column-gap: 40px;
 }
 
-@media screen and (max-width: 1240px) {
-
-}
-
 @media screen and (max-width: 850px) {
   .constructor {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    padding: 0;
+    background-color: var(--background);
+    width: 100%;
+    height: 12%;
+  }
+  .constructor__order {
     display: none;
   }
 }
