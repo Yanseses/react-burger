@@ -12,7 +12,6 @@ import {
   ORDER_FAILED,
   ORDER_SUCCESS,
   ORDER_CLEAR,
-  TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
 } from '../actionTypes/main';
@@ -41,8 +40,7 @@ export type TIngridients = {
 export type TMainState = {
   ingridients: TIngridients,
   order: TOrder,
-  modal: null | IIngridient,
-  activeTab: string
+  modal: null | IIngridient
 }
 
 export const mainInitialState = {
@@ -63,8 +61,7 @@ export const mainInitialState = {
     },
     successNumber: 0
   },
-  modal: null,
-  activeTab: 'bun'
+  modal: null
 };
 
 export const mainStore = (state: TMainState = mainInitialState, action: TMainActions) => {
@@ -114,12 +111,6 @@ export const mainStore = (state: TMainState = mainInitialState, action: TMainAct
           price: main + buns
         }
       }
-    }
-    case TAB_SWITCH: {
-      return {
-        ...state,
-        activeTab: action.payload
-      };
     }
     case ORDER_REQUEST: {
       return {

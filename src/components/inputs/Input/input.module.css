@@ -82,7 +82,7 @@
   -webkit-text-fill-color: var(--text-primary-color);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 850px) {
   .input__wrapper {
     width: 304px;
   }

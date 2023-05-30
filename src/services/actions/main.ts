@@ -11,7 +11,6 @@ import {
   ORDER_FAILED,
   ORDER_SUCCESS,
   ORDER_CLEAR,
-  TAB_SWITCH,
   ADD_MODAL_INGRIDIENTS,
   ORDER_CHANGE_PRICE
 } from '../actionTypes/main';
@@ -75,11 +74,6 @@ export interface IOrderMoveIngridient {
   }
 }
 
-export interface ITabSwitch {
-  readonly type: typeof TAB_SWITCH;
-  payload: string
-}
-
 export interface IAddModalIngridient {
   readonly type: typeof ADD_MODAL_INGRIDIENTS;
   payload: IIngridient
@@ -100,7 +94,6 @@ export type TMainActions = IIngridientsRequest
   | IOrderBunsChange
   | IOrderMainDelete
   | IOrderMoveIngridient
-  | ITabSwitch
   | IAddModalIngridient
   | IOrderChangePrice
 
@@ -181,13 +174,6 @@ export const orderMoveIngridient = (hoverIndex: number, dragIndex: number): IOrd
       hoverIndex,
       dragIndex
     }
-  }
-}
-
-export const tabSwitch = (tab: string): ITabSwitch => {
-  return {
-    type: TAB_SWITCH,
-    payload: tab
   }
 }
 

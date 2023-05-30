@@ -42,7 +42,7 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({
 
   return ReactDOM.createPortal(
     <ModalOverlay modalRef={modalRef}>
-      <section className={`${styles.modal} p-10`}>
+      <section className={styles.modal}>
         <div className={styles.modal__head}>
           <h2 className={`text ${titleStyle} ${styles.modal__title}`}>
             {title}

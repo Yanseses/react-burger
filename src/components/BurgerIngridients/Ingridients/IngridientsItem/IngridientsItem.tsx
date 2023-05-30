@@ -10,7 +10,8 @@ import { useDispatch } from "../../../../services/hooks";
 import { orderBunsChange, orderMainChange } from "../../../../services/actions/main";
 
 export const IngridientsItem: FC<IIngridient> = (props) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 1240px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1240px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const dispatch = useDispatch();
   const { image, image_mobile, _id, name, price, type, counter = 0 } = props;
   const [{ opacity }, ref] = useDrag({
@@ -37,7 +38,7 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       style={{opacity}}
       ref={ref} 
       id={_id}>
-        <img src={isMobile ? image_mobile : image} alt={name} />
+        <img src={isTablet ? image_mobile : image} alt={name} />
         <Price textSize={'default'} price={price}/>
         <Text As='p' textSize='default' extraClass={styles.ingridientsItem__name}>
           { name }

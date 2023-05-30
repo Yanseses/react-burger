@@ -64,3 +64,9 @@
   align-items: center;
   list-style: none;
 }
+
+@media screen and (max-width: 850px) {
+  .orderDetails {
+    row-gap: 24px;
+  }
+}

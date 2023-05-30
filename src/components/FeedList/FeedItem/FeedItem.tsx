@@ -1,5 +1,5 @@
-import { FC } from "react";
 import styles from './feedItem.module.css';
+import { FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IIngridient, IWsOrder } from "../../../utils/types";
 import { useSelector } from "../../../services/hooks";
@@ -9,7 +9,7 @@ import { Text } from "../../Text/Text";
 
 export const FeedItem: FC<IWsOrder> = ({ 
   name, 
-  ingredients, 
+  ingredients,
   number,
   updatedAt,
   status, 
@@ -49,13 +49,16 @@ export const FeedItem: FC<IWsOrder> = ({
       }
       <div className={styles.feedItem__orderDetail}>
         <div className={styles.feedItem__ingridients}>
-          { actualIngredients.map((el: IIngridient | undefined, i: number) => (
-            <IngridientsIcon 
-              key={i}
-              image={el?.image_mobile} 
-              index={i} 
-              extraClass={styles.feedItem__img}/>
-            )) 
+          { actualIngredients.map((el: IIngridient | undefined, i: number) => {
+            // Cделать проверку на кол-во элементов и писать плюсом
+            return (
+              <IngridientsIcon 
+                key={i}
+                image={el && el.image_mobile} 
+                index={i} 
+                extraClass={styles.feedItem__img}/>
+              )
+          }) 
           }
         </div>
         <Price 

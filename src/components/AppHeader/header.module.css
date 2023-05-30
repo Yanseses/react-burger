@@ -23,7 +23,7 @@
   display: flex;
 }
 
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1315px) {
   .header__section {
     width: 100%;
   }
@@ -32,5 +32,14 @@
 @media screen and (max-width: 850px) {
   .header__navList {
     display: none;
+  }
+
+  .header__container {
+    width: initial;
+  }
+
+  .header__menuBtn {
+    border: none;
+    background-color: inherit;
   }
 }

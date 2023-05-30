@@ -4,6 +4,9 @@
   margin: auto;
   background-color: var(--background);
   border-radius: var(--common-border-radius-s);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__head {
@@ -22,14 +25,9 @@
   .modal {
     margin: 0;
     height: 100%;
+    width: 100%;
     border-radius: 0;
-  }
-
-  .modal__title {
-    display: none;
-  }
-
-  .modal__head {
-    justify-content: flex-end;
+    padding: 16px;
+    row-gap: 16px;
   }
 }
