@@ -68,6 +68,7 @@
 
 @media screen and (max-width: 850px) {
   .feed {
+    padding-top: 16px;
     width: 100%;
   }
 }
