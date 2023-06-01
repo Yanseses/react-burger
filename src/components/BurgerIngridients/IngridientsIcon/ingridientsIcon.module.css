@@ -9,7 +9,24 @@
   background-color: #131316;
 }
 
+.ingridientsIcon__status_excess {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: inherit;
+  height: inherit;
+  justify-content: center;
+  background-color: #13131680;
+}
+
 .ingridientsIcon__img {
   width: auto;
   height: 100%;
+}
+
+@media screen and (max-width: 850px) {
+  .ingridientsIcon {
+    width: 32px;
+    height: 32px;
+  }
 }

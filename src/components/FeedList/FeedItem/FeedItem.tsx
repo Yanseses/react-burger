@@ -49,8 +49,20 @@ export const FeedItem: FC<IWsOrder> = ({
       }
       <div className={styles.feedItem__orderDetail}>
         <div className={styles.feedItem__ingridients}>
-          { actualIngredients.map((el: IIngridient | undefined, i: number) => {
-            // Cделать проверку на кол-во элементов и писать плюсом
+          { actualIngredients.map((el: IIngridient | undefined, i: number, arr) => {
+            if( i >= 5 ){
+              return;
+            }
+            if(i === 4){
+              return (
+                <IngridientsIcon 
+                  key={i}
+                  image={el && el.image_mobile} 
+                  index={i} 
+                  extraClass={styles.feedItem__img}
+                  excess={arr.length - i}/>
+                )
+            }
             return (
               <IngridientsIcon 
                 key={i}

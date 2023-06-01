@@ -42,3 +42,13 @@
   column-gap: 9px;
   align-items: center;
 }
+
+@media screen and (max-width: 850px) {
+  .feedItem__orderDetail {
+    height: 34px;
+  }
+
+  .feedItem__ingridients {
+    align-items: center;
+  }
+}

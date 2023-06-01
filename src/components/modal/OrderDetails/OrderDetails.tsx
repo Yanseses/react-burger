@@ -33,7 +33,7 @@ export const OrderDetails: FC = () => {
   return orderModal && (
     <div className={`${styles.orderDetails} mt-5`}>
       <div className={styles.orderDetails__head}>
-        <Text As='h2' textSize='medium'>
+        <Text As='h2' textSize='medium' extraClass={styles.orderDetails__title}>
           { orderModal && orderModal.name }
         </Text>
         <Text As='p' textSize='default'>

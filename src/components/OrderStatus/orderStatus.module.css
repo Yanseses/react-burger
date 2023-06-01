@@ -24,7 +24,6 @@
 
 @media screen and (max-width: 850px) {
   .orderStatus__list {
-    display: flex;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(2, auto);
   }
 }
