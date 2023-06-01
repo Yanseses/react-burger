@@ -32,6 +32,9 @@ export default function History(){
   
   return (
     <section className={styles.history}>
+      <Text As='h1' textSize='large' extraClass={styles.history__heading}>
+        Cписок заказов
+      </Text>
       { orders.length > 0 
         ? (
         <FeedList>

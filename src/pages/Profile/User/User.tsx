@@ -64,7 +64,9 @@ export default function User(){
     <>
       <section className={styles.user}>              
         <Form>
-          <Text As='h3' textSize='medium' extraClass={styles.user__heading}>Профиль</Text>
+          <Text As='h3' textSize='medium' extraClass={styles.user__heading}>
+            Профиль
+          </Text>
           <Input
             isIcon
             name={'name'}
