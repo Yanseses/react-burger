@@ -1,15 +1,14 @@
-import { FC, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { useInView } from 'react-intersection-observer';
-import { useSelector } from "../../services/hooks";
 import styles from './burgerIngridients.module.css';
 import { Ingridients } from "./Ingridients/Ingridients";
 import { IngridientsItem } from "./Ingridients/IngridientsItem/IngridientsItem";
 import { Link, useLocation } from "react-router-dom";
 import { IIngridient } from "../../utils/types";
-import { Text } from "../Text/Text";
 import { Tab } from "../Tab/Tab";
+import { useSelector } from "../../services/hooks";
 
-export const BurgerIngridients: FC = () => {
+export const BurgerIngridients: FC = memo(() => {
   const location = useLocation();
   const data = useSelector(store => store.main.ingridients.data);
   const [ bunsRef, , entryBuns ] = useInView({ threshold: 0 });
@@ -17,7 +16,7 @@ export const BurgerIngridients: FC = () => {
   const [ sauceRef, , entrySauce ] = useInView({ threshold: 0 });
   const [ activeTab, setActiveTab ] = useState('bun');
   
-  const handleClickTabs = (e: string) => {
+  const handleClickTabs = useCallback((e: string) => {
     switch(e){
       case 'main': {
         setActiveTab('main');
@@ -34,13 +33,10 @@ export const BurgerIngridients: FC = () => {
         entryBuns?.target.scrollIntoView();
       }
     }
-  }
+  }, [entryBuns?.target, entryMain?.target, entrySauce?.target])
   
   return (
     <section className={styles.burgerIngridients}>
-      <Text As='h2' textSize='large'>
-        Соберите бургер
-      </Text>
       { data.length > 0 && (        
         <div className={styles.burgerIngridients__tabs}>
           <Tab value='bun' active={activeTab === 'bun'} onClick={handleClickTabs}>
@@ -110,4 +106,4 @@ export const BurgerIngridients: FC = () => {
       </ul>
     </section>
   )
-}
+})

@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps, useRef, useState } from "react";
+import React, { FC, HTMLProps, memo, useCallback, useRef, useState } from "react";
 import styles from './emailInpit.module.css';
 import { Text } from "../../Text/Text";
 import { IHandlerError } from "../../../hooks/useForm";
@@ -16,7 +16,7 @@ interface IEmailInput extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
 }
 
-export const EmailInput: FC<IEmailInput> = ({ 
+export const EmailInput: FC<IEmailInput> = memo(({ 
   name,
   value,
   placeholder,
@@ -36,14 +36,14 @@ export const EmailInput: FC<IEmailInput> = ({
     return email.length > 0 ? reg.test(email) : true;
   }
 
-  const handleIconClick = () => {
+  const handleIconClick = useCallback(() => {
     if(isIcon && !focused) {
       setDisabled(!disabled)
       setTimeout(() => inputRef.current?.focus(), 0)
     }
-  }
+  }, [disabled, focused, isIcon])
 
-  const handleFocus = () => {
+  const handleFocus = useCallback(() => {
     if(!focused){
       onInputError({ name, status: false })
       if(!disabled){
@@ -51,14 +51,14 @@ export const EmailInput: FC<IEmailInput> = ({
         inputRef.current?.focus();
       }
     }
-  }
+  }, [disabled, focused, name, onInputError])
 
-  const handleOutFocuss = (event: any) => {
+  const handleOutFocuss = useCallback((event: any) => {
     setFocused(false)
     if(isIcon) setDisabled(true)
     if(!validateEmail(value)) onInputError({ name, status: true })
     if(!error && onBlur) onBlur(event)
-  }
+  }, [error, isIcon, name, onBlur, onInputError, value])
 
   return (
     <div 
@@ -98,4 +98,4 @@ export const EmailInput: FC<IEmailInput> = ({
       }
     </div>
     )
-}
+})

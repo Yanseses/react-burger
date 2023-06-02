@@ -1,7 +1,7 @@
 import { Button, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import styles from'./ingridientsItem.module.css';
-import { FC, SyntheticEvent } from "react";
+import { FC, SyntheticEvent, memo } from "react";
 import { IIngridient } from "../../../../utils/types";
 import { Price } from "../../../BurgerConstructor/Price/Price";
 import { Text } from "../../../Text/Text";
@@ -9,7 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import { useDispatch } from "../../../../services/hooks";
 import { orderBunsChange, orderMainChange } from "../../../../services/actions/main";
 
-export const IngridientsItem: FC<IIngridient> = (props) => {
+export const IngridientsItem: FC<IIngridient> = memo((props) => {
   const isTablet = useMediaQuery({ query: '(max-width: 1240px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const dispatch = useDispatch();
@@ -56,4 +56,4 @@ export const IngridientsItem: FC<IIngridient> = (props) => {
       }
     </li>
   )
-}
+})

@@ -2,12 +2,12 @@ import styles from './constructorMain.module.css';
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { orderMainChange, orderMainDelete } from "../../../services/actions/main";
-import { useCallback, FC } from 'react';
+import { useCallback, FC, memo } from 'react';
 import { ConstructorMainItem } from './ConstructorMainItem/ConstructorMainItem';
 import { IIngridient } from '../../../utils/types';
 import { Text } from '../../Text/Text';
 
-export const ConstructorMain: FC = () => {
+export const ConstructorMain: FC = memo(() => {
   const dispatch = useDispatch();
   const main = useSelector(state => state.main.order.data.main);
   const [{ isHoverMain } , mainDrop] = useDrop<
@@ -56,4 +56,4 @@ export const ConstructorMain: FC = () => {
       }
     </ul>
   )
-}
+})

@@ -1,5 +1,5 @@
 import styles from './feedItem.module.css';
-import { FC } from "react";
+import { FC, memo } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IIngridient, IWsOrder } from "../../../utils/types";
 import { useSelector } from "../../../services/hooks";
@@ -7,7 +7,7 @@ import { Price } from "../../BurgerConstructor/Price/Price";
 import { IngridientsIcon } from "../../BurgerIngridients/IngridientsIcon/IngridientsIcon";
 import { Text } from "../../Text/Text";
 
-export const FeedItem: FC<IWsOrder> = ({ 
+export const FeedItem: FC<IWsOrder> = memo(({ 
   name, 
   ingredients,
   number,
@@ -81,4 +81,4 @@ export const FeedItem: FC<IWsOrder> = ({
       </div>
     </>
   )
-}
+})

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import style from './price.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TNumberSize, Text } from '../../Text/Text';
@@ -8,7 +8,7 @@ interface IPrice {
   textSize: TNumberSize
 }
 
-export const Price: FC<IPrice> = ({ price, textSize }) => {  
+export const Price: FC<IPrice> = memo(({ price, textSize }) => {  
   return (
     <div className={`${style.price}`}>
       <Text As='p' numberSize={`${textSize}`}>
@@ -17,4 +17,4 @@ export const Price: FC<IPrice> = ({ price, textSize }) => {
       <CurrencyIcon type="primary" />
     </div>
   )
-}
+})

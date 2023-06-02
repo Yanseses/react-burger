@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { useSelector } from "../../../services/hooks";
 import sucessLogo from '../../../images/graphics.svg'
 import styles from './orderSuccess.module.css';
 import { Text } from '../../Text/Text';
 
-export const OrderSuccess: FC = () => {
+export const OrderSuccess: FC = memo(() => {
   const orderNumber = useSelector(store => store.main.order.successNumber);
 
   return (
@@ -28,4 +28,4 @@ export const OrderSuccess: FC = () => {
       </div>
     </div>
   )
-}
+})

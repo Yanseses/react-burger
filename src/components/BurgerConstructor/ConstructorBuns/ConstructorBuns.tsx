@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import styles from './constructorBuns.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
@@ -11,7 +11,7 @@ type TBunsType = {
   type: 'top' | 'bottom' | undefined
 }
 
-export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
+export const ConstructorBuns: FC<TBunsType> = memo(({ type }) => {
   const dispatch = useDispatch();
   const buns = useSelector(state => state.main.order.data.buns)
   const [{ isHoverBuns } , bunsDrop] = useDrop<
@@ -55,4 +55,4 @@ export const ConstructorBuns: FC<TBunsType> = ({ type }) => {
       }
     </div>
   )
-}
+})

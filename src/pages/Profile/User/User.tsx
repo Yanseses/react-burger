@@ -1,4 +1,4 @@
-import { useEffect, FocusEvent } from "react";
+import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "../../../services/hooks";
 import { useForm } from "../../../hooks/useForm";
 import styles from './user.module.css';
@@ -51,14 +51,14 @@ export default function User(){
     if(!userAuthorized) navigate('/login')
   }, [navigate, userAuthorized])
 
-  const handleFucusInput = (e: FocusEvent<HTMLInputElement>): void => {
+  const handleFucusInput = useCallback(() => {
     dispatch(changeUserData({
       name: values.name.data,
       email: values.email.data,
       password: values.password.data
       })
     );
-  }
+  }, [dispatch, values.email.data, values.name.data, values.password.data])
   
   return (
     <>

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from './orderStatus.module.css';
 import { Text } from "../Text/Text";
 import { useMediaQuery } from "react-responsive";
@@ -9,7 +9,7 @@ interface IOrderStatus {
   isReady?: boolean
 }
 
-export const OrderStatus: FC<IOrderStatus> = ({name, orderList, isReady}) => {
+export const OrderStatus: FC<IOrderStatus> = memo(({name, orderList, isReady}) => {
   const isTablet = useMediaQuery({ query: '(max-width: 1315px)' });
 
   return (
@@ -31,4 +31,4 @@ export const OrderStatus: FC<IOrderStatus> = ({name, orderList, isReady}) => {
       </ul>
     </div>
   )
-}
+})

@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps, useRef, useState } from "react";
+import React, { FC, HTMLProps, memo, useCallback, useRef, useState } from "react";
 import styles from './input.module.css';
 import { Text } from "../../Text/Text";
 import { IHandlerError } from "../../../hooks/useForm";
@@ -16,7 +16,7 @@ interface IMainInput extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
 }
 
-export const Input: FC<IMainInput> = ({
+export const Input: FC<IMainInput> = memo(({
   name,
   value,
   placeholder,
@@ -31,27 +31,27 @@ export const Input: FC<IMainInput> = ({
   const [ focused, setFocused ] = useState(false);
   const [ disabled, setDisabled ] = useState(isIcon ? true : false);
 
-  const handleFocus = () => {
+  const handleFocus = useCallback(() => {
     if(!disabled){
       onInputError({ name, status: false })
       setFocused(true)
       setTimeout(() => inputRef.current?.focus(), 0)
     }
-  }
+  }, [disabled, name, onInputError])
 
-  const handleIconClick = () => {
+  const handleIconClick = useCallback(() => {
     if(isIcon && !focused) {
       setDisabled(!disabled)
       setTimeout(() => inputRef.current?.focus(), 0)
     }
-  }
+  }, [disabled, focused, isIcon])
 
-  const handleOutFocuss = (event: any) => {
+  const handleOutFocuss = useCallback((event: any) => {
     setFocused(false)
     if(isIcon) setDisabled(true)
     if(value.length > 0 && value.length < 2) onInputError({ name, status: true })
     if(!error && onBlur) onBlur(event)
-  }
+  }, [error, isIcon, name, onBlur, onInputError, value.length]);
 
   return (
     <div 
@@ -89,4 +89,4 @@ export const Input: FC<IMainInput> = ({
       }
     </div>
     )
-}
+})

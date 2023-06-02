@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Done } from '../../components/Done/Done';
 import { FeedList } from '../../components/FeedList/FeedList'
 import { OrderStatus } from '../../components/OrderStatus/OrderStatus'
@@ -24,7 +24,7 @@ export default function Feed(){
   const readyOrders = useSelector(store => store.ws.readyOrders);
   const waitingOrders = useSelector(store => store.ws.waitingOrders);
 
-  const handleClickTabs = (e: string) => {
+  const handleClickTabs = useCallback((e: string) => {
     switch(e){
       case 'orders': {
         setActiveTab('orders')
@@ -38,7 +38,7 @@ export default function Feed(){
         setActiveTab('orders')
       }
     }
-  }
+  }, [activeTab, setActiveTab])
 
   useEffect(() => {
     dispatch(wsConnectionOpen(WS_ALL_ORDERS));
@@ -88,7 +88,7 @@ export default function Feed(){
                 )
               }
             </div>
-            ) : ( 
+            ) : (
             <section className={styles.feed__ready}>
               <div className={styles.feed__readyHead}>
                 <OrderStatus name={'Готовы'} orderList={readyOrders} isReady/>

@@ -8,7 +8,7 @@ import { Logo, LogoMobile } from '../../utils/icons';
 import { useMediaQuery } from 'react-responsive';
 import { Modal } from '../modal/Modal';
 
-const Header: FC = () => {
+const Header: FC = memo(() => {
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const userAuthorized = useSelector(store => store.auth.user.authorized);
   const userName = useSelector(store => store.auth.user.data.name);
@@ -68,6 +68,6 @@ const Header: FC = () => {
       }
     </header>
   )
-}
+})
 
 export default memo(Header)

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from './ingridientsIcon.module.css';
 import classNames from "classnames";
 import { Text } from "../../Text/Text";
@@ -11,7 +11,7 @@ interface IIngridientIcon {
   excess?: number
 }
 
-export const IngridientsIcon: FC<IIngridientIcon> = ({ image, index, extraClass, excess }) => {
+export const IngridientsIcon: FC<IIngridientIcon> = memo(({ image, index, extraClass, excess }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const classnames = classNames(
     extraClass,
@@ -32,4 +32,4 @@ export const IngridientsIcon: FC<IIngridientIcon> = ({ image, index, extraClass,
       <img src={image} alt="" className={styles.ingridientsIcon__image}/>
     </div>
   )
-}
+})

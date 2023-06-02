@@ -1,11 +1,11 @@
-import { MouseEvent, FC } from 'react';
+import { MouseEvent, FC, memo } from 'react';
 import { NavLink } from 'react-router-dom'
 import styles from './aside.module.css'
 import { useDispatch } from '../../services/hooks';
 import { userLogout } from '../../services/thunks/auth';
 import { Text } from '../Text/Text';
 
-export const Aside: FC = () => {
+export const Aside: FC = memo(() => {
   const dispatch = useDispatch();
 
   const handleLogout = (e: MouseEvent): void => {
@@ -40,4 +40,4 @@ export const Aside: FC = () => {
       </Text>
     </aside>
   )
-}
+})

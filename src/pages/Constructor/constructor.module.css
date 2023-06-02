@@ -2,6 +2,13 @@
   width: 1240px;
   height: 85%;
   margin: 0 auto;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.constructor__wrapper {
   display: grid;
   column-gap: 40px;
   grid-template-columns: 600px 600px;
@@ -10,6 +17,9 @@
 @media screen and (max-width: 1240px) {
   .constructor {
     width: 100%;
+  }
+
+  .constructor__wrapper {
     column-gap: 3%;
     grid-template-columns: 49% 48%;
   }
@@ -17,6 +27,10 @@
 
 @media screen and (max-width: 850px) {
   .constructor {
+    padding-top: 16px;
+  }
+
+  .constructor__wrapper {
     grid-template-columns: inherit;
   }
 }

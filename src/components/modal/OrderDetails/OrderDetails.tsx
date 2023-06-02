@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import styles from './orderDetails.module.css';
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { IngridientsIcon } from '../../BurgerIngridients/IngridientsIcon/Ingridi
 import { getOrderData } from '../../../services/thunks/ws';
 import { Text } from '../../Text/Text';
 
-export const OrderDetails: FC = () => {
+export const OrderDetails: FC = memo(() => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
   const order = 
@@ -81,4 +81,4 @@ export const OrderDetails: FC = () => {
       </div>
     </div>
   )
-}
+})

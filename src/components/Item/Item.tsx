@@ -1,5 +1,5 @@
 import styles from './item.module.css';
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, memo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Text } from '../Text/Text';
 
@@ -10,7 +10,7 @@ type TItem = {
   onClick?: () => void
 }
 
-export const Item: FC<PropsWithChildren<TItem>> = ({ text, Icon, link, onClick }) => {
+export const Item: FC<PropsWithChildren<TItem>> = memo(({ text, Icon, link, onClick }) => {
   const location = useLocation();
 
   return (
@@ -21,4 +21,4 @@ export const Item: FC<PropsWithChildren<TItem>> = ({ text, Icon, link, onClick }
       <Text As='span' textSize='default' color={location.pathname === link ? 'primary' : 'inactive'}>{text}</Text>
     </NavLink>
   )
-}
+})

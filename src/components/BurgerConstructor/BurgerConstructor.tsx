@@ -1,5 +1,5 @@
 import styles from './burgerConstructor.module.css';
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC, memo, useCallback } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
@@ -9,31 +9,27 @@ import { ConstructorBuns } from './ConstructorBuns/ConstructorBuns';
 import { ConstructorMain } from './ConstructorMain/ConstructorMain';
 import { useNavigate } from 'react-router-dom';
 import { IIngridient } from '../../utils/types';
-import { ORDER_CHANGE_PRICE } from '../../services/actionTypes/main';
 import { OrderSuccess } from '../modal/OrderSuccess/OrderSuccess';
-import { Loader } from '../Loader/Loader';
 import { useMediaQuery } from 'react-responsive';
+import { orderChangePrice } from '../../services/actions/main';
 
-export const BurgerConstructor: FC = () => {
+export const BurgerConstructor: FC = memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
-  const request = useSelector(store => store.main.order.request);
   const order = useSelector(store => store.main.order.data);
   const orderNumber = useSelector(store => store.main.order.successNumber);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
-  const price = useSelector(store => store.main.order.price)
+  const price = useSelector(store => store.main.order.price);
   
   useEffect(() => {
     if(order.buns !== null || order.main.length > 0){
-      dispatch({
-        type: ORDER_CHANGE_PRICE
-      })
+      dispatch(orderChangePrice())
     }
   }, [order.main, order.buns, dispatch]);
   
-  const handleApproveOrder = () => {
+  const handleApproveOrder = useCallback(() => {
     if(userAuthorized){
       if(order.buns !== null && order.main.length){
         const orderMain = order.main
@@ -46,7 +42,7 @@ export const BurgerConstructor: FC = () => {
     } else {
       navigate('/login')
     }
-  }
+  }, [dispatch, navigate, order.buns, order.main, userAuthorized]);
 
   
   return (
@@ -64,7 +60,7 @@ export const BurgerConstructor: FC = () => {
           size={isMobile ? 'medium' : 'large'}
           onClick={handleApproveOrder}
           disabled={ order.main.length > 0 && order.buns !== null ? false : true }
-        >
+          >
           { isMobile ? 'Смотреть заказ' : 'Оформить заказ' }
         </Button>
       </div>
@@ -75,11 +71,6 @@ export const BurgerConstructor: FC = () => {
         </Modal>
         ) 
       }
-
-      { request && (
-        <Loader />  
-        ) 
-      }
     </section>
   )
-}
+})

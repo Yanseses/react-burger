@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
 import styles from './ingredientDetails.module.css'
 import { useDispatch, useSelector } from "../../../services/hooks";
-import { useEffect, FC } from 'react';
+import { useEffect, FC, memo } from 'react';
 import { IIngridient, TUrlParams } from '../../../utils/types';
 import { addModalIngridient } from '../../../services/actions/main';
 import { Text } from '../../Text/Text';
 import { useMediaQuery } from 'react-responsive';
 
-export const IngridientDetails: FC = () => {
+export const IngridientDetails: FC = memo(() => {
   const dispatch = useDispatch();
   const { id } = useParams<TUrlParams>();
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
@@ -55,4 +55,4 @@ export const IngridientDetails: FC = () => {
       </ul>
     </div>
   )
-}
+})

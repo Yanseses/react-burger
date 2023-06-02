@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Text } from "../Text/Text";
 import styles from './done.module.css';
 
@@ -7,11 +7,11 @@ interface IDone {
   total?: number
 }
 
-export const Done: FC<IDone> = ({ title, total = 0 }) => {
+export const Done: FC<IDone> = memo(({ title, total = 0 }) => {
   return (
     <div className={styles.done}>
       <Text As='p' textSize='medium'>{title}</Text>
       <Text As='p' numberSize='large'>{total}</Text>
     </div>
   )
-}
+});

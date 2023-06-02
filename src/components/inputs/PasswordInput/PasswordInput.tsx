@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps, useRef, useState } from "react";
+import React, { FC, HTMLProps, memo, useRef, useState } from "react";
 import styles from './passwordInput.module.css';
 import { Text } from "../../Text/Text";
 import { HideIcon, ShowIcon, EditIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,7 +16,7 @@ interface IPasswordInput extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   onFocus?(e?: React.FocusEvent<HTMLInputElement>): void;
 }
 
-export const PasswordInput: FC<IPasswordInput> = ({ 
+export const PasswordInput: FC<IPasswordInput> = memo(({ 
   value,
   name,
   editIcon = false,
@@ -94,4 +94,4 @@ export const PasswordInput: FC<IPasswordInput> = ({
       }
     </div>
     )
-}
+})
