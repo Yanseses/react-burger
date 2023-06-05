@@ -44,3 +44,10 @@
 .main::-webkit-scrollbar-track {
   background: #2F2F37;
 }
+
+@media screen and (max-width: 850px) {
+  .main {
+    max-height: 55vh;
+    padding-right: 15px;
+  }
+}

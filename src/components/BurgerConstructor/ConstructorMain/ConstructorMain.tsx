@@ -36,7 +36,7 @@ export const ConstructorMain: FC = memo(() => {
   const defaultIngridients = (
     <li className={`${styles.main__default} ${isHoverMain ? styles.main__hovered : ''}`}>
       <Text As='p' textSize='small'>
-        Перетащите ингридиенты
+        Добавьте ингридиенты
       </Text>
     </li>
   )

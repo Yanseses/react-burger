@@ -17,7 +17,8 @@ export const BurgerConstructor: FC = memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
-  const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+  const [ isSuccessModal, setSuccessModal ] = useState<boolean>(false);
+  const [ isOrderModal, setOrderModal ] = useState<boolean>(false);
   const order = useSelector(store => store.main.order.data);
   const orderNumber = useSelector(store => store.main.order.successNumber);
   const userAuthorized = useSelector(store => store.auth.user.authorized);
@@ -37,40 +38,87 @@ export const BurgerConstructor: FC = memo(() => {
           : [order.buns._id, order.buns._id];
   
         dispatch(approveOrderNumber({ ingredients: orderMain }));
-        setIsModalOpen(true)
+        setSuccessModal(true)
       }
     } else {
       navigate('/login')
     }
   }, [dispatch, navigate, order.buns, order.main, userAuthorized]);
 
+  const handleOpenOrder = useCallback(() => {
+    setOrderModal(true)
+  }, []);
   
   return (
-    <section className={`${styles.constructor}`}>
-      <div className={`${styles.constructor__order}`}>
-        <ConstructorBuns type={'top'}/>
-        <ConstructorMain />
-        <ConstructorBuns type={'bottom'}/> 
-      </div>
-      <div className={styles.constructor__controls}>
-        <Price textSize={'medium'} price={price}/>
-        <Button 
-          htmlType="button" 
-          type='primary' 
-          size={isMobile ? 'medium' : 'large'}
-          onClick={handleApproveOrder}
-          disabled={ order.main.length > 0 && order.buns !== null ? false : true }
-          >
-          { isMobile ? 'Смотреть заказ' : 'Оформить заказ' }
-        </Button>
-      </div>
-  
-      { isModalOpen && orderNumber !== 0 && (
-        <Modal title={''} onClose={() => setIsModalOpen(false)}>
+    <>
+      <section className={`${styles.constructor}`}>
+        { isMobile ? (
+          <div className={styles.constructor__controls_mobile}>
+            <Price textSize={'medium'} price={price}/>
+            <Button 
+              htmlType="button" 
+              type='primary' 
+              size={'small'}
+              onClick={handleOpenOrder}
+              >
+              { 'Cмотреть заказ' }
+            </Button>
+          </div>  
+          ) : ( 
+            <>          
+              <div className={styles.constructor__order}>
+                <ConstructorBuns type={'top'}/>
+                <ConstructorMain />
+                <ConstructorBuns type={'bottom'}/> 
+              </div>
+              <div className={styles.constructor__controls}>
+                <Price textSize={'medium'} price={price}/>
+                <Button 
+                  htmlType="button" 
+                  type='primary' 
+                  size={'large'}
+                  onClick={handleApproveOrder}
+                  disabled={ order.main.length > 0 && order.buns !== null ? false : true }
+                  >
+                  { 'Оформить заказ' }
+                </Button>
+              </div>
+            </>
+          )
+        }
+      </section>
+
+      { isMobile && isOrderModal && (
+        <Modal title={'Заказ'} onClose={() => setOrderModal(false)}>
+         <section className={`${styles.constructor}`}>
+            <div className={`${styles.constructor__order}`}>
+              <ConstructorBuns type={'top'}/>
+              <ConstructorMain />
+              <ConstructorBuns type={'bottom'}/> 
+            </div>
+            <div className={styles.constructor__controls_mobile}>
+              <Price textSize={'medium'} price={price}/>
+              <Button 
+                htmlType="button" 
+                type='primary' 
+                size={'small'}
+                onClick={handleApproveOrder}
+                disabled={ order.main.length > 0 && order.buns !== null ? false : true }
+                >
+                { 'Оформить заказ' }
+              </Button>
+            </div>
+         </section>
+        </Modal>
+        )
+      }
+
+      { isSuccessModal && orderNumber !== 0 && (
+        <Modal title={''} onClose={() => setSuccessModal(false)}>
           <OrderSuccess />
         </Modal>
         ) 
       }
-    </section>
+    </>
   )
 })

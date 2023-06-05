@@ -1,10 +1,11 @@
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement } from "../../СonstructorElement/ConstructorElement";
 import { FC, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "../../../../services/hooks";
 import styles from './constructorMainItem.module.css';
 import { IIngridient } from "../../../../utils/types";
 import { orderMoveIngridient } from "../../../../services/actions/main";
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface IConstructorMainItem {
   element: IIngridient,
@@ -56,8 +57,8 @@ export const ConstructorMainItem: FC<IConstructorMainItem> = ({ element, onClick
     <ConstructorElement
       text={element.name}
       price={element.price}
-      thumbnail={element.image}
-      handleClose={() => onClick(element.id)}
+      image={element.image}
+      onDelete={() => onClick(element.id)}
     />
   </li>
   )
