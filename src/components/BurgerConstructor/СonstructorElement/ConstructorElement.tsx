@@ -2,9 +2,10 @@ import { FC } from "react";
 import styles from './constructorElement.module.css';
 import { CurrencyIcon, DeleteIcon, LockIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
+import { Text } from "../../Text/Text";
 
 interface IConstructorElement {
-  type?: 'top' | 'bottom' | undefined,
+  type?: 'top' | 'bottom',
   price: number,
   text: string,
   image: string,
@@ -24,7 +25,7 @@ export const ConstructorElement: FC<IConstructorElement> = ({
 }) => {
   const classname = classNames(
     styles.constructorElement,
-    type ? styles[type] : '',
+    type && styles['constructorElement__type_'.concat(type)],
     extraClass
   )
 
@@ -32,19 +33,19 @@ export const ConstructorElement: FC<IConstructorElement> = ({
     <div className={classname}>
       <div className={styles.constructorElement__row}>
         <img className={styles.constructorElement__image} src={image} alt={text} />
-        <span className={styles.constructorElement__text}>{text}</span>
-        <span className={styles.constructorElement__price}>
-          {price}
+        <Text As="span" extraClass={styles.constructorElement__text}>{text}</Text>
+        <div className={styles.constructorElement__price}>
+          <Text As="span">{price}</Text>
           <CurrencyIcon type="primary"/>
-        </span>
+        </div>
         { isLocked ? (
-          <span className={styles.constructorElement__action}>
+          <div className={styles.constructorElement__action}>
             <LockIcon type="secondary"/>
-          </span>
+          </div>
           ) : (
-          <span className={styles.constructorElement__action} onClick={onDelete}>
+          <div className={styles.constructorElement__action} onClick={onDelete}>
             <DeleteIcon type="primary"/>
-          </span>
+          </div>
           )
         }
         </div>

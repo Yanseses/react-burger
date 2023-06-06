@@ -1,4 +1,5 @@
-import { Button, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter } from "../../../Counter/Counter";
+import { Button } from "../../../Button/Button";
 import { useDrag } from "react-dnd";
 import styles from'./ingridientsItem.module.css';
 import { FC, SyntheticEvent, memo } from "react";

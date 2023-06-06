@@ -1,6 +1,6 @@
 import styles from './burgerConstructor.module.css';
 import { useState, useEffect, FC, memo, useCallback } from "react";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from '../Button/Button';
 import { Modal } from "../modal/Modal";
 import { Price } from "./Price/Price";
 import { useDispatch, useSelector } from "../../services/hooks";

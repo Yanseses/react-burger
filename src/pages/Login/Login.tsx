@@ -1,4 +1,4 @@
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '../../components/Button/Button';
 import styles from './login.module.css';
 import { FormEvent, useEffect } from 'react';
 import { Form } from '../../components/Form/Form';

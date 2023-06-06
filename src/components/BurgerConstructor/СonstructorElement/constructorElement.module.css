@@ -14,11 +14,11 @@
   box-sizing: border-box;
 }
 
-.top {
+.constructorElement__type_top {
   border-radius: var(--top-constructor-item-border-radius);
 }
 
-.bottom {
+.constructorElement__type_bottom {
   border-radius: var(--bottom-constructor-item-border-radius);
 }
 
@@ -51,10 +51,7 @@
   font-weight: normal;
   font-size: 28px;
   line-height: 24px;
-}
-
-.constructorElement__price svg {
-  margin-left: 9px;
+  column-gap: 8px;
 }
 
 .constructorElement__action {

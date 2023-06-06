@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import styles from './loader.module.css';
 import { ModalOverlay } from '../modal/ModalOverlay/ModalOverlay'
 

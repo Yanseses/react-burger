@@ -1,4 +1,4 @@
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '../../components/Button/Button';
 import styles from './register.module.css';
 import { Form } from '../../components/Form/Form';
 import { Link, useNavigate } from 'react-router-dom';
