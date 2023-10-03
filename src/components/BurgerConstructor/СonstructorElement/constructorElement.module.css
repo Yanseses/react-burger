@@ -23,7 +23,8 @@
 }
 
 .constructorElement__row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr auto;
   align-items: center;
   column-gap: 20px;
 }
